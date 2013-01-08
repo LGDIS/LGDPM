@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>石巻市PersonFinder</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="wrapper2">
+        <div id="top-menu">
+          <div id="account">
+            <ul>
+              <li>
+                <%= link_to "ログアウト", destroy_user_session_path %>
+              </li>
+            </ul>
+          </div>
+          <div id="loggedas">
+            ログイン中： <%= link_to current_user.login, "#" %>
+          </div>
+        </div>
+        <div id="header">
+          <h1>石巻市PersonFinder</h1>
+          <div id="quick-search"></div>
+          <div id="main-menu">
+            <%= tabs_tag(:builder => MenuTabBuilder) do |tab| %>
+              <%= tab.evacuee '避難者管理', evacuees_index_path %>
+              <%= tab.juki '住基情報取込', jukis_index_path %>
+              <%= tab.local_person '石巻PF承認', local_people_index_path %>
+              <%= tab.linkage '石巻PF連携', linkages_index_path %>
+            <% end %>
+          </div>
+        </div>
+        <div id="main" class="nosidebar">
+          <div id="sidebar"></div>
+          <div id="content">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+development:
+  adapter: postgresql
+  host: 127.0.0.1
+  database: ipf_dev
+  username: dev
+  password: devdev
+  encoding: utf8
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: postgresql
+  host: 127.0.0.1
+  database: ipf_test
+  username: dev
+  password: devdev
+  encoding: utf8
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: postgresql
+  host: 127.0.0.1
+  database: ipf
+  username: dev
+  password: devdev
+  encoding: utf8
+  pool: 5
+  timeout: 5000

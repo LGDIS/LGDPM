@@ -1,0 +1,66 @@
+<h2>避難者住基マッチング候補者選択</h2>
+
+<%= form_tag :action => :match do %>
+  <%= hidden_field_tag "commit_kind" %>
+  <div class="box tabular">
+    <p style="margin-left: -30px;">
+      <label class="floating"><strong>氏名</strong>
+        <%= "#{@evacuee.family_name} #{@evacuee.given_name}" %>
+      </label>
+      <label class="floating"><strong>氏名カナ</strong>
+        <%= "#{@evacuee.alternate_family_name} #{@evacuee.alternate_given_name}" %>
+      </label>
+      <label class="floating"><strong>生年月日</strong>
+        <%= @evacuee.date_of_birth.strftime("%y/%m/%d") if @evacuee.date_of_birth.present? %>
+      </label>
+    </p>
+    <p>
+      <label>住所</label>
+      <%= "#{@evacuee.home_state} #{@evacuee.home_city} #{@evacuee.home_street} #{@evacuee.house_number}" %>
+    </p>
+    <p class="set_right">
+      <%= submit_tag "保存", :kind => "save" %>
+      <%= submit_tag "該当者なし", :kind => "na" %>
+      <%= submit_tag "戻る", :kind => "back" %>
+    </p>
+  </div>
+<% end %>
+
+<div class="splitcontentleft">
+  <p>
+    <label class="floating"><strong>候補者一覧</strong> </label>
+  </p>
+</div>
+
+<table class="list issue">
+  <thead>
+    <tr>
+      <th class="set_center">候補者名</th>
+      <th class="set_center">候補者名カナ</th>
+      <th class="set_center">生年月日</th>
+      <th class="set_center">住所</th>
+      <th class="set_center">適用</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @jukis.each do |juki| %>
+      <tr class="<%= cycle("even", "odd") -%>">
+        <td class="set_center">
+          <%= "#{juki.family_name} #{juki.given_name}" %>
+        </td>
+        <td class="set_center">
+          <%= "#{juki.alternate_family_name} #{juki.alternate_given_name}" %>
+        </td>
+        <td class="set_center">
+          <%= juki.date_of_birth.strftime("%y/%m/%d") if juki.date_of_birth.present? %>
+        </td>
+        <td class="set_center">
+          <%= juki.address %>
+        </td>
+        <td class="set_center">
+          <%= radio_button_tag "matched", juki.id %>
+        </td>
+      </tr>
+    <% end if @jukis.present? %>
+  </tbody>
+</table>

@@ -1,0 +1,2 @@
+module JukisHelper
+end

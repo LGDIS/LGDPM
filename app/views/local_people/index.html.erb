@@ -1,0 +1,128 @@
+<h2>石巻PersonFinder避難者承認</h2>
+<%= form_for @search, :url => local_people_search_path, :html => {:method => :get} do |f| %>
+  <%= hidden_field_tag "commit_kind" %>
+  <%= hidden_field_tag "approval_local_people" %>
+  <fieldset class="collapsible ">
+    <legend onclick="toggleFieldset(this);">検索条件</legend>
+    <div style="">
+      <div class="splitcontentleft">
+        <p style="margin-left: 74px;">
+          <label>氏名</label>
+          <%= f.text_field :full_name_like, :size => 50 %>
+        </p>
+        <p style="margin-left: 52px;">
+          <label>都道府県</label>
+          <%= f.text_field :home_state_like %>
+        </p>
+        <p style="margin-left: 74px;">
+          <label>町名</label>
+          <%= f.text_field :home_street_like %>
+        </p>
+        <p style="margin-left: 52px;">
+          <label>生年月日</label>
+          <%= f.text_field :date_of_birth_gte, :size => 20 %> ～
+          <%= f.text_field :date_of_birth_lte, :size => 20 %>
+        </p>
+        <p>
+          <label>最後に見かけた場所</label>
+          <%= f.text_field :last_known_location_like, :size => 50 %>
+        </p>
+      </div>
+      <div class="splitcontentright">
+        <p style="margin-left: 53px;">
+          <label>氏名かな</label>
+          <%= f.text_field :alternate_names_like, :size => 50 %>
+        </p>
+        <p style="margin-left: 52px;">
+          <label>市区町村</label>
+          <%= f.text_field :home_city_like %>
+        </p>
+        <p style="margin-left: 74px;">
+          <label>番地</label>
+          <%= f.text_field :house_number_like %>
+        </p>
+        <p style="margin-left: 32px;">
+          <label>この人の状況</label>
+          <%= f.select(:status_eq,
+          options_for_select(@local_person_const["status"].invert,
+          @search.status_eq),
+          { :include_blank => true }) %>
+        </p>
+      </div>
+    </div>
+  </fieldset>
+  
+  <div class="splitcontentleft">
+    <p>
+      <td><%= f.submit '検索', :kind => "search" %></td>
+      <td><input type="button" value="クリア" id="clear_button"></td>
+    </p>
+    <p>
+      <label class="floating">
+        <strong>石巻PersonFinder（安否情報）一覧</strong>
+      </label>
+    </p>
+  </div>
+  
+  <div class="splitcontentright">
+    <p style="text-align: right;">
+      <%= f.submit '取込', :kind => "import" %>
+      <%= f.submit '承認', :kind => "approval", :id => "approval_button" %>
+    </p>
+    <p style="text-align: right;">
+      <%= will_paginate @local_people, :previous_label => "前 &lt;&lt; ",
+        :next_label => " &gt;&gt; 次", :page_links => false,
+        :link_separator => "#{page_entries_info @local_people}",
+        :container => false %>
+    </p>
+  </div>
+<% end %>
+
+<table class="list issue">
+  <thead>
+    <tr>
+      <th class="set_center">氏名</th>
+      <th class="set_center">氏名かな</th>
+      <th class="set_center">生年月日</th>
+      <th class="set_center">住所</th>
+      <th class="set_center">この人の状況</th>
+      <th class="set_center">最後に見かけた場所</th>
+      <th class="set_center">承認者</th>
+      <th class="set_center">承認日</th>
+      <th class="set_center">承認</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @local_people.each do |local_person| %>
+      <tr class="<%= cycle("even", "odd") -%>">
+        <td class="set_center">
+          <%= local_person.full_name %>
+        </td>
+        <td class="set_center">
+          <%= local_person.alternate_names %>
+        </td>
+        <td class="set_center">
+          <%= local_person.date_of_birth.strftime("%y/%m/%d") if local_person.date_of_birth.present? %>
+        </td>
+        <td class="set_center">
+          <%= "#{local_person.home_state} #{local_person.home_city} #{local_person.home_street} #{local_person.house_number}" %>
+        </td>
+        <td class="set_center">
+          <%= @local_person_const["status"]["#{local_person.status}"] %>
+        </td>
+        <td class="set_center">
+          <%= local_person.last_known_location %>
+        </td>
+        <td class="set_center">
+          <%= local_person.approved_by %>
+        </td>
+        <td class="set_center">
+          <%= local_person.approved_at.strftime("%y/%m/%d") if local_person.approved_at.present? %>
+        </td>
+        <td class="set_center">
+          <%= check_box_tag "approval_local_person", local_person.id %>
+        </td>
+      </tr>
+    <% end if @local_people.present? %>
+  </tbody>
+</table>
