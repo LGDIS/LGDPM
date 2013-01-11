@@ -2,6 +2,8 @@
 class Evacuees < ActiveRecord::Migration
   def up
     create_table :evacuees, :force => true do |t|
+      t.column "local_person_id", :integer
+      t.column "person_record_id", :string
       t.column "family_name", :string
       t.column "given_name", :string
       t.column "alternate_family_name", :string
@@ -44,6 +46,8 @@ class Evacuees < ActiveRecord::Migration
       t.timestamps
     end
 
+    set_column_comment(:evacuees, :local_person_id, "LocalPersonID")
+    set_column_comment(:evacuees, :person_record_id, "GooglePersonID")
     set_column_comment(:evacuees, :family_name, "氏名（姓）")
     set_column_comment(:evacuees, :given_name, "氏名（名）")
     set_column_comment(:evacuees, :alternate_family_name, "氏名カナ（姓）")

@@ -21,6 +21,7 @@ class Evacuee < ActiveRecord::Base
   JUKI_STATUS_CHK_NA     = 4
   
   def set_attr_for_create
+    # TODO 登録者名・更新者名登録方法検討
     self.juki_status = JUKI_STATUS_INCOMPLETE
     # self.created_by  = current_user
     # self.updated_by  = current_user
@@ -35,6 +36,8 @@ class Evacuee < ActiveRecord::Base
   # ==== Raise
   def exec_insert(local_person)
     # TODO よみがなの分割方法について検討する
+    self.local_person_id = local_person.id
+    self.person_record_id = local_person.person_record_id
     self.family_name = local_person.family_name
     self.given_name = local_person.given_name
     if  local_person.alternate_names =~ /(\S*)(\s*)(.*)/

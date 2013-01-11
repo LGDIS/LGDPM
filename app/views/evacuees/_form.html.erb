@@ -1,5 +1,23 @@
 <%= hidden_field_tag "commit_kind" %>
 
+<%= javascript_tag do %>
+ $(function() {
+    $( "#evacuee_home_city" ).autocomplete({
+      source: <%= raw Rails.cache.read("city") %>,
+      maxItemsToShow: 15,
+      delay: 40,
+      minChars: 1
+    });
+    
+    $( "#evacuee_home_street" ).autocomplete({
+      source: <%= raw Rails.cache.read("street") %>,
+      maxItemsToShow: 15,
+      delay: 40,
+      minChars: 1
+    });
+  });
+<% end %>
+
 <div style="background-color: #ADD8E6; padding: 10px;">
   <h2 style="display: inline;">避難者登録・更新</h2>
   <span style="margin-left: 5px; font-size: 12px;">住基情報マッチング</span>

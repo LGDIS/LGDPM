@@ -2,6 +2,10 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 ja:
+  messages:
+    errors:
+      no_file: "ファイルが選択されていません。"
+  
   will_paginate:
     page_entries_info:
       single_page:
