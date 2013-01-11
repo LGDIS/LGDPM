@@ -22,8 +22,8 @@ production:
   adapter: postgresql
   host: 127.0.0.1
   database: ipf
-  username: dev
-  password: devdev
+  username: postgres
+  password: postgres
   encoding: utf8
   pool: 5
   timeout: 5000

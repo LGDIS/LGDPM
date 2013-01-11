@@ -25,7 +25,9 @@ class LocalPeople < ActiveRecord::Migration
       t.column "home_city", :string
       t.column "home_state", :string
       t.column "home_postal_code", :string
+      t.column "home_country", :string
       t.column "photo_url", :string
+      t.column "public_flag", :integer
       t.column "in_city_flag", :integer
       t.column "shelter_name", :string
       t.column "refuge_status", :integer
@@ -79,7 +81,9 @@ class LocalPeople < ActiveRecord::Migration
     set_column_comment(:local_people, :home_city, "市区町村")
     set_column_comment(:local_people, :home_state, "都道府県")
     set_column_comment(:local_people, :home_postal_code, "郵便番号")
+    set_column_comment(:local_people, :home_country, "出身国")
     set_column_comment(:local_people, :photo_url, "写真のURL")
+    set_column_comment(:local_people, :public_flag, "公開フラグ")
     set_column_comment(:local_people, :in_city_flag, "市内・市外区分")
     set_column_comment(:local_people, :shelter_name, "避難所")
     set_column_comment(:local_people, :refuge_status, "避難状況")

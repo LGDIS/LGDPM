@@ -44,6 +44,7 @@ class LinkagesController < ApplicationController
   # ==== Return
   # ==== Raise
   def link
+    # TODO 連携済みの場合、再連携したときの動きを検討する
     # 連携チェックした避難者ID
     # params[:link_evacuees]
     if params[:link_evacuees].present?
@@ -57,7 +58,6 @@ class LinkagesController < ApplicationController
         end
       end
     end
-    
     @search = Evacuee.search(params[:search])
     @evacuees = @search.paginate(:page => params[:page], :per_page => 30)
     render :action => :index
