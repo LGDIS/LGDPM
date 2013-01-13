@@ -34,7 +34,9 @@ Personfinder::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
-  
-  # Dalli settings
+
+  # Dalli memcache client library settings
   config.cache_store = :dalli_store
+  # config.cache_store = :dalli_store, 'cache-1.example.com', 'cache-2.example.com',
+  #   { :namespace => LGDPM_test, :expires_in => 1.day, :compress => true }
 end
