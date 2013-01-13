@@ -32,7 +32,7 @@ gem 'jquery-rails'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the app server. LGDPF default Rack HTTP Server.
+# Use unicorn as the app server. LGDPM default Rack HTTP Server.
 gem 'unicorn'
 
 # Deploy with Capistrano
