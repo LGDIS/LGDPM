@@ -1,0 +1,16 @@
+#
+# .gitignore file
+#
+.rspec
+.rvmrc
+Gemfile.local
+/.bundle
+/vendor/bundle
+/log/*
+/tmp/*
+/db/*.sqlite3
+/public/system/*
+/coverage/
+/spec/tmp/*
+#/config/database.yml
+#/config/unicorn.rb
