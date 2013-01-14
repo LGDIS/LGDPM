@@ -1,4 +1,4 @@
-Personfinder::Application.routes.draw do
+Lgdpm::Application.routes.draw do
   
   devise_for :users, :controllers => { :sessions => 'users' }
   

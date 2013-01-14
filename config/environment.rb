@@ -2,4 +2,4 @@
 require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
-Personfinder::Application.initialize!
+Lgdpm::Application.initialize!

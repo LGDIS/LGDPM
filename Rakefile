@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Personfinder::Application.load_tasks
+Lgdpm::Application.load_tasks
