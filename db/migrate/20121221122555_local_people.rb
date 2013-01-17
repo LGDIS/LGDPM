@@ -52,13 +52,14 @@ class LocalPeople < ActiveRecord::Migration
       t.column "physical_disability_certificate", :integer
       t.column "link_flag", :boolean
       t.column "notes_disabled", :boolean
-      t.column "secret", :boolean
+      t.column "email_flag", :boolean
       t.column "status", :integer
       t.column "last_known_location", :string
       t.column "approved_by", :string
       t.column "approved_at", :datetime
       t.column "created_by", :string
       t.column "updated_by", :string
+      t.column "deleted_at", :datetime
       t.timestamps
     end
     
@@ -112,7 +113,7 @@ class LocalPeople < ActiveRecord::Migration
     set_column_comment(:local_people, :physical_disability_certificate, "身体障害者手帳所持者")
     set_column_comment(:local_people, :link_flag, "連携フラグ")
     set_column_comment(:local_people, :notes_disabled, "メモ無効フラグ")
-    set_column_comment(:local_people, :secret, "削除フラグ")
+    set_column_comment(:local_people, :email_flag, "新着メッセージ受取フラグ")
     set_column_comment(:local_people, :status, "状況")
     set_column_comment(:local_people, :last_known_location, "最後に見かけた場所")
     set_column_comment(:local_people, :approved_by, "承認者")
@@ -121,6 +122,7 @@ class LocalPeople < ActiveRecord::Migration
     set_column_comment(:local_people, :updated_by, "更新者")
     set_column_comment(:local_people, :created_at, "登録日時")
     set_column_comment(:local_people, :updated_at, "更新日時")
+    set_column_comment(:local_people, :deleted_at, "削除日時")
   end
 
   def down

@@ -52,13 +52,13 @@ class LinkagesController < ApplicationController
         evacuee_ids.each do |id|
           evacuee = Evacuee.find(id)
           # 入力元システムを判定する
-          ### evacuee.local_person_idがブランクの場合
+          ### evacuee.lgdpf_person_idがブランクの場合
           ##### LGDPMまたはLGDPM-Androidから入力した避難者情報
           ##### 避難者情報がLGDPF上に存在しないため、避難者情報および安否情報を登録する
           ### 上記以外の場合
           ###### GooglePersonFinderまたはLGDPFから入力した避難者情報
           ###### 避難者情報がLGDPF上に存在するため、安否情報のみを登録する
-          if evacuee.local_person_id.blank?
+          if evacuee.lgdpf_person_id.blank?
             # LGDPF上に存在しない場合
             # 避難者情報登録
             person = Person.new

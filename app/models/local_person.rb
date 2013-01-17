@@ -59,7 +59,8 @@ class LocalPerson < ActiveRecord::Base
     self.physical_disability_certificate = person.physical_disability_certificate
     self.link_flag = person.link_flag
     self.notes_disabled = person.notes_disabled
-    self.secret = person.secret
+    self.email_flag = person.email_flag
+    self.deleted_at = person.deleted_at
     
     return self
   end
