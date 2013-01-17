@@ -1,19 +1,39 @@
 <%= hidden_field_tag "commit_kind" %>
 
 <%= javascript_tag do %>
- $(function() {
+  $(function(){
     $( "#evacuee_home_city" ).autocomplete({
-      source: <%= raw Rails.cache.read("city") %>,
-      maxItemsToShow: 15,
-      delay: 40,
-      minChars: 1
+      source: function(request, response) {
+        $.ajax({
+          url: <%= raw "\"#{autocomplete_city_path}\"" %>,
+          dataType: "json",
+          data: {
+            term: request.term,
+            state: $('#evacuee_home_state').val()
+          },
+          success: function(data) {
+            response(data);
+          }
+        });
+      },
+      minLength: 1
     });
     
     $( "#evacuee_home_street" ).autocomplete({
-      source: <%= raw Rails.cache.read("street") %>,
-      maxItemsToShow: 15,
-      delay: 40,
-      minChars: 1
+      source: function(request, response) {
+        $.ajax({
+          url: <%= raw "\"#{autocomplete_street_path}\"" %>,
+          dataType: "json",
+          data: {
+            term: request.term,
+            state: $('#evacuee_home_state').val()
+          },
+          success: function(data) {
+            response(data);
+          }
+        });
+      },
+      minLength: 1
     });
   });
 <% end %>
@@ -56,7 +76,10 @@
         </p>
         <p>
           <label>都道府県</label>
-          <%= text_field :evacuee, :home_state, :tabindex => 9 %>
+          <%= select(:evacuee, :home_state,
+          options_for_select(@state.invert,
+          @evacuee.home_state),
+          { :include_blank => true }, :tabindex => 9) %>
         </p>
         <p>
           <label>町名</label>

@@ -3,6 +3,7 @@ class Evacuees < ActiveRecord::Migration
   def up
     create_table :evacuees, :force => true do |t|
       t.column "local_person_id", :integer
+      t.column "lgdpf_person_id", :integer
       t.column "person_record_id", :string
       t.column "family_name", :string
       t.column "given_name", :string
@@ -10,6 +11,7 @@ class Evacuees < ActiveRecord::Migration
       t.column "alternate_given_name", :string
       t.column "date_of_birth", :date
       t.column "sex", :integer
+      t.column "age", :integer
       t.column "home_postal_code", :string
       t.column "in_city_flag", :integer
       t.column "home_state", :string
@@ -46,14 +48,16 @@ class Evacuees < ActiveRecord::Migration
       t.timestamps
     end
 
-    set_column_comment(:evacuees, :local_person_id, "LocalPersonID")
-    set_column_comment(:evacuees, :person_record_id, "GooglePersonID")
+    set_column_comment(:evacuees, :local_person_id, "LocalPersonのid")
+    set_column_comment(:evacuees, :lgdpf_person_id, "LGDPFのperson_id")
+    set_column_comment(:evacuees, :person_record_id, "GooglePersonFinderのperson_id")
     set_column_comment(:evacuees, :family_name, "氏名（姓）")
     set_column_comment(:evacuees, :given_name, "氏名（名）")
     set_column_comment(:evacuees, :alternate_family_name, "氏名カナ（姓）")
     set_column_comment(:evacuees, :alternate_given_name, "氏名カナ（名）")
     set_column_comment(:evacuees, :date_of_birth, "生年月日")
     set_column_comment(:evacuees, :sex, "性別")
+    set_column_comment(:evacuees, :age, "年齢")
     set_column_comment(:evacuees, :home_postal_code, "郵便番号")
     set_column_comment(:evacuees, :in_city_flag, "市内・市外区分")
     set_column_comment(:evacuees, :home_state, "都道府県")

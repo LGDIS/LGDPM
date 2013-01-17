@@ -16,7 +16,12 @@ class LocalPeopleController < ApplicationController
   # 石巻PF避難者承認画面
   # 検索処理
   # ==== Args
+  # _params[:commit_kind]_ :: ボタン種別
+  # _params[:search]_ :: 画面入力された検索条件
   # ==== Return
+  # 検索ボタンが押下された場合：：検索を行い自画面に遷移する
+  # 取込ボタンが押下された場合：：LGDPFから避難者情報を取得し、LocalPersonに登録する
+  # 承認ボタンが押下された場合：：選択されたLocalPersonをEvacueeに登録する
   # ==== Raise
   def search
     case params[:commit_kind]
@@ -36,18 +41,21 @@ class LocalPeopleController < ApplicationController
   # 石巻PF避難者承認画面
   # 承認処理
   # ==== Args
+  # _params[:approval_local_people]_ :: LocalPersonID配列
   # ==== Return
   # ==== Raise
   def approval
     # TODO 承認済みの場合、再承認したときの動きを検討する
-    # 承認チェックしたLocalPersonID
-    # params[:approval_local_people]
     if params[:approval_local_people].present?
       ActiveRecord::Base.transaction do
         lp_ids = params[:approval_local_people].split(",")
         lp_ids.each do |id|
           local_person = LocalPerson.find(id)
-          next if local_person.approved_by.present? && local_person.approved_at.present?
+          # 承認済みの場合、Evacueeに取り込まない
+          next if Evacuee.find_by_local_person_id(local_person.id).present?
+          # LGDPF上に存在する避難者の場合、Evacueeに取り込まない
+          # LGDPMまたはLGDPM-Androidから入力し連携した避難者の場合は重複するため
+          next if Evacuee.find_by_lgdpf_person_id(local_person.lgdpf_person_id).present?
           evacuee = Evacuee.new
           evacuee = evacuee.exec_insert(local_person)
           evacuee.save!
@@ -80,13 +88,13 @@ class LocalPeopleController < ApplicationController
       @people.each do |person|
         local_person = LocalPerson.new
         local_person = local_person.exec_insert(person)
-        note = Note.find_for_import(person)
-        local_person.status = note.status
-        local_person.last_known_location = note.last_known_location
+        note = Note.find_for_import(person).first
+        local_person.status = note.try(:status)
+        local_person.last_known_location = note.try(:last_known_location)
         local_person.save!
         
         person.update_attributes(:link_flag => true)
-        note.update_attributes(:link_flag => true) unless note.id.blank?
+        note.update_attributes(:link_flag => true) unless note.blank?
       end
     end
     @search = LocalPerson.search(params[:search])

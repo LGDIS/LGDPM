@@ -24,4 +24,7 @@ Lgdpm::Application.routes.draw do
   match "linkages/index"       => "linkages#index",       :via => :get
   match "linkages/search"      => "linkages#search",      :via => :get
   match "linkages/search"      => "linkages#search",      :via => :post
+  
+  match "autocomplete/city"   => "application#autocomplete_city",   :via => :get
+  match "autocomplete/street" => "application#autocomplete_street", :via => :get
 end

@@ -101,9 +101,15 @@ class EvacueesController < ApplicationController
     if params[:commit_kind] == "save"
       @evacuee = Evacuee.new(params[:evacuee])
       if @evacuee.save
-        redirect_to :action => :edit, :id => @evacuee.id
+        respond_to do |format|
+          format.html { redirect_to :action => :edit, :id => @evacuee.id }
+          format.json { render :json => @evacuee.to_json } # LGDPM-Android
+        end
       else
-        render :action => :new
+        respond_to do |format|
+          format.html { render :action => :new }
+          format.json { render :json => @evacuee.errors.messages.to_json, :status => 500 } # LGDPM-Android
+        end
       end
     else
       selector
@@ -188,7 +194,7 @@ class EvacueesController < ApplicationController
   # 押下されたボタンにより処理を分岐
   # ==== Args
   # _params[:commit_kind]_ :: ボタン種別
-  # _params[:id]_ :: 避難者ID
+  # _params[:id]_ :: EvacueeID
   # ==== Return
   # 保存ボタンが押下された場合：：住基ステータスを済で更新し、避難者登録・更新画面に遷移する
   # 該当者なしボタンが押下された場合：：住基ステータスをチェック済み該当者なしで更新し、避難者登録・更新画面に遷移する

@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 class Evacuee < ActiveRecord::Base
+  # 論理削除機能の有効化
   acts_as_paranoid
   
   attr_accessible :family_name, :given_name, :alternate_family_name,
@@ -12,6 +13,9 @@ class Evacuee < ActiveRecord::Base
     :bedridden_elderly, :elderly_dementia, :rehabilitation_certificate,
     :physical_disability_certificate, :juki_status, :note, :created_by,
     :updated_by
+    
+  validates :family_name, :given_name, :presence => true
+  
   before_create :set_attr_for_create
     
   # 住基ステータス
@@ -37,6 +41,7 @@ class Evacuee < ActiveRecord::Base
   def exec_insert(local_person)
     # TODO よみがなの分割方法について検討する
     self.local_person_id = local_person.id
+    self.lgdpf_person_id = local_person.lgdpf_person_id
     self.person_record_id = local_person.person_record_id
     self.family_name = local_person.family_name
     self.given_name = local_person.given_name

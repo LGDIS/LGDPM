@@ -1,0 +1,18 @@
+# -*- coding:utf-8 -*-
+# LGDPF ActiveResource settings
+ldgpf:
+  development:
+    site: "http://localhost:3000/"
+    user: 
+    password: 
+    proxy: 
+  test:
+    site: 
+    user: 
+    password: 
+    proxy: 
+  production:
+    site: "http://localhost:3000/lgdpf"
+    user: 
+    password: 
+    proxy: 

@@ -2,6 +2,7 @@
 class LocalPeople < ActiveRecord::Migration
   def up
     create_table :local_people, :force => true do |t|
+      t.column "lgdpf_person_id", :integer
       t.column "person_record_id", :string
       t.column "entry_date", :datetime
       t.column "expiry_date", :datetime
@@ -49,6 +50,9 @@ class LocalPeople < ActiveRecord::Migration
       t.column "elderly_dementia", :integer
       t.column "rehabilitation_certificate", :integer
       t.column "physical_disability_certificate", :integer
+      t.column "link_flag", :boolean
+      t.column "notes_disabled", :boolean
+      t.column "secret", :boolean
       t.column "status", :integer
       t.column "last_known_location", :string
       t.column "approved_by", :string
@@ -58,7 +62,8 @@ class LocalPeople < ActiveRecord::Migration
       t.timestamps
     end
     
-    set_column_comment(:local_people, :person_record_id, "id")
+    set_column_comment(:local_people, :lgdpf_person_id, "LGDPFのperson_id")
+    set_column_comment(:local_people, :person_record_id, "GooglePersonFinderのperson_id")
     set_column_comment(:local_people, :entry_date, "レコード作成日時")
     set_column_comment(:local_people, :expiry_date, "レコード削除予定日時")
     set_column_comment(:local_people, :author_name, "レコード作成者名")
@@ -105,6 +110,9 @@ class LocalPeople < ActiveRecord::Migration
     set_column_comment(:local_people, :elderly_dementia, "認知症高齢者")
     set_column_comment(:local_people, :rehabilitation_certificate, "療育手帳所持者")
     set_column_comment(:local_people, :physical_disability_certificate, "身体障害者手帳所持者")
+    set_column_comment(:local_people, :link_flag, "連携フラグ")
+    set_column_comment(:local_people, :notes_disabled, "メモ無効フラグ")
+    set_column_comment(:local_people, :secret, "削除フラグ")
     set_column_comment(:local_people, :status, "状況")
     set_column_comment(:local_people, :last_known_location, "最後に見かけた場所")
     set_column_comment(:local_people, :approved_by, "承認者")

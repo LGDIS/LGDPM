@@ -2,13 +2,14 @@
 class LocalPerson < ActiveRecord::Base
   
   # 避難者編集処理
-  # 引数のLPF.personオブジェクトを基に各項目を編集する
+  # 引数のLGDPF.personオブジェクトを基に各項目を編集する
   # ==== Args
-  # _person_ :: LPF.personオブジェクト
+  # _person_ :: LGDPF.personオブジェクト
   # ==== Return
   # LocalPersonオブジェクト
   # ==== Raise
   def exec_insert(person)
+    self.lgdpf_person_id = person.id
     self.person_record_id = person.person_record_id
     self.entry_date = person.entry_date
     self.expiry_date = person.expiry_date
@@ -56,6 +57,9 @@ class LocalPerson < ActiveRecord::Base
     self.elderly_dementia = person.elderly_dementia
     self.rehabilitation_certificate = person.rehabilitation_certificate
     self.physical_disability_certificate = person.physical_disability_certificate
+    self.link_flag = person.link_flag
+    self.notes_disabled = person.notes_disabled
+    self.secret = person.secret
     
     return self
   end
