@@ -16,7 +16,7 @@
     </p>
     <p>
       <label>住所</label>
-      <%= "#{@evacuee.home_state} #{@evacuee.home_city} #{@evacuee.home_street} #{@evacuee.house_number}" %>
+      <%= "#{@state[@evacuee.home_state]}#{@evacuee.home_city}#{@evacuee.home_street}#{@evacuee.house_number}" %>
     </p>
     <p class="set_right">
       <%= submit_tag "保存", :kind => "save" %>

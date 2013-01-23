@@ -165,7 +165,7 @@
           <%= "#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}" %>
         </td>
         <td class="set_center">
-          <%= "#{evacuee.home_state} #{evacuee.home_city} #{evacuee.home_street} #{evacuee.house_number}" %>
+          <%= "#{@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}" %>
         </td>
         <td class="set_center">
           <%= @evacuee_const["in_city_flag"]["#{evacuee.in_city_flag}"] %>

@@ -62,7 +62,7 @@ class EvacueesController < ApplicationController
         page.list(:sample_list).add_row do |row|
           row.item(:name).value("#{evacuee.family_name} #{evacuee.given_name}")
           row.item(:name_kana).value("#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}")
-          row.item(:address).value("#{evacuee.home_state} #{evacuee.home_city} #{evacuee.home_street} #{evacuee.house_number}")
+          row.item(:address).value("#{@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}")
           row.item(:city).value(@@evacuee_const["in_city_flag"]["#{evacuee.in_city_flag}"])
           if evacuee.date_of_birth.present?
             date_of_birth = evacuee.date_of_birth.strftime("%y/%m/%d")
