@@ -1,5 +1,7 @@
 # -*- coding:utf-8 -*-
 class UsersController < Devise::SessionsController
+  respond_to :html, :json
+  
   def new
     super
   end
