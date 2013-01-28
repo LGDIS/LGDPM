@@ -31,6 +31,28 @@ class Evacuee < ActiveRecord::Base
     # self.updated_by  = current_user
   end
   
+  # 避難者集計情報取得処理
+  # ==== Args
+  # ==== Return
+  # Evacueeオブジェクト
+  # ==== Raise
+  def self.find_for_count
+    select("shelter_name,
+            COUNT(*) as head_count,
+            COUNT(CASE WHEN injury_flag  IN ('1') THEN 1 ELSE NULL END) AS injury_flag_count,
+            COUNT(CASE WHEN allergy_flag IN ('1') THEN 1 ELSE NULL END) AS allergy_flag_count,
+            COUNT(CASE WHEN pregnancy IN ('1') THEN 1 ELSE NULL END) AS pregnancy_count,
+            COUNT(CASE WHEN baby IN ('1','2') THEN 1 ELSE NULL END) AS baby_count,
+            COUNT(CASE WHEN upper_care_level_three IN ('01','02','03','04','05','06','91','92','93') THEN 1 ELSE NULL END) AS upper_care_level_three_count,
+            COUNT(CASE WHEN elderly_alone IN ('1') THEN 1 ELSE NULL END) AS elderly_alone_count,
+            COUNT(CASE WHEN elderly_couple IN ('1') THEN 1 ELSE NULL END) AS elderly_couple_count,
+            COUNT(CASE WHEN bedridden_elderly IN ('1') THEN 1 ELSE NULL END) AS bedridden_elderly_count,
+            COUNT(CASE WHEN elderly_dementia IN ('1') THEN 1 ELSE NULL END) AS elderly_dementia_count,
+            COUNT(CASE WHEN rehabilitation_certificate IN ('01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16') THEN 1 ELSE NULL END) AS rehabilitation_certificate_count,
+            COUNT(CASE WHEN physical_disability_certificate IN ('1','2') THEN 1 ELSE NULL END) AS physical_disability_certificate_count
+    ").group("shelter_name")
+  end
+  
   # 避難者編集処理
   # 引数のLocalPersonオブジェクトを基に各項目を編集する
   # ==== Args

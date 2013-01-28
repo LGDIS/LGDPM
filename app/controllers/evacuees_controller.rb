@@ -9,8 +9,18 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def index
-    @search = Evacuee.search(:id_eq => 0) # 取得件数0件で初期表示させるため
-    @evacuees = @search.paginate(:page => params[:page], :per_page => 30)
+    respond_to do |format|
+      format.html {
+        @search = Evacuee.search(:id_eq => 0) # 取得件数0件で初期表示させるため
+        @evacuees = @search.paginate(:page => params[:page], :per_page => 30)
+        render :index
+      }
+      # 災害トラッキング管理機能との連携のため
+      format.json{
+        @evacuees = Evacuee.find_for_count
+        render :json => @evacuees.to_json
+      }
+    end
   end
 
   # 避難者一覧画面
