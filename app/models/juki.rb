@@ -174,13 +174,13 @@ class Juki < ActiveRecord::Base
     # 住民でなくなった情報：減異動事由
     self.lost_change_reason = row[54]
     # 異動年月日
-    self.change_date = Date.new(row[55].to_i, row[56].to_i, row[57].to_i)
+    self.change_date = DateTime.new(row[55].to_i, row[56].to_i, row[57].to_i, row[58].to_i, row[59].to_i, row[60].to_i)
     # 独自領域
-    self.original_area = row[58]
+    self.original_area = row[61]
     # 異動中区分
-    self.change_division = row[59]
+    self.change_division = row[62]
     # 異動事由
-    self.change_reason = row[60]
+    self.change_reason = row[63]
     # 登録者
     # self.created_by = current_user
     # 更新者
