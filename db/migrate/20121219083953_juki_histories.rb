@@ -4,8 +4,8 @@ class JukiHistories < ActiveRecord::Migration
     create_table :juki_histories, :force => true do |t|
       t.column "number", :integer
       t.column "status", :integer
-      t.column "created_by", :string
-      t.column "updated_by", :string
+      t.column "created_by", :string, :limit => 100
+      t.column "updated_by", :string, :limit => 100
       t.timestamps
     end
     

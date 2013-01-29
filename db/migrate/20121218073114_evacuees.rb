@@ -4,46 +4,46 @@ class Evacuees < ActiveRecord::Migration
     create_table :evacuees, :force => true do |t|
       t.column "local_person_id", :integer
       t.column "lgdpf_person_id", :integer
-      t.column "person_record_id", :string
-      t.column "family_name", :string
-      t.column "given_name", :string
-      t.column "alternate_family_name", :string
-      t.column "alternate_given_name", :string
+      t.column "person_record_id", :string, :limit => 500
+      t.column "family_name", :string, :limit => 100
+      t.column "given_name", :string, :limit => 100
+      t.column "alternate_family_name", :string, :limit => 100
+      t.column "alternate_given_name", :string, :limit => 100
       t.column "date_of_birth", :date
-      t.column "sex", :integer
+      t.column "sex", :string, :limit => 1
       t.column "age", :integer
-      t.column "home_postal_code", :string
-      t.column "in_city_flag", :integer
-      t.column "home_state", :string
-      t.column "home_city", :string
-      t.column "home_street", :string
-      t.column "house_number", :string
-      t.column "shelter_name", :string
-      t.column "refuge_status", :integer
-      t.column "refuge_reason", :string
+      t.column "home_postal_code", :string, :limit => 10
+      t.column "in_city_flag", :string, :limit => 1
+      t.column "home_state", :string, :limit => 100
+      t.column "home_city", :string, :limit => 100
+      t.column "home_street", :string, :limit => 100
+      t.column "house_number", :string, :limit => 100
+      t.column "shelter_name", :string, :limit => 20
+      t.column "refuge_status", :string, :limit => 1
+      t.column "refuge_reason", :string, :limit => 4000
       t.column "shelter_entry_date", :date
       t.column "shelter_leave_date", :date
-      t.column "next_place", :string
-      t.column "next_place_phone", :string
-      t.column "injury_flag", :integer
-      t.column "injury_condition", :string
-      t.column "allergy_flag", :integer
-      t.column "allergy_cause", :string
-      t.column "pregnancy", :integer
-      t.column "baby", :integer
-      t.column "upper_care_level_three", :integer
-      t.column "elderly_alone", :integer
-      t.column "elderly_couple", :integer
-      t.column "bedridden_elderly", :integer
-      t.column "elderly_dementia", :integer
-      t.column "rehabilitation_certificate", :integer
-      t.column "physical_disability_certificate", :integer
+      t.column "next_place", :string, :limit => 100
+      t.column "next_place_phone", :string, :limit => 20
+      t.column "injury_flag", :string, :limit => 1
+      t.column "injury_condition", :string, :limit => 4000
+      t.column "allergy_flag", :string, :limit => 1
+      t.column "allergy_cause", :string, :limit => 4000
+      t.column "pregnancy", :string, :limit => 1
+      t.column "baby", :string, :limit => 1
+      t.column "upper_care_level_three", :string, :limit => 2
+      t.column "elderly_alone", :string, :limit => 1
+      t.column "elderly_couple", :string, :limit => 1
+      t.column "bedridden_elderly", :string, :limit => 1
+      t.column "elderly_dementia", :string, :limit => 1
+      t.column "rehabilitation_certificate", :string, :limit => 2
+      t.column "physical_disability_certificate", :string, :limit => 1
       t.column "juki_status", :integer
-      t.column "note", :string
-      t.column "linked_by", :string
+      t.column "note", :string, :limit => 4000
+      t.column "linked_by", :string, :limit => 100
       t.column "linked_at", :datetime
-      t.column "created_by", :string
-      t.column "updated_by", :string
+      t.column "created_by", :string, :limit => 100
+      t.column "updated_by", :string, :limit => 100
       t.column "deleted_at", :timestamp
       t.timestamps
     end
