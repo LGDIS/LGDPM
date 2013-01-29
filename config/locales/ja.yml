@@ -5,6 +5,7 @@ ja:
   messages:
     errors:
       no_file: "ファイルが選択されていません。"
+      not_csv: "ファイルの形式がサポートされていません。"
   
   will_paginate:
     page_entries_info:

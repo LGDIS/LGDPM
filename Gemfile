@@ -74,6 +74,10 @@ gem 'will_paginate', '3.0.4'
 # Designer and a Library for Ruby.
 gem 'thinreports', '0.7.6'
 
+# Resque is a Redis-backed Ruby library for creating background jobs,
+# placing those jobs on multiple queues, and processing them later.
+gem 'resque', '1.23.0', :require => 'resque/server'
+
 # Load Local Gemfile
 local_gemfile = File.join(File.dirname(__FILE__), "Gemfile.local")
 if File.exists?(local_gemfile)

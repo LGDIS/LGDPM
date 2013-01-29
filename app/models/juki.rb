@@ -41,6 +41,40 @@ class Juki < ActiveRecord::Base
       :conditions => [where_str.join(" AND "), where_val])
   end
   
+  # 住基情報取込処理
+  # ==== Args
+  # _file_ :: 住基CSVファイル
+  # _user_ :: 実行ユーザ
+  # ==== Return
+  # ==== Raise
+  def self.import(file, user)
+    require 'csv'
+    number, error_rows, error_msgs = 0, [], []
+    ActiveRecord::Base.transaction do
+      # 住基情報をすべて削除する
+      Juki.destroy_all
+      # 住基情報の登録
+      CSV.parse(file) do |row|
+        number += 1
+        juki = Juki.new
+        juki = juki.exec_insert(row)
+        if juki.valid?
+          juki.save!
+        else
+          # ValidationErrorの場合メッセージを出力
+          error_rows << number
+          error_msgs << juki.errors.messages
+        end
+      end # <- CSV.parse
+      # 住基情報取込履歴の登録
+      juki_history = JukiHistory.new
+      juki_history.number     = number
+      juki_history.status     = (error_rows.blank? ? JukiHistory::STATUS_NORMAL : JukiHistory::STATUS_ERROR)
+      juki_history.created_by = user
+      juki_history.save!
+    end # <- ActiveRecord::Base.transaction
+  end
+  
   # 住基情報編集処理
   # 引数のrowオブジェクトを基に各項目を編集する
   # ==== Args
