@@ -2,6 +2,7 @@
 
 <%= form_tag :action => :match do %>
   <%= hidden_field_tag "commit_kind" %>
+  <%= hidden_field_tag "juki_id" %>
   <div class="box tabular">
     <p style="margin-left: -30px;">
       <label class="floating"><strong>氏名</strong>
@@ -19,8 +20,8 @@
       <%= "#{@state[@evacuee.home_state]}#{@evacuee.home_city}#{@evacuee.home_street}#{@evacuee.house_number}" %>
     </p>
     <p class="set_right">
-      <%= submit_tag "保存", :kind => "save" %>
-      <%= submit_tag "該当者なし", :kind => "na" %>
+      <%= submit_tag "保存", :kind => "save", :id => "match_button" %>
+      <%= submit_tag "突合実施後戻る", :kind => "na" %>
       <%= submit_tag "戻る", :kind => "back" %>
     </p>
   </div>
@@ -43,7 +44,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @jukis.each do |juki| %>
+    <% @jukis.each_with_index do |juki, i| %>
       <tr class="<%= cycle("even", "odd") -%>">
         <td class="set_center">
           <%= "#{juki.family_name} #{juki.given_name}" %>
@@ -58,7 +59,7 @@
           <%= juki.address %>
         </td>
         <td class="set_center">
-          <%= radio_button_tag "matched", juki.id %>
+          <%= radio_button_tag "matched", juki.id, (i == 0 ? true : false) %>
         </td>
       </tr>
     <% end if @jukis.present? %>

@@ -1,10 +1,12 @@
 # -*- coding:utf-8 -*-
+# LGDPFからの避難者情報取り込み、および、取り込んだ避難者情報のEvacueeへの登録を行う
 class LocalPeopleController < ApplicationController
   # タブリンクのカレントタブ制御に使用
   set_tab :local_person
   
   # 石巻PF避難者承認画面
   # 初期表示処理
+  # 検索結果が0件の状態で画面を表示させる
   # ==== Args
   # ==== Return
   # ==== Raise
@@ -15,33 +17,39 @@ class LocalPeopleController < ApplicationController
   
   # 石巻PF避難者承認画面
   # 検索処理
+  # 押下されたボタンにより、処理を分岐する
+  # * 検索ボタンが押下された場合、検索を行い自画面に遷移する
+  # * 取込ボタンが押下された場合、LGDPFから避難者情報を取得し、LocalPersonに登録する
+  # * 承認ボタンが押下された場合、選択されたLocalPersonをEvacueeに登録する
+  # * その他の場合、例外を発生させる
   # ==== Args
-  # _params[:commit_kind]_ :: ボタン種別
-  # _params[:search]_ :: 画面入力された検索条件
+  # _commit_kind_ :: ボタン種別
+  # _search_ :: 画面入力された検索条件
+  # _page_ :: ページ番号
   # ==== Return
-  # 検索ボタンが押下された場合：：検索を行い自画面に遷移する
-  # 取込ボタンが押下された場合：：LGDPFから避難者情報を取得し、LocalPersonに登録する
-  # 承認ボタンが押下された場合：：選択されたLocalPersonをEvacueeに登録する
   # ==== Raise
   def search
     case params[:commit_kind]
-    when "search"
+    when "search" # 検索ボタン
       @search = LocalPerson.search(params[:search])
       @local_people = @search.paginate(:page => params[:page], :per_page => 30).order("alternate_names ASC")
       render :action => :index
-    when "approval"
+    when "approval" # 承認ボタン
       approval
-    when "import"
+    when "import" # 取込ボタン
       import
-    else
+    else # その他
       raise
     end
   end
   
   # 石巻PF避難者承認画面
   # 承認処理
+  # 承認チェックボックスで選択された避難者をEvacueeに登録する
+  # ただし、登録済みの場合は処理しない
+  # 承認処理後、検索を行い検索結果を表示する
   # ==== Args
-  # _params[:approval_local_people]_ :: LocalPersonID配列
+  # _approval_local_people_ :: LocalPersonID配列
   # ==== Return
   # ==== Raise
   def approval
@@ -71,7 +79,12 @@ class LocalPeopleController < ApplicationController
   end
   
   # 石巻PF避難者承認画面
-  # LocalPersonFinder取込処理
+  # 避難者情報取込処理
+  # LGDPFとREST I/Fにて連携を行い、避難者情報を取得する
+  # 取得した避難者情報を元に安否情報を取得する
+  # 避難者情報、安否情報をLocalPersonへ登録する
+  # 避難者情報、安否情報の連携フラグを更新し、再連携させないようにする
+  # 取込処理後、検索を行い検索結果を表示する
   # ==== Args
   # ==== Return
   # ==== Raise

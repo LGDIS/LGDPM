@@ -21,3 +21,11 @@ $(document).ready(function() {
     $("select").val("");
   });
 });
+
+// 避難者住基マッチング候補者選択画面
+// 保存ボタン押下時に適用チェックされた住基IDを取得
+$(document).ready(function() {
+  $("#match_button").bind("click", function() {
+    $("#juki_id").val($("input[name='matched']:checked").val());
+  });
+});

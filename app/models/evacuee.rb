@@ -19,10 +19,9 @@ class Evacuee < ActiveRecord::Base
   before_create :set_attr_for_create
     
   # 住基ステータス
-  JUKI_STATUS_COMPLETE   = 1
-  JUKI_STATUS_INCOMPLETE = 2
-  JUKI_STATUS_NA         = 3
-  JUKI_STATUS_CHK_NA     = 4
+  JUKI_STATUS_INCOMPLETE = 1
+  JUKI_STATUS_COMPLETE   = 2
+  JUKI_STATUS_CHK_NA     = 3
   
   def set_attr_for_create
     # TODO 登録者名・更新者名登録方法検討
@@ -34,7 +33,7 @@ class Evacuee < ActiveRecord::Base
   # 避難者集計情報取得処理
   # ==== Args
   # ==== Return
-  # Evacueeオブジェクト
+  # Evacueeオブジェクト配列
   # ==== Raise
   def self.find_for_count
     select("shelter_name,

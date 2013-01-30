@@ -15,10 +15,25 @@ class ApplicationController < ActionController::Base
     @juki_history_const = get_const(JukiHistory.table_name)
     @local_person_const = get_const(LocalPerson.table_name)
     # memcacheからマスタを取得
-    # !!! 暫定
-    @area    = Rails.cache.read("area")
-    @shelter = Rails.cache.read("shelter")
+    # TODO 見直し
+    @area    = get_cache("area")
+    @shelter = get_cache("shelter")
     @state   = Rails.cache.read("state")
+  end
+  
+  # memcacheされた値を取得・加工
+  # === Args
+  # _key_name_ :: キャッシュされているハッシュのキー名
+  # === Return
+  # _constant_list_ :: {code => name}
+  # ==== Raise
+  def get_cache(key_name)
+    constant_list = {}
+    constant = Rails.cache.read(key_name)
+    constant.each do |c|
+      constant_list[c[0]] = c[1]["name"]
+    end
+    return constant_list
   end
   
   # コンスタントテーブル取得処理
@@ -49,7 +64,8 @@ class ApplicationController < ActionController::Base
   def autocomplete_city
     # 都道府県が未選択の場合オートコンプリートを表示しない
     if params["state"].present?
-      @city = Rails.cache.read("city_#{params["state"]}")
+      # @city = Rails.cache.read("city_#{params["state"]}")
+      @city = Rails.cache.read("city")
       @city.delete_if{|key,value| value !~ /#{params["term"]}/}
     end
     
@@ -68,7 +84,8 @@ class ApplicationController < ActionController::Base
   def autocomplete_street
     # 都道府県が未選択の場合オートコンプリートを表示しない
     if params["state"].present?
-      @street = Rails.cache.read("street_#{params["state"]}")
+      # @street = Rails.cache.read("street_#{params["state"]}")
+      @street = Rails.cache.read("street")
       @street.delete_if{|key,value| value !~ /#{params["term"]}/}
     end
     

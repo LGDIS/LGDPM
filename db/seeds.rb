@@ -71,10 +71,9 @@ Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'physical_disability_cert
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'physical_disability_certificate', text: '2級',  value: '2', _order: '2')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'physical_disability_certificate', text: '該当しない',  value: '0', _order: '3')
 # 住基ステータス
-Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'juki_status', text: '済',  value: '1', _order: '1')
-Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'juki_status', text: '未済',  value: '2', _order: '2')
-Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'juki_status', text: '該当者なし',  value: '3', _order: '3')
-Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'juki_status', text: 'チェック済み該当者なし',  value: '4', _order: '4')
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'juki_status', text: '未照合',  value: '1', _order: '1')
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'juki_status', text: '照合済',  value: '2', _order: '2')
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'juki_status', text: '照合済対象者なし',  value: '3', _order: '3')
 # 住基取込履歴ステータス
 Constant.create(kind1: 'TD', kind2: 'juki_histories', kind3: 'status', text: '正常終了',  value: '1', _order: '1')
 Constant.create(kind1: 'TD', kind2: 'juki_histories', kind3: 'status', text: '異常終了',  value: '2', _order: '2')

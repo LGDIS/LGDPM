@@ -31,7 +31,7 @@ class Note < ActiveResource::Base
     self.author_name = "LGDPM" # current_user.login
     self.source_date = Time.now
     self.status = 4
-    self.last_known_location = Rails.cache.read("shelter")["#{evacuee.shelter_name}"]
+    self.last_known_location = get_cache("shelter")["#{evacuee.shelter_name}"]
     if evacuee.juki_status == 1
       self.text = "宮城県石巻市民として確認されました。"
     else
