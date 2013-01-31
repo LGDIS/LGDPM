@@ -13,7 +13,102 @@ class Juki < ActiveRecord::Base
     :decided_change_date, :decided_report_date, :decided_change_reason,
     :lost_change_date, :lost_report_date, :lost_change_reason, :change_date,
     :original_area, :change_division, :change_reason, :created_by, :updated_by
-  
+
+  validates :id_number,
+              :length => {:maximum => 15}
+  validates :household_number,
+              :length => {:maximum => 15}
+  validates :residents_type,
+              :length => {:maximum => 1}
+  validates :residents_state,
+              :length => {:maximum => 1}
+  validates :residents_code,
+              :length => {:maximum => 11}
+  validates :family_name,
+              :length => {:maximum => 100}
+  validates :given_name,
+              :length => {:maximum => 100}
+  validates :alternate_family_name,
+              :length => {:maximum => 100}
+  validates :alternate_given_name,
+              :length => {:maximum => 100}
+  validates :sex,
+              :length => {:maximum => 1}
+  validates :year_number,
+              :length => {:maximum => 2}
+  # validates :date_of_birth
+  validates :relation1,
+              :length => {:maximum => 2}
+  validates :relation2,
+              :length => {:maximum => 2}
+  validates :relation3,
+              :length => {:maximum => 2}
+  validates :relation4,
+              :length => {:maximum => 2}
+  validates :household_family_name,
+              :length => {:maximum => 100}
+  validates :household_given_name,
+              :length => {:maximum => 100}
+  validates :household_alternate_family_name,
+              :length => {:maximum => 100}
+  validates :household_alternate_given_name,
+              :length => {:maximum => 100}
+  validates :address_code,
+              :length => {:maximum => 30}
+  validates :address,
+              :length => {:maximum => 100}
+  validates :building_name,
+              :length => {:maximum => 150}
+  validates :postal_code,
+              :length => {:maximum => 10}
+  validates :former_address_code,
+              :length => {:maximum => 30}
+  validates :former_address,
+              :length => {:maximum => 100}
+  validates :former_building_name,
+              :length => {:maximum => 150}
+  validates :former_postal_code,
+              :length => {:maximum => 10}
+  validates :new_address_code,
+              :length => {:maximum => 30}
+  validates :new_address,
+              :length => {:maximum => 100}
+  validates :new_building_name,
+              :length => {:maximum => 150}
+  validates :new_postal_code,
+              :length => {:maximum => 10}
+  validates :new_address_division,
+              :length => {:maximum => 1}
+  validates :domicile,
+              :length => {:maximum => 100}
+  validates :domicile_code,
+              :length => {:maximum => 30}
+  validates :family_head,
+              :length => {:maximum => 100}
+  # validates :became_change_date
+  # validates :became_report_date
+  validates :became_change_reason,
+              :length => {:maximum => 2}
+  # validates :decided_change_date
+  # validates :decided_report_date
+  validates :decided_change_reason,
+              :length => {:maximum => 2}
+  # validates :lost_change_date
+  # validates :lost_report_date
+  validates :lost_change_reason,
+              :length => {:maximum => 2}
+  # validates :change_date
+  validates :original_area,
+              :length => {:maximum => 50}
+  validates :change_division,
+              :length => {:maximum => 1}
+  validates :change_reason,
+              :length => {:maximum => 2}
+  validates :created_by,
+              :length => {:maximum => 100}
+  validates :updated_by,
+              :length => {:maximum => 100}
+
   # 避難者住基マッチング検索処理
   # ==== Args
   # ==== Return
@@ -49,7 +144,7 @@ class Juki < ActiveRecord::Base
   # ==== Raise
   def self.import(file, user)
     require 'csv'
-    number, error_rows, error_msgs = 0, [], []
+    number, error_msgs = 0, []
     ActiveRecord::Base.transaction do
       # 住基情報をすべて削除する
       Juki.destroy_all
@@ -58,21 +153,26 @@ class Juki < ActiveRecord::Base
         number += 1
         juki = Juki.new
         juki = juki.exec_insert(row)
-        if juki.valid?
-          juki.save!
-        else
-          # ValidationErrorの場合メッセージを出力
-          error_rows << number
-          error_msgs << juki.errors.messages
+        unless juki.save
+          # バリデーションエラーの場合メッセージを出力
+          juki.errors.full_messages.each do |msg|
+            error_msgs << "#{number}行目でエラーが発生しました。#{msg}"
+          end
         end
       end # <- CSV.parse
-      # 住基情報取込履歴の登録
-      juki_history = JukiHistory.new
-      juki_history.number     = number
-      juki_history.status     = (error_rows.blank? ? JukiHistory::STATUS_NORMAL : JukiHistory::STATUS_ERROR)
-      juki_history.created_by = user
-      juki_history.save!
+      # バリデーションエラーが存在する場合、例外を発生させる  
+      if error_msgs.present?
+        error_msgs.each{|m| Rails.logger.error m }
+        raise "#{error_msgs}"
+      end
     end # <- ActiveRecord::Base.transaction
+  ensure
+    # 住基情報取込履歴の登録
+    juki_history = JukiHistory.new
+    juki_history.number     = number
+    juki_history.status     = (error_msgs.blank? ? JukiHistory::STATUS_NORMAL : JukiHistory::STATUS_ERROR)
+    juki_history.created_by = user
+    juki_history.save!
   end
   
   # 住基情報編集処理

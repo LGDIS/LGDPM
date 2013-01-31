@@ -2,10 +2,131 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 ja:
-  messages:
+  activerecord:
+    attributes:
+      evacuee:
+        local_person_id: LocalPersonのid
+        lgdpf_person_id: LGDPFのperson_id
+        person_record_id: GooglePersonFinderのperson_id
+        family_name: 氏名（姓）
+        given_name: 氏名（名）
+        alternate_family_name: 氏名カナ（姓）
+        alternate_given_name: 氏名カナ（名）
+        date_of_birth: 生年月日
+        sex: 性別
+        age: 年齢
+        home_postal_code: 郵便番号
+        in_city_flag: 市内・市外区分
+        home_state: 都道府県
+        home_city: 市区町村
+        home_street: 町名
+        house_number: 番地
+        shelter_name: 避難所
+        refuge_status: 避難状況
+        refuge_reason: 避難理由
+        shelter_entry_date: 入所年月日
+        shelter_leave_date: 退所年月日
+        next_place: 退所先
+        next_place_phone: 退所先電話番号
+        injury_flag: 負傷
+        injury_condition: 負傷内容
+        allergy_flag: アレルギー
+        allergy_cause: アレルギー物質
+        pregnancy: 妊婦
+        baby: 乳幼児
+        upper_care_level_three: 要介護度3以上
+        elderly_alone: 一人暮らし高齢者（65歳以上）
+        elderly_couple: 高齢者世帯（夫婦共に65歳以上）
+        bedridden_elderly: 寝たきり高齢者
+        elderly_dementia: 認知症高齢者
+        rehabilitation_certificate: 療育手帳所持者
+        physical_disability_certificate: 身体障害者手帳所持者
+        juki_status: 住基ステータス
+        note: 備考
+        linked_by: 連携者
+        linked_at: 連携日時
+        created_by: 登録者
+        updated_by: 更新者
+        deleted_at: 削除日時
+        created_at: 登録日時
+        updated_at: 更新日時
+      juki:
+        id_number: 識別番号
+        household_number: 世帯番号
+        residents_type: 住民種別
+        residents_state: 住民状態
+        residents_code: 住民票コード
+        family_name: 氏名（姓）
+        given_name: 氏名（名）
+        alternate_family_name: 氏名カナ（姓）
+        alternate_given_name: 氏名カナ（名）
+        sex: 性別
+        year_number: 生年月日：年号
+        date_of_birth: 生年月日
+        relation1: 続柄1
+        relation2: 続柄2
+        relation3: 続柄3
+        relation4: 続柄4
+        household_family_name: 世帯主氏名（姓）
+        household_given_name: 世帯主氏名（名）
+        household_alternate_family_name: 世帯主氏名カナ（姓）
+        household_alternate_given_name: 世帯主氏名カナ（名）
+        address_code: 現住所：住所コード
+        address: 現住所：住所
+        building_name: 現住所：方書
+        postal_code: 現住所：郵便番号
+        former_address_code: 前住所：住所コード
+        former_address: 前住所：住所
+        former_building_name: 前住所：方書
+        former_postal_code: 前住所：郵便番号
+        new_address_code: 転出先：住所コード
+        new_address: 転出先：住所
+        new_building_name: 転出先：方書
+        new_postal_code: 転出先：郵便番号
+        new_address_division: 転出先区分
+        domicile: 本籍
+        domicile_code: 本籍住所コード
+        family_head: 筆頭者
+        became_change_date: 住民となった情報：異動年月日
+        became_report_date: 住民となった情報：届出年月日
+        became_change_reason: 住民となった情報：増異動事由
+        decided_change_date: 住民を定めた情報：異動年月日
+        decided_report_date: 住民を定めた情報：届出年月日
+        decided_change_reason: 住民を定めた情報：異動事由
+        lost_change_date: 住民でなくなった情報：異動年月日
+        lost_report_date: 住民でなくなった情報：届出年月日
+        lost_change_reason: 住民でなくなった情報：減異動事由
+        change_date: 異動年月日
+        original_area: 独自領域
+        change_division: 異動中区分
+        change_reason: 異動事由
+        created_by: 登録者
+        updated_by: 更新者
+        created_at: 登録日時
+        updated_at: 更新日時
+
     errors:
-      no_file: "ファイルが選択されていません。"
-      not_csv: "ファイルの形式がサポートされていません。"
+      messages:
+        invalid: "は不正な値です。"
+        confirmation: "が一致しません。"
+        accepted: "を受諾してください。"
+        empty: "を入力してください。"
+        blank: "を入力してください。"
+        too_long: "は%{count}文字以内で入力してください。"
+        too_short: "は%{count}文字以上で入力してください。"
+        wrong_length: "は%{count}文字で入力してください。"
+        taken: "はすでに存在します。"
+        not_a_number: "は数値で入力してください。"
+        not_a_date: "は日付を入力してください。"
+        greater_than: "は%{count}より大きい値にしてください。"
+        greater_than_or_equal_to: "は%{count}以上の値にしてください。"
+        equal_to: "は%{count}にしてください。"
+        less_than: "は%{count}より小さい値にしてください。"
+        less_than_or_equal_to: "は%{count}以下の値にしてください。"
+        odd: "は奇数にしてください。"
+        even: "は偶数にしてください。"
+        file_not_exists: "ファイルが選択されていません。"
+        invalid_extension: "ファイルの形式がサポートされていません。"
   
   will_paginate:
     page_entries_info:

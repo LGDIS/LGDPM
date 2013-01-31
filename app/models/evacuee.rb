@@ -14,7 +14,82 @@ class Evacuee < ActiveRecord::Base
     :physical_disability_certificate, :juki_status, :note, :created_by,
     :updated_by
     
-  validates :family_name, :given_name, :presence => true
+  # validates :local_person_id
+  # validates :lgdpf_person_id
+  validates :person_record_id,
+              :length => {:maximum => 500}
+  validates :family_name, :presence => true,
+              :length => {:maximum => 100}
+  validates :given_name, :presence => true,
+              :length => {:maximum => 100}
+  validates :alternate_family_name,
+              :length => {:maximum => 100}
+  validates :alternate_given_name,
+              :length => {:maximum => 100}
+  # validates :date_of_birth
+  validates :sex,
+             :length => {:maximum => 1}
+  # validates :age
+  validates :home_postal_code,
+             :length => {:maximum => 10}
+  validates :in_city_flag,
+             :length => {:maximum => 1}
+  validates :home_state,
+              :length => {:maximum => 100}
+  validates :home_city,
+             :length => {:maximum => 100}
+  validates :home_street,
+              :length => {:maximum => 100}
+  validates :house_number,
+              :length => {:maximum => 100}
+  validates :shelter_name,
+              :length => {:maximum => 20}
+  validates :refuge_status,
+              :length => {:maximum => 1}
+  validates :refuge_reason,
+             :length => {:maximum => 4000}
+  # validates :shelter_entry_date
+  # validates :shelter_leave_date
+  validates :next_place,
+              :length => {:maximum => 100}
+  validates :next_place_phone,
+              :length => {:maximum => 20}
+  validates :injury_flag,
+              :length => {:maximum => 1}
+  validates :injury_condition,
+              :length => {:maximum => 4000}
+  validates :allergy_flag,
+              :length => {:maximum => 1}
+  validates :allergy_cause,
+              :length => {:maximum => 4000}
+  validates :pregnancy,
+             :length => {:maximum => 1}
+  validates :baby,
+              :length => {:maximum => 1}
+  validates :upper_care_level_three,
+              :length => {:maximum => 2}
+  validates :elderly_alone,
+              :length => {:maximum => 1}
+  validates :elderly_couple,
+              :length => {:maximum => 1}
+  validates :bedridden_elderly,
+              :length => {:maximum => 1}
+  validates :elderly_dementia,
+              :length => {:maximum => 1}
+  validates :rehabilitation_certificate,
+              :length => {:maximum => 2}
+  validates :physical_disability_certificate,
+              :length => {:maximum => 1}
+  # validates :juki_status
+  validates :note,
+              :length => {:maximum => 4000}
+  validates :linked_by,
+              :length => {:maximum => 100}
+  # validates :linked_at
+  validates :created_by,
+              :length => {:maximum => 100}
+  validates :updated_by,
+              :length => {:maximum => 100}
   
   before_create :set_attr_for_create
     
