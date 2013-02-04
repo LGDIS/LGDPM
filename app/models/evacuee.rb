@@ -122,7 +122,7 @@ class Evacuee < ActiveRecord::Base
             COUNT(CASE WHEN elderly_couple IN ('1') THEN 1 ELSE NULL END) AS elderly_couple_count,
             COUNT(CASE WHEN bedridden_elderly IN ('1') THEN 1 ELSE NULL END) AS bedridden_elderly_count,
             COUNT(CASE WHEN elderly_dementia IN ('1') THEN 1 ELSE NULL END) AS elderly_dementia_count,
-            COUNT(CASE WHEN rehabilitation_certificate IN ('01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16') THEN 1 ELSE NULL END) AS rehabilitation_certificate_count,
+            COUNT(CASE WHEN rehabilitation_certificate IN ('01','02','03','04','05','06','07') THEN 1 ELSE NULL END) AS rehabilitation_certificate_count,
             COUNT(CASE WHEN physical_disability_certificate IN ('1','2') THEN 1 ELSE NULL END) AS physical_disability_certificate_count
     ").group("shelter_name")
   end
