@@ -63,41 +63,39 @@ class EvacueesController < ApplicationController
   # 検索条件に合致する避難者情報を全件PDFに出力する
   # ==== Args
   # _search_ :: 画面入力された検索条件
+  # _page_ :: ページ番号
   # ==== Return
   # ==== Raise
   def print
-    # TODO 見直し
-    @@search        = Evacuee.search(params[:search])
-    @@evacuee_const = @evacuee_const
-    @@shelter       = @shelter
-    @@state         = @state
+    @search   = Evacuee.search(params[:search])
+    @evacuees = @search.paginate(:page => params[:page],
+      :per_page => 30).order("alternate_family_name ASC, alternate_given_name ASC")
+    # 避難者情報が存在しない場合、出力しない
+    if @evacuees.blank?
+      flash[:alert] = I18n.t("activerecord.errors.messages.evacuees_not_exists")
+      render :action => :index
+      return
+    end
     
-    file_name = "#{Rails.root}/tmp/sample_#{Time.now.instance_eval { '%s%06d' % [strftime('%Y%m%d%H%M%S'),  usec] }}.pdf"
-    ThinReports::Report.generate_file(file_name) do
-      use_layout("#{Rails.root}/lib/sample.tlf")
-      start_new_page
-      @@search.each do |evacuee|
-        page.list(:sample_list).add_row do |row|
-          row.item(:name).value("#{evacuee.family_name} #{evacuee.given_name}")
-          row.item(:name_kana).value("#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}")
-          row.item(:address).value("#{@@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}")
-          row.item(:city).value(@@evacuee_const["in_city_flag"]["#{evacuee.in_city_flag}"])
-          if evacuee.date_of_birth.present?
-            date_of_birth = evacuee.date_of_birth.strftime("%y/%m/%d")
-          else
-            date_of_birth = ""
-          end
-          row.item(:date_of_birth).value(date_of_birth)
-          row.item(:shelter).value(@@shelter[evacuee.shelter_name])
-          row.item(:note).value(evacuee.note)
-          row.item(:juki).value(@@evacuee_const["juki_status"]["#{evacuee.juki_status}"])
-          row.item(:created_by).value(evacuee.created_by)
-          row.item(:created_at).value(evacuee.created_at.strftime("%y/%m/%d"))
-        end
+    # PDFファイルを生成する
+    report = ThinReports::Report.new layout: File.join(Rails.root, 'lib', 'sample.tlf')
+    @search.each do |evacuee|
+      report.list(:sample_list).add_row do |row|
+        row.values name:          "#{evacuee.family_name} #{evacuee.given_name}",
+                   name_kana:     "#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}",
+                   address:       "#{@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}",
+                   city:          @evacuee_const["in_city_flag"]["#{evacuee.in_city_flag}"],
+                   date_of_birth: (evacuee.date_of_birth.present? ? evacuee.date_of_birth.strftime("%y/%m/%d") : ""),
+                   shelter:       @shelter[evacuee.shelter_name],
+                   note:          evacuee.note,
+                   juki:          @evacuee_const["juki_status"]["#{evacuee.juki_status}"],
+                   created_by:    evacuee.created_by,
+                   created_at:    evacuee.created_at.strftime("%y/%m/%d")
       end
     end
-    send_file(file_name)
-    # File.delete(file_name)
+    # PDFファイルを出力する
+    send_data(report.generate, filename: "sample_#{Time.now.instance_eval {'%s%06d' % [strftime('%Y%m%d%H%M%S'),usec]}}.pdf",
+      type: "application/pdf", disposition: "attachment")
   end
 
   # 避難者登録画面
@@ -129,7 +127,7 @@ class EvacueesController < ApplicationController
       else
         respond_to do |format|
           format.html { render :action => :new }
-          format.json { render :json => @evacuee.errors.messages.to_json, :status => 500 } # LGDPM-Android
+          format.json { render :json => @evacuee.to_json, :status => 500 } # LGDPM-Android
         end
       end
     else
