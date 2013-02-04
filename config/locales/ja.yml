@@ -127,6 +127,7 @@ ja:
         even: "は偶数にしてください。"
         file_not_exists: "ファイルが選択されていません。"
         invalid_extension: "ファイルの形式がサポートされていません。"
+        evacuees_not_exists: "避難者情報が存在しません。"
   
   will_paginate:
     page_entries_info:
