@@ -188,10 +188,10 @@ class EvacueesController < ApplicationController
       @evacuee = Evacuee.find(params[:id])
       @jukis   = Juki.find_for_match(@evacuee)
       if @jukis.present?
-        redirect_to :action => :list
+        redirect_to :action => :list, :id => @evacuee.id
       else
         @evacuee.juki_status = Evacuee::JUKI_STATUS_CHK_NA
-        @evacuee.save
+        @evacuee.save!
         render :action => :edit, :id => @evacuee.id
       end
     when "back"
