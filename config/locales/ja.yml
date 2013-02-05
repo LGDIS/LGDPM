@@ -128,6 +128,8 @@ ja:
         file_not_exists: "ファイルが選択されていません。"
         invalid_extension: "ファイルの形式がサポートされていません。"
         evacuees_not_exists: "避難者情報が存在しません。"
+        invalid_column: "列数が異なります。"
+        import_error: "%{count}行目でエラーが発生しました。%{message}"
   
   will_paginate:
     page_entries_info:

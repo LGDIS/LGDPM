@@ -26,10 +26,11 @@ class Evacuee < ActiveRecord::Base
               :length => {:maximum => 100}
   validates :alternate_given_name,
               :length => {:maximum => 100}
-  # validates :date_of_birth
+  validates :date_of_birth, :date => true
   validates :sex,
              :length => {:maximum => 1}
-  # validates :age
+  validates :age, :allow_blank => true,
+             :numericality => { :only_integer => true }
   validates :home_postal_code,
              :length => {:maximum => 10}
   validates :in_city_flag,
@@ -48,8 +49,8 @@ class Evacuee < ActiveRecord::Base
               :length => {:maximum => 1}
   validates :refuge_reason,
              :length => {:maximum => 4000}
-  # validates :shelter_entry_date
-  # validates :shelter_leave_date
+  validates :shelter_entry_date, :date => true
+  validates :shelter_leave_date, :date => true
   validates :next_place,
               :length => {:maximum => 100}
   validates :next_place_phone,
@@ -85,7 +86,7 @@ class Evacuee < ActiveRecord::Base
               :length => {:maximum => 4000}
   validates :linked_by,
               :length => {:maximum => 100}
-  # validates :linked_at
+  validates :linked_at, :time => true
   validates :created_by,
               :length => {:maximum => 100}
   validates :updated_by,

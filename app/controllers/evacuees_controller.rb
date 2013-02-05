@@ -8,6 +8,7 @@ class EvacueesController < ApplicationController
   # 初期表示処理
   # 検索結果が0件の状態で画面を表示させる
   # ==== Args
+  # _page_ :: ページ番号
   # ==== Return
   # ==== Raise
   def index

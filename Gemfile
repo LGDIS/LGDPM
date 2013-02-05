@@ -78,9 +78,13 @@ gem 'thinreports', '0.7.6'
 # placing those jobs on multiple queues, and processing them later.
 gem 'resque', '1.23.0', :require => 'resque/server'
 
-gem 'rspec', '2.12.0'
-
-gem 'factory_girl_rails', '4.2.0'
+group :test do
+  gem 'rspec', '2.12.0'
+  
+  gem 'factory_girl_rails', '4.2.0'
+  
+  gem 'resque_spec', '0.13.0'
+end
 
 # Load Local Gemfile
 local_gemfile = File.join(File.dirname(__FILE__), "Gemfile.local")

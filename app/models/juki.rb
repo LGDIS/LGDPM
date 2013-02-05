@@ -36,7 +36,7 @@ class Juki < ActiveRecord::Base
               :length => {:maximum => 1}
   validates :year_number,
               :length => {:maximum => 2}
-  # validates :date_of_birth
+  validates :date_of_birth, :date => true
   validates :relation1,
               :length => {:maximum => 2}
   validates :relation2,
@@ -85,19 +85,19 @@ class Juki < ActiveRecord::Base
               :length => {:maximum => 30}
   validates :family_head,
               :length => {:maximum => 100}
-  # validates :became_change_date
-  # validates :became_report_date
+  validates :became_change_date, :date => true
+  validates :became_report_date, :date => true
   validates :became_change_reason,
               :length => {:maximum => 2}
-  # validates :decided_change_date
-  # validates :decided_report_date
+  validates :decided_change_date, :date => true
+  validates :decided_report_date, :date => true
   validates :decided_change_reason,
               :length => {:maximum => 2}
-  # validates :lost_change_date
-  # validates :lost_report_date
+  validates :lost_change_date, :date => true
+  validates :lost_report_date, :date => true
   validates :lost_change_reason,
               :length => {:maximum => 2}
-  # validates :change_date
+  validates :change_date, :time => true
   validates :original_area,
               :length => {:maximum => 50}
   validates :change_division,
@@ -114,26 +114,57 @@ class Juki < ActiveRecord::Base
   # ==== Return
   # ==== Raise
   def self.find_for_match(evacuee)
-    where_str = []
-    where_val = {}
-    # 氏名カナ（姓）
-    if evacuee.alternate_family_name.present?
-      where_str << "alternate_family_name = :alternate_family_name"
-      where_val[:alternate_family_name] = evacuee.alternate_family_name
-    end
-    # 氏名カナ（名）
-    if evacuee.alternate_given_name.present?
-      where_str << "alternate_given_name = :alternate_given_name"
-      where_val[:alternate_given_name] = evacuee.alternate_given_name
-    end
-    # 生年月日
-    if evacuee.date_of_birth.present?
-      where_str << "date_of_birth = :date_of_birth"
-      where_val[:date_of_birth] = evacuee.date_of_birth
-    end
+    # TODO 仕様変更対応
+    # condition_array = []
+    juki_table = Juki.arel_table
+    result = Juki.select("*")
     
-    return self.find(:all,
-      :conditions => [where_str.join(" AND "), where_val])
+    # 氏名カナ（姓）
+    result = result.where(juki_table[:alternate_family_name].eq(evacuee.alternate_family_name)) if evacuee.alternate_family_name.present?
+    # 氏名カナ（名）
+    result = result.where(juki_table[:alternate_given_name].eq(evacuee.alternate_given_name)) if evacuee.alternate_given_name.present?
+    # 生年月日
+    result = result.where(juki_table[:date_of_birth].eq(evacuee.date_of_birth)) if evacuee.date_of_birth.present?
+    # 性別
+    result = result.where(juki_table[:sex].eq(evacuee.sex)) if evacuee.sex.present?
+    # 都道府県
+    result = result.where(juki_table[:address].matches("%#{evacuee.home_state}%")) if evacuee.home_state.present?
+    # 市区町村
+    result = result.where(juki_table[:address].matches("%#{evacuee.home_city}%")) if evacuee.home_city.present?
+    # 町名
+    result = result.where(juki_table[:address].matches("%#{evacuee.home_street}%")) if evacuee.home_street.present?
+    
+    return result
+    
+    # 氏名カナ（姓）
+    # condition_array << jukis[:alternate_family_name].eq(evacuee.alternate_family_name) if evacuee.alternate_family_name.present?
+    # 氏名カナ（名）
+    # condition_array << jukis[:alternate_given_name].eq(evacuee.alternate_given_name) if evacuee.alternate_given_name.present?
+    # 生年月日
+    # condition_array << jukis[:date_of_birth].eq(evacuee.date_of_birth) if evacuee.date_of_birth.present?
+    # 性別
+    # condition_array << jukis[:sex].eq(evacuee.sex) if evacuee.sex.present?
+    # 都道府県
+    # condition_array << jukis[:address].matches("%#{evacuee.home_state}%") if evacuee.home_state.present?
+    # 市区町村
+    # condition_array << jukis[:address].matches("%#{evacuee.home_city}%") if evacuee.home_city.present?
+    # 町名
+    # condition_array << jukis[:address].matches("%#{evacuee.home_street}%") if evacuee.home_street.present?
+    
+    # i = 1
+    # length = (condition_array.blank? ? 0 : condition_array.size)
+    #
+    # while (i <= length) do
+      # condition_array.combination(i).each do |condition|
+        # result = self.where(condition.first)
+        # condition.delete_at(0)
+        # condition.each{|con| result = result.where(con) } if condition.present?
+        # return result if result.present? && result.size == 1
+      # end
+      # i += 1
+    # end
+    #
+    # return nil
   end
   
   # 住基情報取込処理
@@ -145,26 +176,37 @@ class Juki < ActiveRecord::Base
   def self.import(file, user)
     require 'csv'
     number, error_msgs = 0, []
+    
     ActiveRecord::Base.transaction do
       # 住基情報をすべて削除する
       Juki.destroy_all
       # 住基情報の登録
       CSV.parse(file) do |row|
-        number += 1
-        juki = Juki.new
-        juki = juki.exec_insert(row)
-        unless juki.save
+        begin
+          # 取込件数
+          number += 1
+          # 列数チェック
+          raise I18n.t("activerecord.errors.messages.invalid_column") unless row.length == 64
+          juki = Juki.new
+          juki = juki.exec_insert(row)
           # バリデーションエラーの場合メッセージを出力
-          juki.errors.full_messages.each do |msg|
-            error_msgs << "#{number}行目でエラーが発生しました。#{msg}"
+          unless juki.save
+            juki.errors.full_messages.each do |msg|
+              error_msgs << I18n.t("activerecord.errors.messages.import_error", :count => number, :message => msg)
+            end
           end
-        end
+        rescue => e
+          error_msgs << I18n.t("activerecord.errors.messages.import_error", :count => number, :message => e)
+        end # <- begin
       end # <- CSV.parse
-      # バリデーションエラーが存在する場合、例外を発生させる  
+      
+      # エラーが存在する場合、例外を発生させる  
       if error_msgs.present?
-        error_msgs.each{|m| Rails.logger.error m }
-        raise "#{error_msgs}"
+        logger ||= ActiveSupport::BufferedLogger.new(File.join(Rails.root, 'log', 'juki.log'))
+        error_msgs.each{|m| logger.error m }
+        raise
       end
+      
     end # <- ActiveRecord::Base.transaction
   ensure
     # 住基情報取込履歴の登録
@@ -206,7 +248,7 @@ class Juki < ActiveRecord::Base
     # 生年月日：年号
     self.year_number = row[8]
     # 生年月日
-    self.date_of_birth = Date.new(row[9].to_i, row[10].to_i, row[11].to_i)
+    self.date_of_birth = Date.new(row[9].to_i, row[10].to_i, row[11].to_i).to_s
     # 続柄1
     self.relation1 = row[12]
     # 続柄2
@@ -256,25 +298,25 @@ class Juki < ActiveRecord::Base
     # 筆頭者
     self.family_head = row[33]
     # 住民となった情報：異動年月日
-    self.became_change_date = Date.new(row[34].to_i, row[35].to_i, row[36].to_i)
+    self.became_change_date = Date.new(row[34].to_i, row[35].to_i, row[36].to_i).to_s
     # 住民となった情報：届出年月日
-    self.became_report_date = Date.new(row[37].to_i, row[38].to_i, row[39].to_i)
+    self.became_report_date = Date.new(row[37].to_i, row[38].to_i, row[39].to_i).to_s
     # 住民となった情報：増異動事由
     self.became_change_reason = row[40]
     # 住民を定めた情報：異動年月日
-    self.decided_change_date = Date.new(row[41].to_i, row[42].to_i, row[43].to_i)
+    self.decided_change_date = Date.new(row[41].to_i, row[42].to_i, row[43].to_i).to_s
     # 住民を定めた情報：届出年月日
-    self.decided_report_date = Date.new(row[44].to_i, row[45].to_i, row[46].to_i)
+    self.decided_report_date = Date.new(row[44].to_i, row[45].to_i, row[46].to_i).to_s
     # 住民を定めた情報：異動事由
     self.decided_change_reason = row[47]
     # 住民でなくなった情報：異動年月日
-    self.lost_change_date = Date.new(row[48].to_i, row[49].to_i, row[50].to_i)
+    self.lost_change_date = Date.new(row[48].to_i, row[49].to_i, row[50].to_i).to_s
     # 住民でなくなった情報：届出年月日
-    self.lost_report_date = Date.new(row[51].to_i, row[52].to_i, row[53].to_i)
+    self.lost_report_date = Date.new(row[51].to_i, row[52].to_i, row[53].to_i).to_s
     # 住民でなくなった情報：減異動事由
     self.lost_change_reason = row[54]
     # 異動年月日
-    self.change_date = DateTime.new(row[55].to_i, row[56].to_i, row[57].to_i, row[58].to_i, row[59].to_i, row[60].to_i)
+    self.change_date = DateTime.new(row[55].to_i, row[56].to_i, row[57].to_i, row[58].to_i, row[59].to_i, row[60].to_i).strftime("%Y/%m/%d %H:%M:%S")
     # 独自領域
     self.original_area = row[61]
     # 異動中区分
