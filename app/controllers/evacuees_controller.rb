@@ -128,7 +128,7 @@ class EvacueesController < ApplicationController
       else
         respond_to do |format|
           format.html { render :action => :new }
-          format.json { render :json => @evacuee.to_json, :status => 500 } # LGDPM-Android
+          format.json { render :json => @evacuee.to_json, :status => :internal_server_error } # LGDPM-Android
         end
       end
     else
@@ -174,6 +174,7 @@ class EvacueesController < ApplicationController
   # * 削除ボタンが押下された場合、削除を行い避難者一覧画面に遷移する
   # * 住基マッチングボタンが押下された場合、住基マッチングを行い該当者が存在する場合、避難者住基マッチング候補者画面に遷移する
   # * 戻るボタンが押下された場合、避難者一覧画面に遷移する
+  # * その他の場合、例外を発生させる
   # ==== Args
   # _commit_kind_ :: ボタン種別
   # _id_ :: 避難者ID
