@@ -7,7 +7,7 @@ class DateValidator < ActiveModel::EachValidator
     
     return if raw_value.blank?
     
-    if raw_value =~ /^(\d{4})(?:\/|-|.)?(\d{1,2})(?:\/|-|.)?(\d{1,2})$/
+    if raw_value.to_s =~ /^(\d{4})(?:\/|-|.)?(\d{1,2})(?:\/|-|.)?(\d{1,2})$/
       begin
         Date.new($1.to_i,$2.to_i,$3.to_i)
       rescue
