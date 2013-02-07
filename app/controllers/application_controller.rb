@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
   # ==== Raise
   def init
     # セレクトボックスの表示に使用するコンスタントテーブルの取得
-    @evacuee_const = get_const(Evacuee.table_name)
-    @juki_history_const = get_const(JukiHistory.table_name)
-    @local_person_const = get_const(LocalPerson.table_name)
+    @evacuee_const      = Constant.hash_for_table(Evacuee.table_name)
+    @juki_history_const = Constant.hash_for_table(JukiHistory.table_name)
+    @local_person_const = Constant.hash_for_table(LocalPerson.table_name)
     # memcacheからマスタを取得
     # TODO 見直し
     @area    = get_cache("area")
@@ -32,24 +32,6 @@ class ApplicationController < ActionController::Base
     constant = Rails.cache.read(key_name)
     constant.each do |c|
       constant_list[c[0]] = c[1]["name"]
-    end
-    return constant_list
-  end
-  
-  # コンスタントテーブル取得処理
-  # ==== Args
-  # _table_name_ :: テーブル名
-  # ==== Return
-  # コンスタントオブジェクト
-  # ==== Raise
-  def get_const(table_name)
-    constant_list = {}
-    constant = Constant.find(:all,
-    :conditions => ["kind1=? AND kind2=?", 'TD', table_name],
-    :order => "kind3 ASC, _order ASC")
-    constant.each do |c|
-      constant_list[c.kind3] = {} unless constant_list[c.kind3]
-      constant_list[c.kind3][c.value] = c.text
     end
     return constant_list
   end
