@@ -5,25 +5,12 @@ class UsersController < Devise::SessionsController
   
   # ログイン画面
   # ログイン処理
-  # ログイン名、パスワードが未入力の場合はエラーメッセージを出力する
   # ==== Args
   # _user_login_ :: ログイン名
   # _user_password_ :: パスワード
   # ==== Return
   # ==== Raise
   def create
-    # ログイン名入力チェック
-    if params[:user][:login].blank?
-      set_flash_message(:alert, :invalid_login)
-      redirect_to(:action => :new)
-      return
-    end
-    # パスワード入力チェック
-    if params[:user][:password].blank?
-      set_flash_message(:alert, :invalid_password)
-      redirect_to(:action => :new)
-      return
-    end
     # 本番用
     # super
     # 開発用
