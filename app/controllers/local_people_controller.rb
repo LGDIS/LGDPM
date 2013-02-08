@@ -8,6 +8,8 @@ class LocalPeopleController < ApplicationController
   # 初期表示処理
   # 検索結果が0件の状態で画面を表示させる
   # ==== Args
+  # _search_ :: 画面入力された検索条件
+  # _page_ :: ページ番号
   # ==== Return
   # ==== Raise
   def index
@@ -24,16 +26,12 @@ class LocalPeopleController < ApplicationController
   # * その他の場合、例外を発生させる
   # ==== Args
   # _commit_kind_ :: ボタン種別
-  # _search_ :: 画面入力された検索条件
-  # _page_ :: ページ番号
   # ==== Return
   # ==== Raise
   def search
     case params[:commit_kind]
     when "search" # 検索ボタン
-      @search = LocalPerson.search(params[:search])
-      @local_people = @search.paginate(:page => params[:page], :per_page => 30).order("alternate_names ASC")
-      render :action => :index
+      do_search
     when "approval" # 承認ボタン
       approval
     when "import" # 取込ボタン
@@ -52,30 +50,35 @@ class LocalPeopleController < ApplicationController
   # _approval_local_people_ :: LocalPersonID配列
   # ==== Return
   # ==== Raise
+  # Errno::ECONNREFUSED :: LGDPFに接続できなかった場合メッセージを出力する
+  # ParameterException :: 承認チェックボックスが選択されていない場合メッセージを出力する
   def approval
-    # TODO 承認済みの場合、再承認したときの動きを検討する
-    if params[:approval_local_people].present?
-      ActiveRecord::Base.transaction do
-        lp_ids = params[:approval_local_people].split(",")
-        lp_ids.each do |id|
-          local_person = LocalPerson.find(id)
-          # 承認済みの場合、Evacueeに取り込まない
-          next if Evacuee.find_by_local_person_id(local_person.id).present?
-          # LGDPF上に存在する避難者の場合、Evacueeに取り込まない
-          # LGDPMまたはLGDPM-Androidから入力し連携した避難者の場合は重複するため
-          next if Evacuee.find_by_lgdpf_person_id(local_person.lgdpf_person_id).present?
-          evacuee = Evacuee.new
-          evacuee = evacuee.exec_insert(local_person)
-          evacuee.save!
-          local_person.approved_by = current_user.login
-          local_person.approved_at = Time.now
-          local_person.save!
-        end
+    raise ParameterException if params[:approval_local_people].blank?
+    
+    ActiveRecord::Base.transaction do
+      lp_ids = params[:approval_local_people].split(",")
+      lp_ids.each do |id|
+        local_person = LocalPerson.find(id)
+        # 承認済みの場合、Evacueeに取り込まない
+        next if Evacuee.find_by_local_person_id(local_person.id).present?
+        # LGDPF上に存在する避難者の場合、Evacueeに取り込まない
+        # LGDPMまたはLGDPM-Androidから入力し連携した避難者の場合は重複するため
+        next if Evacuee.find_by_lgdpf_person_id(local_person.lgdpf_person_id).present?
+        evacuee = Evacuee.new
+        evacuee = evacuee.exec_insert(local_person)
+        evacuee.save!
+        local_person.approved_by = current_user.login
+        local_person.approved_at = Time.now
+        local_person.save!
       end
     end
-    @search = LocalPerson.search(params[:search])
-    @local_people = @search.paginate(:page => params[:page], :per_page => 30).order("alternate_names ASC")
-    render :action => :index
+    
+  rescue ParameterException
+    flash.now[:alert] = I18n.t("errors.messages.parameter_exception_approval")
+  rescue Errno::ECONNREFUSED
+    flash.now[:alert] = I18n.t("errors.messages.connection_refused")
+  ensure
+    do_search
   end
   
   # 石巻PF避難者承認画面
@@ -88,28 +91,39 @@ class LocalPeopleController < ApplicationController
   # ==== Args
   # ==== Return
   # ==== Raise
+  # Errno::ECONNREFUSED :: LGDPFに接続できなかった場合メッセージを出力する
   def import
-    # TODO ARで更新した場合にtransactionがどうなるのか検証する
-    # TODO person取込済みかつ新しいnoteが存在する場合どうするか検討する
-    # TODO person取込済みかつ期限延長されている場合どうするか検討する
-    # TODO 重複登録されている場合どうするか検討する
-    # TODO 期限切れの場合どうするか検討する
-    # TODO 論理削除された場合どうするか検討する
-    # TODO 例外処理
     ActiveRecord::Base.transaction do
+      # LGDPF避難者情報取得
       @people = Person.find_for_import
       @people.each do |person|
+        # LocalPersonへ登録
         local_person = LocalPerson.new
         local_person = local_person.exec_insert(person)
+        # LGDPF安否情報取得
         note = Note.find_for_import(person).first
         local_person.status = note.try(:status)
         local_person.last_known_location = note.try(:last_known_location)
         local_person.save!
-        
+        # 連携フラグ更新
         person.update_attributes(:link_flag => true)
         note.update_attributes(:link_flag => true) unless note.blank?
-      end
+      end if @people.present?
     end
+  rescue Errno::ECONNREFUSED
+    flash[:alert] = I18n.t("errors.messages.connection_refused")
+  ensure
+    do_search
+  end
+  
+  private
+  # 画面入力された検索条件を元に、検索を実行する
+  # ==== Args
+  # _search_ :: 画面入力された検索条件
+  # _page_ :: ページ番号
+  # ==== Return
+  # ==== Raise
+  def do_search
     @search = LocalPerson.search(params[:search])
     @local_people = @search.paginate(:page => params[:page], :per_page => 30).order("alternate_names ASC")
     render :action => :index

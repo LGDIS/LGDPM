@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   
   protect_from_forgery
   
+  class ParameterException < StandardError; end
+  
   # 初期処理
   # ==== Args
   # ==== Return

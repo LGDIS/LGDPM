@@ -151,8 +151,7 @@ describe EvacueesController do
       describe "住基マッチングに失敗した場合" do
         before do
           Juki.should_receive(:find_for_match).and_return([])
-          @evacuee.should_receive(:juki_status=).with(Evacuee::JUKI_STATUS_CHK_NA)
-          @evacuee.should_receive(:save!)
+          @evacuee.should_receive(:update_attributes).with({:juki_status => Evacuee::JUKI_STATUS_CHK_NA})
         end
         it { should be_success }
         it { should render_template("edit") }
@@ -217,8 +216,7 @@ describe EvacueesController do
     describe "保存ボタンが押下された場合" do
       let(:commit_kind) { "save" }
       before(:each) do
-        @evacuee.should_receive(:juki_status=).with(Evacuee::JUKI_STATUS_COMPLETE)
-        @evacuee.should_receive(:save).and_return(true)
+        @evacuee.should_receive(:update_attributes).with({:juki_status => Evacuee::JUKI_STATUS_COMPLETE})
       end
       it { should be_redirect }
       it { should redirect_to(evacuees_edit_url(@evacuee)) }
@@ -226,8 +224,7 @@ describe EvacueesController do
     describe "突合実施後戻るボタンが押下された場合" do
       let(:commit_kind) { "na" }
       before(:each) do
-        @evacuee.should_receive(:juki_status=).with(Evacuee::JUKI_STATUS_CHK_NA)
-        @evacuee.should_receive(:save).and_return(true)
+        @evacuee.should_receive(:update_attributes).with({:juki_status => Evacuee::JUKI_STATUS_CHK_NA})
       end
       it { should be_redirect }
       it { should redirect_to(evacuees_edit_url(@evacuee)) }

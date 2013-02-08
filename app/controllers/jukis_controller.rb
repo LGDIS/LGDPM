@@ -27,13 +27,13 @@ class JukisController < ApplicationController
   def import
     # ファイル存在チェック
     if params[:document].blank?
-      flash[:alert] = I18n.t("activerecord.errors.messages.file_not_exists")
+      flash[:alert] = I18n.t("errors.messages.file_not_exists")
       redirect_to(:action => :index)
       return
     end
     # ファイル形式チェック
     if params[:document][:file].original_filename !~ /\.csv$/i
-      flash[:alert] = I18n.t("activerecord.errors.messages.invalid_extension")
+      flash[:alert] = I18n.t("errors.messages.invalid_extension")
       redirect_to(:action => :index)
       return
     end
