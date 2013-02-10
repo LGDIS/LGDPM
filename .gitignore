@@ -13,4 +13,5 @@ Gemfile.local
 /coverage/
 /spec/tmp/*
 /config/database.yml
+/config/settings.yml
 /config/unicorn.rb
