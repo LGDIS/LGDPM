@@ -73,7 +73,7 @@ class EvacueesController < ApplicationController
       :per_page => 30).order("alternate_family_name ASC, alternate_given_name ASC")
     # 避難者情報が存在しない場合、出力しない
     if @evacuees.blank?
-      flash[:alert] = I18n.t("activerecord.errors.messages.evacuees_not_exists")
+      flash[:alert] = I18n.t("errors.messages.evacuees_not_exists")
       render :action => :index
       return
     end
@@ -192,8 +192,7 @@ class EvacueesController < ApplicationController
       if @jukis.present?
         redirect_to :action => :list, :id => @evacuee.id
       else
-        @evacuee.juki_status = Evacuee::JUKI_STATUS_CHK_NA
-        @evacuee.save!
+        @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_CHK_NA)
         render :action => :edit, :id => @evacuee.id
       end
     when "back"
@@ -232,17 +231,14 @@ class EvacueesController < ApplicationController
     # 家族も無事
     # 住基情報とのマージ
     @evacuee = Evacuee.find(params[:id])
-    
     case params[:commit_kind]
     when "save"
       # 住基ステータスを照合済に更新する
-      @evacuee.juki_status = Evacuee::JUKI_STATUS_COMPLETE
-      @evacuee.save
+      @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_COMPLETE)
       redirect_to :action => :edit, :id => @evacuee.id
     when "na"
       # 住基ステータスを照合済対象者なしに更新する
-      @evacuee.juki_status = Evacuee::JUKI_STATUS_CHK_NA
-      @evacuee.save
+      @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_CHK_NA)
       redirect_to :action => :edit, :id => @evacuee.id
     when "back"
       # 避難者登録・更新画面に遷移する

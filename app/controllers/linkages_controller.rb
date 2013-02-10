@@ -32,9 +32,7 @@ class LinkagesController < ApplicationController
     case params[:commit_kind]
     # 検索ボタン
     when "search"
-      @search = Evacuee.search(params[:search])
-      @evacuees = @search.paginate(:page => params[:page], :per_page => 30)
-      render :action => :index
+      do_search
     # 連携ボタン
     when "link"
       link
@@ -58,41 +56,58 @@ class LinkagesController < ApplicationController
   # _link_evacuees :: 連携チェックされたEvacueeID配列
   # ==== Return
   # ==== Raise
+  # Errno::ECONNREFUSED :: LGDPFに接続できなかった場合メッセージを出力する
+  # ParameterException :: 連携チェックボックスが選択されていない場合メッセージを出力する
   def link
-    if params[:link_evacuees].present?
-      ActiveRecord::Base.transaction do
-        evacuee_ids = params[:link_evacuees].split(",")
-        evacuee_ids.each do |id|
-          evacuee = Evacuee.find(id)
-          # 入力元システムを判定する
-          if evacuee.lgdpf_person_id.blank?
-            # LGDPF上に存在しない場合
-            # 避難者情報登録
-            person = Person.new
-            person = person.exec_insert(evacuee)
-            person.save
-            
-            evacuee.lgdpf_person_id = person.id
-            
-            # 安否情報登録
-            note = Note.new
-            note = note.exec_insert(evacuee)
-            note.save
-          else
-            # LGDPF上に存在する場合
-            # 安否情報登録
-            note = Note.new
-            note = note.exec_insert(evacuee)
-            note.save
-          end
-          # 連携実施者、連携日時の更新
-          evacuee.linked_by = current_user.login
-          evacuee.linked_at = Time.now
-          evacuee.save!
+    raise ParameterException if params[:link_evacuees].blank?
+    
+    ActiveRecord::Base.transaction do
+      evacuee_ids = params[:link_evacuees].split(",")
+      evacuee_ids.each do |id|
+        evacuee = Evacuee.find(id)
+        # 入力元システムを判定する
+        if evacuee.lgdpf_person_id.blank?
+          # LGDPF上に存在しない場合
+          # 避難者情報登録
+          person = Person.new
+          person = person.exec_insert(evacuee)
+          person.save
+          # 安否情報登録
+          note = Note.new
+          note = note.exec_insert(evacuee)
+          note.save
+          # LGDPF IDの更新
+          evacuee.lgdpf_person_id = person.id
+        else
+          # LGDPF上に存在する場合
+          # 安否情報登録
+          note = Note.new
+          note = note.exec_insert(evacuee)
+          note.save
         end
+        # 連携実施者、連携日時の更新
+        evacuee.linked_by = current_user.login
+        evacuee.linked_at = Time.now
+        evacuee.save!
       end
     end
-    # 検索を行い自画面に遷移する
+    
+  rescue ParameterException
+    flash.now[:alert] = I18n.t("errors.messages.parameter_exception_link")
+  rescue Errno::ECONNREFUSED
+    flash.now[:alert] = I18n.t("errors.messages.connection_refused")
+  ensure
+    do_search
+  end
+  
+  private
+  # 画面入力された検索条件を元に、検索を実行する
+  # ==== Args
+  # _search_ :: 画面入力された検索条件
+  # _page_ :: ページ番号
+  # ==== Return
+  # ==== Raise
+  def do_search
     @search = Evacuee.search(params[:search])
     @evacuees = @search.paginate(:page => params[:page], :per_page => 30)
     render :action => :index
