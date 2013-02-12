@@ -29,7 +29,7 @@ shared_examples_for :integer do |attr|
   end
   describe do
     before { model[attr] = 1.047 }
-    it { model.save.should be_true }
+    it { model.save.should be_false }
   end
   describe do
     before { model[attr] = "asdf" }
@@ -121,5 +121,36 @@ shared_examples_for :datetime do |attr|
   describe do
     before { model[attr] = "123" }
     it { model.save.should be_false }
+  end
+end
+
+shared_examples_for :check_value do |attr|
+  describe "#{attr}" do
+    describe "integer" do
+      let(:value) { 1 }
+      before { local_person[attr] = value }
+      it { subject; model[attr].should == value }
+    end
+    describe "string" do
+      let(:value) { "a" }
+      before { local_person[attr] = value }
+      it { subject; model[attr].should == value }
+    end
+    describe "nil" do
+      let(:value) { nil }
+      before { local_person[attr] = value }
+      it { subject; model[attr].should == value }
+    end
+  end
+end
+
+shared_examples_for :find_for_match do |evacuee_attr, juki_attr, val|
+  describe "#{attr}" do
+    before(:each) do
+      evacuee.update_attributes(evacuee_attr => val)
+      juki.update_attributes(juki_attr => val)
+    end
+    it { subject.size.should == 1 }
+    it { subject.first[juki_attr].to_s.should == val }
   end
 end

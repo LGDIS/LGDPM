@@ -28,14 +28,12 @@ class Note < ActiveResource::Base
   def exec_insert(evacuee)
     self.person_record_id = evacuee.lgdpf_person_id
     self.entry_date = Time.now
-    self.author_name = "LGDPM" # current_user.login
+    self.author_name = "LGDPM" # current_user.login?
     self.source_date = Time.now
     self.status = 4
     self.last_known_location = Rails.cache.read("shelter")["#{evacuee.shelter_name}"]["name"] if evacuee.shelter_name.present?
-    if evacuee.juki_status == 1
-      self.text = "宮城県石巻市民として確認されました。"
-    else
-      self.text = "宮城県石巻市民として確認されていません。"
+    if evacuee.juki_status == Evacuee::JUKI_STATUS_COMPLETE
+      self.text = "石巻市役所が安否確認済み"
     end
     
     return self
