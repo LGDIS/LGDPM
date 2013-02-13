@@ -188,7 +188,7 @@ class Juki < ActiveRecord::Base
           # 列数チェック
           raise I18n.t("activerecord.errors.messages.invalid_column") unless row.length == 64
           juki = Juki.new
-          juki = juki.exec_insert(row)
+          juki = juki.exec_insert(row, user)
           # バリデーションエラーの場合メッセージを出力
           unless juki.save
             juki.errors.full_messages.each do |msg|
@@ -224,7 +224,7 @@ class Juki < ActiveRecord::Base
   # ==== Return
   # 住基オブジェクト
   # ==== Raise
-  def exec_insert(row)
+  def exec_insert(row, user)
     # 識別番号
     self.id_number = row[0]
     # 世帯番号
@@ -324,9 +324,9 @@ class Juki < ActiveRecord::Base
     # 異動事由
     self.change_reason = row[63]
     # 登録者
-    # self.created_by = current_user
+    self.created_by = user
     # 更新者
-    # self.updated_by = current_user
+    self.updated_by = user
     
     return self
   end
