@@ -3,32 +3,31 @@ class LocalPeople < ActiveRecord::Migration
   def up
     create_table :local_people, :force => true do |t|
       t.column "lgdpf_person_id", :integer
-      t.column "person_record_id", :string
+      t.column "person_record_id", :string, :limit => 500
       t.column "entry_date", :datetime
       t.column "expiry_date", :datetime
-      t.column "author_name", :string
-      t.column "author_email", :string
-      t.column "author_phone", :string
-      t.column "source_name", :string
+      t.column "author_name", :string, :limit => 500
+      t.column "author_email", :string, :limit => 500
+      t.column "author_phone", :string, :limit => 500
+      t.column "source_name", :string, :limit => 500
       t.column "source_date", :datetime
-      t.column "source_url", :string
-      t.column "full_name", :string
-      t.column "given_name", :string
-      t.column "family_name", :string
-      t.column "alternate_names", :string
+      t.column "source_url", :string, :limit => 500
+      t.column "full_name", :string, :limit => 500
+      t.column "given_name", :string, :limit => 500
+      t.column "family_name", :string, :limit => 500
+      t.column "alternate_names", :string, :limit => 500
       t.column "description", :text
-      t.column "sex", :integer
+      t.column "sex", :string, :limit => 1
       t.column "date_of_birth", :date
-      t.column "age", :string
-      t.column "house_number", :string
-      t.column "home_street", :string
-      t.column "home_neighborhood", :string
-      t.column "home_city", :string
-      t.column "home_state", :string
-      t.column "home_postal_code", :string
-      t.column "home_country", :string
-      t.column "photo_url", :string
-      t.column "profile_urls", :string
+      t.column "age", :string, :limit => 500
+      t.column "home_street", :string, :limit => 500
+      t.column "home_neighborhood", :string, :limit => 500
+      t.column "home_city", :string, :limit => 500
+      t.column "home_state", :string, :limit => 500
+      t.column "home_postal_code", :string, :limit => 500
+      t.column "home_country", :string, :limit => 500
+      t.column "photo_url", :string, :limit => 500
+      t.column "profile_urls", :string, :limit => 500
       t.column "public_flag", :integer
       
       t.column "in_city_flag", :string, :limit => 1
@@ -58,7 +57,7 @@ class LocalPeople < ActiveRecord::Migration
       t.column "email_flag", :boolean, :default => false
       
       t.column "status", :integer
-      t.column "last_known_location", :string
+      t.column "last_known_location", :string, :limit => 500
       t.column "approved_by", :string, :limit => 100
       t.column "approved_at", :datetime
       t.column "created_by", :string, :limit => 100
@@ -85,7 +84,6 @@ class LocalPeople < ActiveRecord::Migration
     set_column_comment(:local_people, :sex, "性別")
     set_column_comment(:local_people, :date_of_birth, "生年月日")
     set_column_comment(:local_people, :age, "年齢")
-    set_column_comment(:local_people, :house_number, "番地")
     set_column_comment(:local_people, :home_street, "町名")
     set_column_comment(:local_people, :home_neighborhood, "近隣")
     set_column_comment(:local_people, :home_city, "市区町村")

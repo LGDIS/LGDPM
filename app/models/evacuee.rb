@@ -174,8 +174,6 @@ class Evacuee < ActiveRecord::Base
     self.home_city = local_person.home_city
     # 町名
     self.home_street = local_person.home_street
-    # 番地
-    self.house_number = local_person.house_number
     # 避難所
     self.shelter_name = local_person.shelter_name
     # 避難状況

@@ -124,21 +124,51 @@ shared_examples_for :datetime do |attr|
   end
 end
 
-shared_examples_for :check_value do |attr|
+shared_examples_for :check_value_for_string do |attr|
   describe "#{attr}" do
     describe "integer" do
       let(:value) { 1 }
-      before { local_person[attr] = value }
+      before { param[attr] = value }
       it { subject; model[attr].should == value }
     end
     describe "string" do
       let(:value) { "a" }
-      before { local_person[attr] = value }
+      before { param[attr] = value }
       it { subject; model[attr].should == value }
     end
     describe "nil" do
       let(:value) { nil }
-      before { local_person[attr] = value }
+      before { param[attr] = value }
+      it { subject; model[attr].should == value }
+    end
+  end
+end
+
+shared_examples_for :check_value_for_integer do |attr|
+  describe "#{attr}" do
+    describe "integer" do
+      let(:value) { 1 }
+      before { param[attr] = value }
+      it { subject; model[attr].should == value }
+    end
+    describe "nil" do
+      let(:value) { nil }
+      before { param[attr] = value }
+      it { subject; model[attr].should == value }
+    end
+  end
+end
+
+shared_examples_for :check_value_for_date do |attr|
+  describe "#{attr}" do
+    describe "date" do
+      let(:value) { "2012-04-12" }
+      before { param[attr] = value }
+      it { subject; model[attr].to_s.should == value }
+    end
+    describe "nil" do
+      let(:value) { nil }
+      before { param[attr] = value }
       it { subject; model[attr].should == value }
     end
   end

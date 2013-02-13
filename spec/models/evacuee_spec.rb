@@ -322,136 +322,98 @@ describe Evacuee do
   end
   
   describe "#exec_insert" do
-    subject { model.exec_insert(local_person) }
+    subject { model.exec_insert(param) }
     let(:model) { FactoryGirl.create(:evacuee) }
-    let(:local_person) { FactoryGirl.create(:local_person) }
+    let(:param) { FactoryGirl.create(:local_person) }
+    
+    it_should_behave_like :check_value_for_string, :person_record_id
+    it_should_behave_like :check_value_for_string, :family_name
+    it_should_behave_like :check_value_for_string, :given_name
+    it_should_behave_like :check_value_for_string, :sex
+    it_should_behave_like :check_value_for_string, :home_postal_code
+    it_should_behave_like :check_value_for_string, :in_city_flag
+    it_should_behave_like :check_value_for_string, :home_state
+    it_should_behave_like :check_value_for_string, :home_city
+    it_should_behave_like :check_value_for_string, :home_street
+    it_should_behave_like :check_value_for_string, :shelter_name
+    it_should_behave_like :check_value_for_string, :refuge_status
+    it_should_behave_like :check_value_for_string, :refuge_reason
+    it_should_behave_like :check_value_for_string, :next_place
+    it_should_behave_like :check_value_for_string, :next_place_phone
+    it_should_behave_like :check_value_for_string, :injury_flag
+    it_should_behave_like :check_value_for_string, :injury_condition
+    it_should_behave_like :check_value_for_string, :allergy_flag
+    it_should_behave_like :check_value_for_string, :allergy_cause
+    it_should_behave_like :check_value_for_string, :pregnancy
+    it_should_behave_like :check_value_for_string, :baby
+    it_should_behave_like :check_value_for_string, :upper_care_level_three
+    it_should_behave_like :check_value_for_string, :elderly_alone
+    it_should_behave_like :check_value_for_string, :elderly_couple
+    it_should_behave_like :check_value_for_string, :bedridden_elderly
+    it_should_behave_like :check_value_for_string, :elderly_dementia
+    it_should_behave_like :check_value_for_string, :rehabilitation_certificate
+    it_should_behave_like :check_value_for_string, :physical_disability_certificate
+    
+    it_should_behave_like :check_value_for_integer, :lgdpf_person_id
+    it_should_behave_like :check_value_for_integer, :age
+    
+    it_should_behave_like :check_value_for_date, :date_of_birth
+    it_should_behave_like :check_value_for_date, :shelter_entry_date
+    it_should_behave_like :check_value_for_date, :shelter_leave_date
     
     describe "local_person_id" do
-      it { subject; model.local_person_id.should == local_person.id }
+      it { subject; model.local_person_id.should == param.id }
     end
-    describe "lgdpf_person_id" do
-      describe do
-        let(:value) { 123 }
-        before { local_person[:lgdpf_person_id] = value }
-        it { subject; model[:lgdpf_person_id].should == value }
-      end
-      describe do
-        let(:value) { nil }
-        before { local_person[:lgdpf_person_id] = value }
-        it { subject; model[:lgdpf_person_id].should == value }
-      end
-    end
-    it_should_behave_like :check_value, :person_record_id
-    it_should_behave_like :check_value, :family_name
-    it_should_behave_like :check_value, :given_name
+    
     describe "alternate_family_name" do
       describe do
         let(:value) { "123 " }
-        before { local_person[:alternate_names] = value }
+        before { param[:alternate_names] = value }
         it { subject; model[:alternate_family_name].should == "123" }
       end
       describe do
         let(:value) { "abc efg" }
-        before { local_person[:alternate_names] = value }
+        before { param[:alternate_names] = value }
         it { subject; model[:alternate_family_name].should == "abc" }
       end
       describe do
         let(:value) { nil }
-        before { local_person[:alternate_names] = value }
+        before { param[:alternate_names] = value }
         it { subject; model[:alternate_family_name].should == value }
       end
     end
+    
     describe "alternate_given_name" do
       describe do
         let(:value) { "123 " }
-        before { local_person[:alternate_names] = value }
+        before { param[:alternate_names] = value }
         it { subject; model[:alternate_given_name].should == "" }
       end
       describe do
         let(:value) { "abc efg" }
-        before { local_person[:alternate_names] = value }
+        before { param[:alternate_names] = value }
         it { subject; model[:alternate_given_name].should == "efg" }
       end
       describe do
         let(:value) { nil }
-        before { local_person[:alternate_names] = value }
+        before { param[:alternate_names] = value }
         it { subject; model[:alternate_given_name].should == value }
       end
     end
-    describe "date_of_birth" do
-      describe do
-        let(:value) { nil }
-        before { local_person[:date_of_birth] = value }
-        it { subject; model[:date_of_birth].should == value }
-      end
-      describe do
-        let(:value) { "2013-01-01" }
-        before { local_person[:date_of_birth] = value }
-        it { subject; model[:date_of_birth].to_s.should == value }
-      end
-    end
-    it_should_behave_like :check_value, :age
-    it_should_behave_like :check_value, :sex
-    it_should_behave_like :check_value, :home_postal_code
-    it_should_behave_like :check_value, :in_city_flag
-    it_should_behave_like :check_value, :home_state
-    it_should_behave_like :check_value, :home_city
-    it_should_behave_like :check_value, :home_street
-    it_should_behave_like :check_value, :house_number
-    it_should_behave_like :check_value, :shelter_name
-    it_should_behave_like :check_value, :refuge_status
-    it_should_behave_like :check_value, :refuge_reason
-    describe "shelter_entry_date" do
-      describe do
-        let(:value) { nil }
-        before { local_person[:shelter_entry_date] = value }
-        it { subject; model[:shelter_entry_date].should == value }
-      end
-      describe do
-        let(:value) { "2013-01-01" }
-        before { local_person[:shelter_entry_date] = value }
-        it { subject; model[:shelter_entry_date].to_s.should == value }
-      end
-    end
-    describe "shelter_leave_date" do
-      describe do
-        let(:value) { nil }
-        before { local_person[:shelter_leave_date] = value }
-        it { subject; model[:shelter_leave_date].should == value }
-      end
-      describe do
-        let(:value) { "2013-01-01" }
-        before { local_person[:shelter_leave_date] = value }
-        it { subject; model[:shelter_leave_date].to_s.should == value }
-      end
-    end
-    it_should_behave_like :check_value, :next_place
-    it_should_behave_like :check_value, :next_place_phone
-    it_should_behave_like :check_value, :injury_flag
-    it_should_behave_like :check_value, :injury_condition
-    it_should_behave_like :check_value, :allergy_flag
-    it_should_behave_like :check_value, :allergy_cause
-    it_should_behave_like :check_value, :pregnancy
-    it_should_behave_like :check_value, :baby
-    it_should_behave_like :check_value, :upper_care_level_three
-    it_should_behave_like :check_value, :elderly_alone
-    it_should_behave_like :check_value, :elderly_couple
-    it_should_behave_like :check_value, :bedridden_elderly
-    it_should_behave_like :check_value, :elderly_dementia
-    it_should_behave_like :check_value, :rehabilitation_certificate
-    it_should_behave_like :check_value, :physical_disability_certificate
+    
     describe "note" do
       describe do
         let(:value) { 123 }
-        before { local_person[:description] = value }
+        before { param[:description] = value }
         it { subject; model[:note].should == value }
       end
       describe do
         let(:value) { "abc" }
-        before { local_person[:description] = value }
+        before { param[:description] = value }
         it { subject; model[:note].should == value }
       end
     end
+    
   end
   
 end
