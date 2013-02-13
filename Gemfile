@@ -78,6 +78,15 @@ gem 'thinreports', '0.7.6'
 # placing those jobs on multiple queues, and processing them later.
 gem 'resque', '1.23.0', :require => 'resque/server'
 
+# external-authorize
+gem 'omniauth', '1.1.2'
+gem 'omniauth-openid', '1.0.1' # for google
+gem 'omniauth-oauth', '1.0.1'
+gem 'omniauth-oauth2', '1.0.0' # for facebook
+gem 'oa-core', '0.3.2'
+gem 'omniauth-twitter', '0.0.9'
+gem 'omniauth-facebook', '1.2.0'
+
 group :test do
   gem 'rspec', '2.12.0'
   

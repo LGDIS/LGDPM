@@ -14,7 +14,7 @@ class UsersController < Devise::SessionsController
     # 本番用
     # super
     # 開発用
-    user = User.find_by_login(params[:user][:login])
+    user = User.find_by_login_and_provider(params[:user][:login], nil)
     warden.authenticate!(auth_options) if user.blank?
     sign_in(user, :bypass => true)
     respond_with user, :location => after_sign_in_path_for(user)

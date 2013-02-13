@@ -1,6 +1,6 @@
 Lgdpm::Application.routes.draw do
   
-  devise_for :users, :controllers => { :sessions => 'users' }
+  devise_for :users, :controllers => { :sessions => 'users', :omniauth_callbacks => 'omniauth_callbacks' }
   
   root :to => 'evacuees#index'
   
