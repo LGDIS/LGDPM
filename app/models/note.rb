@@ -26,14 +26,21 @@ class Note < ActiveResource::Base
   # LGDPF Noteオブジェクト
   # ==== Raise
   def exec_insert(evacuee)
+    # 避難者情報との外部キー
     self.person_record_id = evacuee.lgdpf_person_id
+    # 登録日
     self.entry_date = Time.now
-    self.author_name = "LGDPM" # current_user.login?
+    # 投稿者
+    self.author_name = I18n.t("messages.note.author_name")
+    # 作成日時
     self.source_date = Time.now
+    # 状況
     self.status = 4
+    # 最後に見かけた場所
     self.last_known_location = Rails.cache.read("shelter")["#{evacuee.shelter_name}"]["name"] if evacuee.shelter_name.present?
     if evacuee.juki_status == Evacuee::JUKI_STATUS_COMPLETE
-      self.text = "石巻市役所が安否確認済み"
+      # メッセージ
+      self.text = I18n.t("messages.note.text")
     end
     
     return self

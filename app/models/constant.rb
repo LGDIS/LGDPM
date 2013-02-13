@@ -10,9 +10,7 @@ class Constant < ActiveRecord::Base
   # ==== Raise
   def self.hash_for_table(table_name)
     constant_list = {}
-    constant = Constant.find(:all,
-    :conditions => ["kind1=? AND kind2=?", 'TD', table_name],
-    :order => "kind3 ASC, _order ASC")
+    constant = Constant.where(:kind1 => "TD", :kind2 => table_name).order(:kind3, :_order)
     constant.each do |c|
       constant_list[c.kind3] = {} unless constant_list[c.kind3]
       constant_list[c.kind3][c.value] = c.text

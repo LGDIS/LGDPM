@@ -95,6 +95,12 @@ ja:
       month: 月
       second: 秒
       year: 年
+  messages:
+    person:
+      author_name: "LGDPM"
+    note:
+      author_name: "LGDPM"
+      text: "石巻市役所が安否確認済み"
   errors: &errors
     format: ! '%{attribute}%{message}'
     messages:
