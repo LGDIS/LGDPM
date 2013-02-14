@@ -50,7 +50,6 @@ class LocalPeopleController < ApplicationController
   # _approval_local_people_ :: LocalPersonID配列
   # ==== Return
   # ==== Raise
-  # Errno::ECONNREFUSED :: LGDPFに接続できなかった場合メッセージを出力する
   # ParameterException :: 承認チェックボックスが選択されていない場合メッセージを出力する
   def approval
     raise ParameterException if params[:approval_local_people].blank?
@@ -75,8 +74,6 @@ class LocalPeopleController < ApplicationController
     
   rescue ParameterException
     flash.now[:alert] = I18n.t("errors.messages.parameter_exception_approval")
-  rescue Errno::ECONNREFUSED
-    flash.now[:alert] = I18n.t("errors.messages.connection_refused")
   ensure
     do_search
   end
@@ -91,6 +88,7 @@ class LocalPeopleController < ApplicationController
   # ==== Args
   # ==== Return
   # ==== Raise
+  # ActiveResource::ServerError :: LGDPFで保存に失敗した場合メッセージを出力する
   # Errno::ECONNREFUSED :: LGDPFに接続できなかった場合メッセージを出力する
   def import
     ActiveRecord::Base.transaction do
@@ -110,6 +108,9 @@ class LocalPeopleController < ApplicationController
         note.update_attributes(:link_flag => true) unless note.blank?
       end if @people.present?
     end
+    
+  rescue ActiveResource::ServerError => e
+    flash.now[:alert] = "#{e}"
   rescue Errno::ECONNREFUSED
     flash[:alert] = I18n.t("errors.messages.connection_refused")
   ensure

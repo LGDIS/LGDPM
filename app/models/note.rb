@@ -38,10 +38,10 @@ class Note < ActiveResource::Base
     self.status = 4
     # 最後に見かけた場所
     self.last_known_location = Rails.cache.read("shelter")["#{evacuee.shelter_name}"]["name"] if evacuee.shelter_name.present?
-    if evacuee.juki_status == Evacuee::JUKI_STATUS_COMPLETE
+    # if evacuee.juki_status == Evacuee::JUKI_STATUS_COMPLETE
       # メッセージ
       self.text = I18n.t("messages.note.text")
-    end
+    # end
     
     return self
   end

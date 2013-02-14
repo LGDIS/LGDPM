@@ -37,10 +37,6 @@
           <label>市区町村</label>
           <%= f.text_field :home_city_like %>
         </p>
-        <p style="margin-left: 74px;">
-          <label>番地</label>
-          <%= f.text_field :house_number_like %>
-        </p>
         <p style="margin-left: 32px;">
           <label>この人の状況</label>
           <%= f.select(:status_eq,
@@ -105,7 +101,7 @@
           <%= local_person.date_of_birth.strftime("%y/%m/%d") if local_person.date_of_birth.present? %>
         </td>
         <td class="set_center">
-          <%= "#{local_person.home_state} #{local_person.home_city} #{local_person.home_street} #{local_person.house_number}" %>
+          <%= "#{local_person.home_state}#{local_person.home_city}#{local_person.home_street}" %>
         </td>
         <td class="set_center">
           <%= @local_person_const["status"]["#{local_person.status}"] %>

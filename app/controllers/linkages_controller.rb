@@ -56,8 +56,9 @@ class LinkagesController < ApplicationController
   # _link_evacuees :: 連携チェックされたEvacueeID配列
   # ==== Return
   # ==== Raise
-  # Errno::ECONNREFUSED :: LGDPFに接続できなかった場合メッセージを出力する
+  # ActiveResource::ServerError :: LGDPFで保存に失敗した場合メッセージを出力する
   # ParameterException :: 連携チェックボックスが選択されていない場合メッセージを出力する
+  # Errno::ECONNREFUSED :: LGDPFに接続できなかった場合メッセージを出力する
   def link
     raise ParameterException if params[:link_evacuees].blank?
     
@@ -72,12 +73,12 @@ class LinkagesController < ApplicationController
           person = Person.new
           person = person.exec_insert(evacuee)
           person.save
+          # LGDPF IDの更新
+          evacuee.lgdpf_person_id = person.id
           # 安否情報登録
           note = Note.new
           note = note.exec_insert(evacuee)
           note.save
-          # LGDPF IDの更新
-          evacuee.lgdpf_person_id = person.id
         else
           # LGDPF上に存在する場合
           # 安否情報登録
@@ -91,7 +92,9 @@ class LinkagesController < ApplicationController
         evacuee.save!
       end
     end
-    
+  
+  rescue ActiveResource::ServerError => e
+    flash.now[:alert] = "#{e}"
   rescue ParameterException
     flash.now[:alert] = I18n.t("errors.messages.parameter_exception_link")
   rescue Errno::ECONNREFUSED
