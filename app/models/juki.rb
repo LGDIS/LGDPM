@@ -111,60 +111,52 @@ class Juki < ActiveRecord::Base
 
   # 避難者住基マッチング検索処理
   # ==== Args
+  # _evacuee_ :: Evacueeオブジェクト
+  # _pattern_ :: 検索対象項目の配列
   # ==== Return
   # ==== Raise
-  def self.find_for_match(evacuee)
-    # TODO 仕様変更対応
-    # condition_array = []
+  def self.find_for_match(evacuee, pattern)
     juki_table = Juki.arel_table
     result = Juki.select("*")
     
+    # 氏名（姓）
+    if pattern.include?(:family_name)
+      result = result.where(juki_table[:family_name].eq(evacuee.family_name))
+    end
+    # 氏名（名）
+    if pattern.include?(:given_name)
+      result = result.where(juki_table[:given_name].eq(evacuee.given_name))
+    end
     # 氏名カナ（姓）
-    result = result.where(juki_table[:alternate_family_name].eq(evacuee.alternate_family_name)) if evacuee.alternate_family_name.present?
+    if pattern.include?(:alternate_family_name)
+      result = result.where(juki_table[:alternate_family_name].eq(evacuee.alternate_family_name))
+    end
     # 氏名カナ（名）
-    result = result.where(juki_table[:alternate_given_name].eq(evacuee.alternate_given_name)) if evacuee.alternate_given_name.present?
+    if pattern.include?(:alternate_given_name)
+      result = result.where(juki_table[:alternate_given_name].eq(evacuee.alternate_given_name))
+    end
     # 生年月日
-    result = result.where(juki_table[:date_of_birth].eq(evacuee.date_of_birth)) if evacuee.date_of_birth.present?
+    if pattern.include?(:date_of_birth)
+      result = result.where(juki_table[:date_of_birth].eq(evacuee.date_of_birth))
+    end
     # 性別
-    result = result.where(juki_table[:sex].eq(evacuee.sex)) if evacuee.sex.present?
+    if pattern.include?(:sex)
+      result = result.where(juki_table[:sex].eq(evacuee.sex))
+    end
     # 都道府県
-    result = result.where(juki_table[:address].matches("%#{evacuee.home_state}%")) if evacuee.home_state.present?
+    if pattern.include?(:home_state)
+      result = result.where(juki_table[:address].matches("%#{evacuee.home_state}%"))
+    end
     # 市区町村
-    result = result.where(juki_table[:address].matches("%#{evacuee.home_city}%")) if evacuee.home_city.present?
+    if pattern.include?(:home_city)
+      result = result.where(juki_table[:address].matches("%#{evacuee.home_city}%"))
+    end
     # 町名
-    result = result.where(juki_table[:address].matches("%#{evacuee.home_street}%")) if evacuee.home_street.present?
+    if pattern.include?(:home_street)
+      result = result.where(juki_table[:address].matches("%#{evacuee.home_street}%"))
+    end
     
     return result
-    
-    # 氏名カナ（姓）
-    # condition_array << jukis[:alternate_family_name].eq(evacuee.alternate_family_name) if evacuee.alternate_family_name.present?
-    # 氏名カナ（名）
-    # condition_array << jukis[:alternate_given_name].eq(evacuee.alternate_given_name) if evacuee.alternate_given_name.present?
-    # 生年月日
-    # condition_array << jukis[:date_of_birth].eq(evacuee.date_of_birth) if evacuee.date_of_birth.present?
-    # 性別
-    # condition_array << jukis[:sex].eq(evacuee.sex) if evacuee.sex.present?
-    # 都道府県
-    # condition_array << jukis[:address].matches("%#{evacuee.home_state}%") if evacuee.home_state.present?
-    # 市区町村
-    # condition_array << jukis[:address].matches("%#{evacuee.home_city}%") if evacuee.home_city.present?
-    # 町名
-    # condition_array << jukis[:address].matches("%#{evacuee.home_street}%") if evacuee.home_street.present?
-    
-    # i = 1
-    # length = (condition_array.blank? ? 0 : condition_array.size)
-    #
-    # while (i <= length) do
-      # condition_array.combination(i).each do |condition|
-        # result = self.where(condition.first)
-        # condition.delete_at(0)
-        # condition.each{|con| result = result.where(con) } if condition.present?
-        # return result if result.present? && result.size == 1
-      # end
-      # i += 1
-    # end
-    #
-    # return nil
   end
   
   # 住基情報取込処理

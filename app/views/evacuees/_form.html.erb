@@ -52,6 +52,46 @@
     <%= error_messages_for(@evacuee) %>
     
     <div class="splitcontent">
+      <div class="splitcontentleft">
+        <fieldset class="box tabular"><legend>住基マッチング条件</legend>
+          <label class="flt">
+            <%= check_box_tag "pattern[family_name]", :family_name %>
+            <%= I18n.t("activerecord.attributes.evacuee.family_name") %>
+          </label>
+          <label class="flt">
+            <%= check_box_tag "pattern[given_name]", :given_name %>
+            <%= I18n.t("activerecord.attributes.evacuee.given_name") %>
+          </label>
+          <label class="flt">
+            <%= check_box_tag "pattern[sex]", :sex %>
+            <%= I18n.t("activerecord.attributes.evacuee.sex") %>
+          </label>
+          <label class="flt">
+            <%= check_box_tag "pattern[alternate_family_name]", :alternate_family_name %>
+            <%= I18n.t("activerecord.attributes.evacuee.alternate_family_name") %>
+          </label>
+          <label class="flt">
+            <%= check_box_tag "pattern[alternate_given_name]", :alternate_given_name %>
+            <%= I18n.t("activerecord.attributes.evacuee.alternate_given_name") %>
+          </label>
+          <label class="flt">
+            <%= check_box_tag "pattern[date_of_birth]", :date_of_birth %>
+            <%= I18n.t("activerecord.attributes.evacuee.date_of_birth") %>
+          </label>
+          <label class="flt">
+            <%= check_box_tag "pattern[home_state]", :home_state %>
+            <%= I18n.t("activerecord.attributes.evacuee.home_state") %>
+          </label>
+          <label class="flt">
+            <%= check_box_tag "pattern[home_city]", :home_city %>
+            <%= I18n.t("activerecord.attributes.evacuee.home_city") %>
+          </label>
+          <label class="flt">
+            <%= check_box_tag "pattern[home_street]", :home_street %>
+            <%= I18n.t("activerecord.attributes.evacuee.home_street") %>
+          </label>
+        </fieldset>
+      </div>
       <div class="splitcontentright">
         <p style="float: right;">
           <%= submit_tag "保存", :kind => "save", :tabindex => 34 %>

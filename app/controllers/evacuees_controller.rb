@@ -128,7 +128,7 @@ class EvacueesController < ApplicationController
       else
         respond_to do |format|
           format.html { render :action => :new }
-          format.json { render :json => @evacuee.to_json, :status => :internal_server_error } # LGDPM-Android
+          format.json { render :text => @evacuee.errors.full_messages, :status => :internal_server_error } # LGDPM-Android
         end
       end
     else
@@ -178,6 +178,7 @@ class EvacueesController < ApplicationController
   # ==== Args
   # _commit_kind_ :: ボタン種別
   # _id_ :: 避難者ID
+  # _pattern_ :: 検索対象項目の配列
   # ==== Return
   # ==== Raise
   def selector
@@ -188,9 +189,8 @@ class EvacueesController < ApplicationController
       redirect_to :action => :index
     when "match"
       @evacuee = Evacuee.find(params[:id])
-      @jukis   = Juki.find_for_match(@evacuee)
-      if @jukis.present?
-        redirect_to :action => :list, :id => @evacuee.id
+      if @evacuee.matching(params[:pattern]).present?
+        redirect_to :action => :list, :id => @evacuee.id, :pattern => params[:pattern]
       else
         @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_CHK_NA)
         render :action => :edit, :id => @evacuee.id
@@ -207,11 +207,12 @@ class EvacueesController < ApplicationController
   # 氏名カナ、生年月日が一致する住基情報一覧を表示する
   # ==== Args
   # _id_ :: EvacueeID
+  # _pattern_ :: 検索対象項目の配列
   # ==== Return
   # ==== Raise
   def list
     @evacuee = Evacuee.find(params[:id])
-    @jukis   = Juki.find_for_match(@evacuee)
+    @jukis   = @evacuee.matching(params[:pattern])
   end
   
   # 避難者住基マッチング候補者画面

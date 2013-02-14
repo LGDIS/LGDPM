@@ -130,7 +130,7 @@ ja:
       evacuees_not_exists: "避難者情報が存在しません。"
       invalid_column: "列数が異なります。"
       import_error: "%{count}行目でエラーが発生しました。%{message}"
-      connection_refused: "接続にできませんでした。"
+      connection_refused: "接続できませんでした。"
       parameter_exception_link: "連携したい避難者を選択してください。"
       parameter_exception_approval: "承認したい避難者を選択してください。"
     template:

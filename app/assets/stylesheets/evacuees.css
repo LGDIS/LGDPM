@@ -9,3 +9,10 @@
 .set_left {
   text-align: left;
 }
+
+.tabular label.flt{
+  font-weight: normal;
+  margin-left: 0px;
+  text-align: left;
+  width: 150px;
+}

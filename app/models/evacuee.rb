@@ -219,4 +219,51 @@ class Evacuee < ActiveRecord::Base
     
     return self
   end
+  
+  # 住基情報とのマッチングを行う
+  # * patternがブランクの場合、規定の条件でマッチングを行い結果を返す
+  # * patternがブランクでない場合、ユーザが指定した条件でマッチングを行い結果を返す
+  # ==== Args
+  # _pattern_ :: 検索対象項目の配列
+  # ==== Return
+  # ==== Raise
+  def matching(pattern)
+    pattern.blank? ? automatic_matching : manual_matching(pattern)
+  end
+  
+  private
+  # 規定の順序および条件でマッチングを行う
+  # ==== Args
+  # ==== Return
+  # ==== Raise
+  def automatic_matching
+    # 検索パターン[氏名カナ（姓）,氏名カナ（名）]
+    result = manual_matching([:alternate_family_name, :alternate_given_name])
+    # マッチング対象無し又は複数存在する場合、次の検索パターンを試行する
+    return result unless result.blank? || result.size > 1
+    
+    # 検索パターン[生年月日,性別,町名]
+    result = manual_matching([:date_of_birth, :sex, :home_street])
+    # マッチング対象無し又は複数存在する場合、次の検索パターンを試行する
+    return result unless result.blank? || result.size > 1
+    
+    # 検索パターン[氏名カナ（姓）,氏名カナ（名）,生年月日]
+    result = manual_matching([:alternate_family_name, :alternate_given_name, :date_of_birth])
+    # マッチング対象無し又は複数存在する場合、次の検索パターンを試行する
+    return result unless result.blank? || result.size > 1
+    
+    # 検索パターン[氏名カナ（姓）,氏名カナ（名）,町名]
+    result = manual_matching([:alternate_family_name, :alternate_given_name, :home_street])
+    
+    return result
+  end
+  
+  # patternで指定した条件でマッチングを行う
+  # ==== Args
+  # _pattern_ :: 検索対象項目の配列
+  # ==== Return
+  # ==== Raise
+  def manual_matching(pattern)
+    Juki.find_for_match(self, pattern)
+  end
 end
