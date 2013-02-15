@@ -91,23 +91,21 @@ class LocalPeopleController < ApplicationController
   # ActiveResource::ServerError :: LGDPFで保存に失敗した場合メッセージを出力する
   # Errno::ECONNREFUSED :: LGDPFに接続できなかった場合メッセージを出力する
   def import
-    ActiveRecord::Base.transaction do
-      # LGDPF避難者情報取得
-      @people = Person.find_for_import
-      @people.each do |person|
-        # LocalPersonへ登録
-        local_person = LocalPerson.new
-        local_person = local_person.exec_insert(person)
-        # LGDPF安否情報取得
-        note = Note.find_for_import(person).first
-        local_person.status = note.try(:status)
-        local_person.last_known_location = note.try(:last_known_location)
-        local_person.save!
-        # 連携フラグ更新
-        person.update_attributes(:link_flag => true)
-        note.update_attributes(:link_flag => true) unless note.blank?
-      end if @people.present?
-    end
+    # LGDPF避難者情報取得
+    @people = Person.find_for_import
+    @people.each do |person|
+      # LocalPersonへ登録
+      local_person = LocalPerson.new
+      local_person = local_person.exec_insert(person)
+      # LGDPF安否情報取得
+      note = Note.find_for_import(person).first
+      local_person.status = note.try(:status)
+      local_person.last_known_location = note.try(:last_known_location)
+      local_person.save!
+      # 連携フラグ更新
+      person.update_attributes(:link_flag => true)
+      note.update_attributes(:link_flag => true) unless note.blank?
+    end if @people.present?
     
   rescue ActiveResource::ServerError => e
     flash.now[:alert] = "#{e}"
