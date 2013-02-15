@@ -26,7 +26,6 @@ class LocalPerson < ActiveRecord::Base
               :length => {:maximum => 500}
   validates :alternate_names,
               :length => {:maximum => 500}
-  # validates :description
   validates :sex,
               :length => {:maximum => 1}
   validates :date_of_birth, :date => true
@@ -56,8 +55,6 @@ class LocalPerson < ActiveRecord::Base
               :length => {:maximum => 20}
   validates :refuge_status,
               :length => {:maximum => 1}
-  validates :refuge_reason,
-              :length => {:maximum => 4000}
   validates :shelter_entry_date, :date => true
   validates :shelter_leave_date, :date => true
   validates :next_place,
@@ -66,12 +63,8 @@ class LocalPerson < ActiveRecord::Base
               :length => {:maximum => 20}
   validates :injury_flag,
               :length => {:maximum => 1}
-  validates :injury_condition,
-              :length => {:maximum => 4000}
   validates :allergy_flag,
               :length => {:maximum => 1}
-  validates :allergy_cause,
-              :length => {:maximum => 4000}
   validates :pregnancy,
               :length => {:maximum => 1}
   validates :baby,
@@ -100,6 +93,8 @@ class LocalPerson < ActiveRecord::Base
              :numericality => { :only_integer => true }
   validates :last_known_location,
               :length => {:maximum => 500}
+  validates :family_well,
+              :length => {:maximum => 1}
   validates :approved_by,
               :length => {:maximum => 100}
   validates :approved_at, :time => true

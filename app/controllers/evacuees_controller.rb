@@ -144,6 +144,7 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def edit
     @evacuee = Evacuee.find(params[:id])
+    @jukis = Juki.find_for_family(@evacuee)
   end
 
   # 避難者更新画面
@@ -234,8 +235,9 @@ class EvacueesController < ApplicationController
     @evacuee = Evacuee.find(params[:id])
     case params[:commit_kind]
     when "save"
+      juki = Juki.find(params[:juki_id])
       # 住基ステータスを照合済に更新する
-      @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_COMPLETE)
+      @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_COMPLETE, :juki_number => juki.id_number)
       redirect_to :action => :edit, :id => @evacuee.id
     when "na"
       # 住基ステータスを照合済対象者なしに更新する

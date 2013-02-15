@@ -33,15 +33,15 @@ class LocalPeople < ActiveRecord::Migration
       t.column "in_city_flag", :string, :limit => 1
       t.column "shelter_name", :string, :limit => 20
       t.column "refuge_status", :string, :limit => 1
-      t.column "refuge_reason", :string, :limit => 4000
+      t.column "refuge_reason", :text
       t.column "shelter_entry_date", :date
       t.column "shelter_leave_date", :date
       t.column "next_place", :string, :limit => 100
       t.column "next_place_phone", :string, :limit => 20
       t.column "injury_flag", :string, :limit => 1
-      t.column "injury_condition", :string, :limit => 4000
+      t.column "injury_condition", :text
       t.column "allergy_flag", :string, :limit => 1
-      t.column "allergy_cause", :string, :limit => 4000
+      t.column "allergy_cause", :text
       t.column "pregnancy", :string, :limit => 1
       t.column "baby", :string, :limit => 1
       t.column "upper_care_level_three", :string, :limit => 2
@@ -58,6 +58,7 @@ class LocalPeople < ActiveRecord::Migration
       
       t.column "status", :integer
       t.column "last_known_location", :string, :limit => 500
+      t.column "family_well", :string, :limit => 1
       t.column "approved_by", :string, :limit => 100
       t.column "approved_at", :datetime
       t.column "created_by", :string, :limit => 100
@@ -119,6 +120,7 @@ class LocalPeople < ActiveRecord::Migration
     set_column_comment(:local_people, :email_flag, "新着メッセージ受取フラグ")
     set_column_comment(:local_people, :status, "状況")
     set_column_comment(:local_people, :last_known_location, "最後に見かけた場所")
+    set_column_comment(:local_people, :family_well, "家族も無事")
     set_column_comment(:local_people, :approved_by, "承認者")
     set_column_comment(:local_people, :approved_at, "承認日時")
     set_column_comment(:local_people, :created_by, "登録者")

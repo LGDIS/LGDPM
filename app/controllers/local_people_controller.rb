@@ -124,7 +124,7 @@ class LocalPeopleController < ApplicationController
   # ==== Raise
   def do_search
     @search = LocalPerson.search(params[:search])
-    @local_people = @search.paginate(:page => params[:page], :per_page => 30).order("alternate_names ASC")
+    @local_people = @search.paginate(:page => params[:page], :per_page => 30).order("created_at DESC")
     render :action => :index
   end
 end

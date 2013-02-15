@@ -2,8 +2,8 @@
 # コンスタントテーブル
 Constant.destroy_all
 # 性別
-Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'sex', text: '女性',  value: '1', _order: '1')
-Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'sex', text: '男性',  value: '2', _order: '2')
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'sex', text: '男性',  value: '1', _order: '1')
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'sex', text: '女性',  value: '2', _order: '2')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'sex', text: 'その他',  value: '3', _order: '3')
 # 市内・市外区分
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'in_city_flag', text: '市内',  value: '1', _order: '1')

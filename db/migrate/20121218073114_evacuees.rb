@@ -5,30 +5,30 @@ class Evacuees < ActiveRecord::Migration
       t.column "local_person_id", :integer
       t.column "lgdpf_person_id", :integer
       t.column "person_record_id", :string, :limit => 500
-      t.column "family_name", :string, :limit => 100
-      t.column "given_name", :string, :limit => 100
-      t.column "alternate_family_name", :string, :limit => 100
-      t.column "alternate_given_name", :string, :limit => 100
+      t.column "family_name", :string, :limit => 500
+      t.column "given_name", :string, :limit => 500
+      t.column "alternate_family_name", :string, :limit => 500
+      t.column "alternate_given_name", :string, :limit => 500
       t.column "date_of_birth", :date
       t.column "sex", :string, :limit => 1
-      t.column "age", :integer
-      t.column "home_postal_code", :string, :limit => 10
+      t.column "age", :string, :limit => 500
+      t.column "home_postal_code", :string, :limit => 500
       t.column "in_city_flag", :string, :limit => 1
-      t.column "home_state", :string, :limit => 100
-      t.column "home_city", :string, :limit => 100
-      t.column "home_street", :string, :limit => 100
-      t.column "house_number", :string, :limit => 100
+      t.column "home_state", :string, :limit => 500
+      t.column "home_city", :string, :limit => 500
+      t.column "home_street", :string, :limit => 500
+      t.column "house_number", :string, :limit => 500
       t.column "shelter_name", :string, :limit => 20
       t.column "refuge_status", :string, :limit => 1
-      t.column "refuge_reason", :string, :limit => 4000
+      t.column "refuge_reason", :text
       t.column "shelter_entry_date", :date
       t.column "shelter_leave_date", :date
       t.column "next_place", :string, :limit => 100
       t.column "next_place_phone", :string, :limit => 20
       t.column "injury_flag", :string, :limit => 1
-      t.column "injury_condition", :string, :limit => 4000
+      t.column "injury_condition", :text
       t.column "allergy_flag", :string, :limit => 1
-      t.column "allergy_cause", :string, :limit => 4000
+      t.column "allergy_cause", :text
       t.column "pregnancy", :string, :limit => 1
       t.column "baby", :string, :limit => 1
       t.column "upper_care_level_three", :string, :limit => 2
@@ -39,7 +39,9 @@ class Evacuees < ActiveRecord::Migration
       t.column "rehabilitation_certificate", :string, :limit => 2
       t.column "physical_disability_certificate", :string, :limit => 1
       t.column "juki_status", :integer
-      t.column "note", :string, :limit => 4000
+      t.column "note", :text
+      t.column "family_well", :string, :limit => 1
+      t.column "juki_number", :string, :limit => 500
       t.column "linked_by", :string, :limit => 100
       t.column "linked_at", :datetime
       t.column "created_by", :string, :limit => 100
@@ -86,6 +88,8 @@ class Evacuees < ActiveRecord::Migration
     set_column_comment(:evacuees, :physical_disability_certificate, "身体障害者手帳所持者")
     set_column_comment(:evacuees, :juki_status, "住基ステータス")
     set_column_comment(:evacuees, :note, "備考")
+    set_column_comment(:evacuees, :family_well, "家族も無事")
+    set_column_comment(:evacuees, :juki_number, "住基番号")
     set_column_comment(:evacuees, :linked_by, "連携者")
     set_column_comment(:evacuees, :linked_at, "連携日時")
     set_column_comment(:evacuees, :created_by, "登録者")

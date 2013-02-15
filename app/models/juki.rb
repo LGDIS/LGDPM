@@ -159,6 +159,22 @@ class Juki < ActiveRecord::Base
     return result
   end
   
+  # 家族検索処理
+  # ==== Args
+  # _evacuee_ :: Evacueeオブジェクト
+  # ==== Return
+  # ==== Raise
+  def self.find_for_family(evacuee)
+    t = Juki.arel_table
+    myself = self.where(t[:id_number].eq(evacuee.juki_number)).first
+    if myself.present?
+      # 筆頭者が同じ人物は家族として判断する
+      return families = self.where(t[:family_head].eq(myself.family_head)).where(t[:id].not_eq(myself.id))
+    else
+      return []
+    end
+  end
+  
   # 住基情報取込処理
   # ==== Args
   # _file_ :: 住基CSVファイル

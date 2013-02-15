@@ -61,11 +61,11 @@
   </div>
   
   <div class="splitcontentright">
-    <p style="text-align: right;">
+    <p class="set_right">
       <%= f.submit '取込', :kind => "import" %>
       <%= f.submit '承認', :kind => "approval", :id => "approval_button" %>
     </p>
-    <p style="text-align: right;">
+    <p class="set_right">
       <%= will_paginate @local_people, :previous_label => "前 &lt;&lt; ",
         :next_label => " &gt;&gt; 次", :page_links => false,
         :link_separator => "#{page_entries_info @local_people}",
@@ -74,7 +74,7 @@
   </div>
 <% end %>
 
-<table class="list issue">
+<table class="list">
   <thead>
     <tr>
       <th class="set_center">氏名</th>

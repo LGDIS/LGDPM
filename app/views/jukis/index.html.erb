@@ -24,22 +24,22 @@
 </div>
 <% end %>
 
-<table class="list issues" style="width: 50%;">
+<table class="list" style="width: 50%;">
   <thead>
     <tr>
-      <th style="text-align: center;">取込年月日</th>
-      <th style="text-align: center;">取込件数</th>
-      <th style="text-align: center;">取込担当者</th>
-      <th style="text-align: center;">ステータス</th>
+      <th class="set_center">取込年月日</th>
+      <th class="set_center">取込件数</th>
+      <th class="set_center">取込担当者</th>
+      <th class="set_center">ステータス</th>
     </tr>
   </thead>
   <tbody>
     <% @juki_histories.each do |juki_history| %>
     <tr class="<%= cycle("even", "odd") -%>">
-      <td style="text-align: center;"><%= juki_history.created_at.strftime("%y/%m/%d %H:%M:%S") if juki_history.created_at.present? %></td>
-      <td style="text-align: right;"> 　<%= juki_history.number %></td>
-      <td style="text-align: center;"><%= juki_history.created_by %></td>
-      <td style="text-align: center;"><%= @juki_history_const["status"]["#{juki_history.status}"] %></td>
+      <td class="set_center"><%= juki_history.created_at.strftime("%y/%m/%d %H:%M:%S") if juki_history.created_at.present? %></td>
+      <td class="set_right"> 　<%= juki_history.number %></td>
+      <td class="set_center"><%= juki_history.created_by %></td>
+      <td class="set_center"><%= @juki_history_const["status"]["#{juki_history.status}"] %></td>
     </tr>
     <% end if @juki_histories.present? %>
   </tbody>

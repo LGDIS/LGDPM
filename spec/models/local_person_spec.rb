@@ -29,13 +29,10 @@ describe LocalPerson do
     it_should_behave_like :max_length, :in_city_flag
     it_should_behave_like :max_length, :shelter_name
     it_should_behave_like :max_length, :refuge_status
-    it_should_behave_like :max_length, :refuge_reason
     it_should_behave_like :max_length, :next_place
     it_should_behave_like :max_length, :next_place_phone
     it_should_behave_like :max_length, :injury_flag
-    it_should_behave_like :max_length, :injury_condition
     it_should_behave_like :max_length, :allergy_flag
-    it_should_behave_like :max_length, :allergy_cause
     it_should_behave_like :max_length, :pregnancy
     it_should_behave_like :max_length, :baby
     it_should_behave_like :max_length, :upper_care_level_three

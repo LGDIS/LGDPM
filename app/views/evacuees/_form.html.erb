@@ -94,10 +94,10 @@
       </div>
       <div class="splitcontentright">
         <p style="float: right;">
-          <%= submit_tag "保存", :kind => "save", :tabindex => 34 %>
-          <%= submit_tag "削除", :kind => "delete", :disabled => @evacuee.new_record?, :tabindex => 35 %>
-          <%= submit_tag "住基マッチング", :kind => "match", :disabled => @evacuee.new_record?, :tabindex => 36 %>
-          <%= submit_tag "戻る", :kind => "back", :tabindex => 38 %>
+          <%= submit_tag "保存", :kind => "save", :tabindex => 33 %>
+          <%= submit_tag "削除", :kind => "delete", :disabled => @evacuee.new_record?, :tabindex => 34 %>
+          <%= submit_tag "住基マッチング", :kind => "match", :disabled => @evacuee.new_record?, :tabindex => 35 %>
+          <%= submit_tag "戻る", :kind => "back", :tabindex => 36 %>
         </p>
       </div>
     </div>
@@ -149,11 +149,8 @@
           { :include_blank => true }, :tabindex => 6) %>
         </p>
         <p>
-          <label>市内・市外区分</label>
-          <%= select(:evacuee, :in_city_flag,
-          options_for_select(@evacuee_const["in_city_flag"].invert,
-          @evacuee.in_city_flag),
-          { :include_blank => true }, :tabindex => 8) %>
+          <label>年齢</label>
+          <%= text_field :evacuee, :age, :size => 15, :tabindex => 8 %>
         </p>
         <p>
           <label>市区町村</label>
@@ -172,10 +169,12 @@
         </p>
       </div>
     </div>
+    
     <p>
       <label>避難理由</label>
-      <%= text_field :evacuee, :refuge_reason, :tabindex => 15, :size => 100 %>
+      <%= text_area :evacuee, :refuge_reason, :tabindex => 15, :size => "80x3" %>
     </p>
+    
     <div class="splitcontent">
       <div class="splitcontentleft">
         <p>
@@ -198,103 +197,131 @@
         </p>
       </div>
     </div>
+    
     <p>
-      <span style="margin-right:180px;">
-        <label>負傷</label>
-        <%= select(:evacuee, :injury_flag,
-        options_for_select(@evacuee_const["injury_flag"].invert, @evacuee.injury_flag),
-        { :include_blank => true }, :tabindex => 20) %>
-      </span>
-      <label class="inline">負傷内容
-        <span style="margin-left: 36px;">
-          <%= text_field :evacuee, :injury_condition, :tabindex => 21, :size => 65 %>
-        </span>
-      </label>
+      <label>負傷内容</label>
+      <%= text_area :evacuee, :injury_condition, :tabindex => 20, :size => "80x3" %>
     </p>
     <p>
-      <span style="margin-right:180px;">
-        <label>アレルギー</label>
-        <%= select(:evacuee, :allergy_flag,
-        options_for_select(@evacuee_const["allergy_flag"].invert,
-        @evacuee.allergy_flag),
-        { :include_blank => true }, :tabindex => 22) %>
-      </span>
-      <label class="inline">アレルギー物質
-        <%= text_field :evacuee, :allergy_cause, :tabindex => 23, :size => 65 %>
-      </label>
+      <label>アレルギー物質</label>
+      <%= text_area :evacuee, :allergy_cause, :tabindex => 21, :size => "80x3" %>
     </p>
+    
     <div class="splitcontent">
       <div class="splitcontentleft">
         <p>
           <label>妊婦</label>
           <%= select(:evacuee, :pregnancy,
           options_for_select(@evacuee_const["pregnancy"].invert, @evacuee.pregnancy),
-          { :include_blank => true }, :tabindex => 24) %>
+          { :include_blank => true }, :tabindex => 22) %>
         </p>
         <p>
           <label>要介護度3以上</label>
           <%= select(:evacuee, :upper_care_level_three,
           options_for_select(@evacuee_const["upper_care_level_three"].invert,
           @evacuee.upper_care_level_three),
-          { :include_blank => true }, :tabindex => 26) %>
+          { :include_blank => true }, :tabindex => 24) %>
         </p>
         <p>
           <label>高齢者世帯（夫婦共に65歳以上）</label>
           <%= select(:evacuee, :elderly_couple,
           options_for_select(@evacuee_const["elderly_couple"].invert,
           @evacuee.elderly_couple),
-          { :include_blank => true }, :tabindex => 28) %>
+          { :include_blank => true }, :tabindex => 26) %>
         </p>
         <p>
           <label>認知症高齢者</label>
           <%= select(:evacuee, :elderly_dementia,
           options_for_select(@evacuee_const["elderly_dementia"].invert,
           @evacuee.elderly_dementia),
-          { :include_blank => true }, :tabindex => 30) %>
+          { :include_blank => true }, :tabindex => 28) %>
         </p>
         <p>
           <label>身体障害者手帳所持者</label>
           <%= select(:evacuee, :physical_disability_certificate,
           options_for_select(@evacuee_const["physical_disability_certificate"].invert,
           @evacuee.physical_disability_certificate),
-          { :include_blank => true }, :tabindex => 32) %>
+          { :include_blank => true }, :tabindex => 30) %>
         </p>
       </div>
+      
       <div class="splitcontentright">
         <p>
           <label>乳幼児</label>
           <%= select(:evacuee, :baby,
           options_for_select(@evacuee_const["baby"].invert, @evacuee.baby),
-          { :include_blank => true }, :tabindex => 25) %>
+          { :include_blank => true }, :tabindex => 23) %>
         </p>
         <p>
           <label>一人暮らし高齢者（65歳以上）</label>
           <%= select(:evacuee, :elderly_alone,
           options_for_select(@evacuee_const["elderly_alone"].invert,
           @evacuee.elderly_alone),
-          { :include_blank => true }, :tabindex => 27) %>
+          { :include_blank => true }, :tabindex => 25) %>
         </p>
         <p>
           <label>寝たきり高齢者</label>
           <%= select(:evacuee, :bedridden_elderly,
           options_for_select(@evacuee_const["bedridden_elderly"].invert,
           @evacuee.bedridden_elderly),
-          { :include_blank => true }, :tabindex => 29) %>
+          { :include_blank => true }, :tabindex => 27) %>
         </p>
         <p>
           <label>療育手帳所持者</label>
           <%= select(:evacuee, :rehabilitation_certificate,
           options_for_select(@evacuee_const["rehabilitation_certificate"].invert,
           @evacuee.rehabilitation_certificate),
-          { :include_blank => true }, :tabindex => 31) %>
+          { :include_blank => true }, :tabindex => 29) %>
+        </p>
+        <p>
+          <label>家族も無事</label>
+          <%= check_box :evacuee, :family_well, :tabindex => 31 %>
         </p>
       </div>
     </div>
     
     <p>
       <label>備考</label>
-      <%= text_field :evacuee, :note, :tabindex => 33, :size => 100 %>
+      <%= text_area :evacuee, :note, :tabindex => 32, :size => "80x3" %>
     </p>
 
   </div>
 </div>
+
+<strong>家族一覧</strong>
+<table class="list">
+  <thead>
+    <tr>
+      <th class="set_center">氏名</th>
+      <th class="set_center">氏名カナ</th>
+      <th class="set_center">性別</th>
+      <th class="set_center">生年月日</th>
+      <th class="set_center">住所</th>
+      <th class="set_center">筆頭者</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @jukis.each do |juki| %>
+      <tr class="<%= cycle("even", "odd") -%>">
+        <td class="set_center">
+          <%= "#{juki.family_name} #{juki.given_name}" %>
+        </td>
+        <td class="set_center">
+          <%= "#{juki.alternate_family_name} #{juki.alternate_given_name}" %>
+        </td>
+        <td class="set_center">
+          <%= juki.sex %>
+        </td>
+        <td class="set_center">
+          <%= juki.date_of_birth.strftime("%y/%m/%d") if juki.date_of_birth.present? %>
+        </td>
+        <td class="set_center">
+          <%= juki.address %>
+        </td>
+        <td class="set_center">
+          <%= juki.family_head %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

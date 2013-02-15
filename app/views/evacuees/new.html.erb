@@ -1,3 +1,5 @@
 <%= form_tag({:action => :create}, {:method => :post}) do %>
+  <%= hidden_field :evacuee, :created_by, :value => current_user.login %>
+  <%= hidden_field :evacuee, :updated_by, :value => current_user.login %>
   <%= render 'form' %>
 <% end %>

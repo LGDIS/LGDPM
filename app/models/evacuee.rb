@@ -4,7 +4,7 @@ class Evacuee < ActiveRecord::Base
   acts_as_paranoid
   
   attr_accessible :family_name, :given_name, :alternate_family_name,
-    :alternate_given_name, :date_of_birth, :sex, :home_postal_code,
+    :alternate_given_name, :date_of_birth, :sex, :age, :home_postal_code,
     :in_city_flag, :home_state, :home_city, :home_street, :house_number,
     :shelter_name, :refuge_status, :refuge_reason, :shelter_entry_date,
     :shelter_leave_date, :next_place, :next_place_phone, :injury_flag,
@@ -12,7 +12,7 @@ class Evacuee < ActiveRecord::Base
     :baby, :upper_care_level_three, :elderly_alone, :elderly_couple,
     :bedridden_elderly, :elderly_dementia, :rehabilitation_certificate,
     :physical_disability_certificate, :juki_status, :note, :created_by,
-    :updated_by
+    :updated_by, :family_well
     
   validates :local_person_id, :allow_blank => true,
              :numericality => { :only_integer => true }
@@ -21,36 +21,34 @@ class Evacuee < ActiveRecord::Base
   validates :person_record_id,
               :length => {:maximum => 500}
   validates :family_name, :presence => true,
-              :length => {:maximum => 100}
+              :length => {:maximum => 500}
   validates :given_name, :presence => true,
-              :length => {:maximum => 100}
+              :length => {:maximum => 500}
   validates :alternate_family_name,
-              :length => {:maximum => 100}
+              :length => {:maximum => 500}
   validates :alternate_given_name,
-              :length => {:maximum => 100}
+              :length => {:maximum => 500}
   validates :date_of_birth, :date => true
   validates :sex,
              :length => {:maximum => 1}
   validates :age, :allow_blank => true,
-             :numericality => { :only_integer => true }
+             :format => { :with => /^\d+(-\d+)?$/ }
   validates :home_postal_code,
-             :length => {:maximum => 10}
+             :length => {:maximum => 500}
   validates :in_city_flag,
              :length => {:maximum => 1}
   validates :home_state,
-              :length => {:maximum => 100}
+              :length => {:maximum => 500}
   validates :home_city,
-             :length => {:maximum => 100}
+             :length => {:maximum => 500}
   validates :home_street,
-              :length => {:maximum => 100}
+              :length => {:maximum => 500}
   validates :house_number,
-              :length => {:maximum => 100}
+              :length => {:maximum => 500}
   validates :shelter_name,
               :length => {:maximum => 20}
   validates :refuge_status,
               :length => {:maximum => 1}
-  validates :refuge_reason,
-             :length => {:maximum => 4000}
   validates :shelter_entry_date, :date => true
   validates :shelter_leave_date, :date => true
   validates :next_place,
@@ -59,12 +57,8 @@ class Evacuee < ActiveRecord::Base
               :length => {:maximum => 20}
   validates :injury_flag,
               :length => {:maximum => 1}
-  validates :injury_condition,
-              :length => {:maximum => 4000}
   validates :allergy_flag,
               :length => {:maximum => 1}
-  validates :allergy_cause,
-              :length => {:maximum => 4000}
   validates :pregnancy,
              :length => {:maximum => 1}
   validates :baby,
@@ -85,8 +79,10 @@ class Evacuee < ActiveRecord::Base
               :length => {:maximum => 1}
   validates :juki_status, :allow_blank => true,
              :numericality => { :only_integer => true }
-  validates :note,
-              :length => {:maximum => 4000}
+  validates :family_well,
+              :length => {:maximum => 1}
+  validates :juki_number,
+              :length => {:maximum => 500}
   validates :linked_by,
               :length => {:maximum => 100}
   validates :linked_at, :time => true
@@ -96,17 +92,46 @@ class Evacuee < ActiveRecord::Base
               :length => {:maximum => 100}
   
   before_create :set_attr_for_create
+  before_save :set_attr_for_save
     
   # 住基ステータス
-  JUKI_STATUS_INCOMPLETE = 1
-  JUKI_STATUS_COMPLETE   = 2
-  JUKI_STATUS_CHK_NA     = 3
+  JUKI_STATUS_INCOMPLETE = 1 # 未照合
+  JUKI_STATUS_COMPLETE   = 2 # 照合済
+  JUKI_STATUS_CHK_NA     = 3 # 照合済対象者なし
+  # 市内・市外区分
+  IN_CITY_FLAG_INSIDE  = "1" # 市内
+  IN_CITY_FLAG_OUTSIDE = "0" # 市外
+  # 負傷
+  INJURY_FLAG_ON  = "1" # 有
+  INJURY_FLAG_OFF = "0" # 無
+  # アレルギー
+  ALLERGY_FLAG_ON  = "1" # アレルギー有
+  ALLERGY_FLAG_OFF = "0" # アレルギー無
   
+  # 宮城県コード
+  STATE_MIYAGI = "04"
+  # 石巻市正規表現
+  CITY_ISHINOMAKI = /^(石巻)市?$/
+  
+  # Evacuee登録時に項目を設定する
   def set_attr_for_create
-    # TODO 登録者名・更新者名登録方法検討
     self.juki_status = JUKI_STATUS_INCOMPLETE
-    # self.created_by  = current_user
-    # self.updated_by  = current_user
+  end
+  
+  # Evacuee登録・更新時に項目を設定する
+  def set_attr_for_save
+    # 負傷
+    self.injury_flag = (self.injury_condition.present? ? INJURY_FLAG_ON : INJURY_FLAG_OFF)
+    # アレルギー
+    self.allergy_flag = (self.allergy_cause.present? ? ALLERGY_FLAG_ON : ALLERGY_FLAG_OFF)
+    # 市内・市外区分
+    if self.home_state.present? && self.home_city.present?
+      if self.home_state == STATE_MIYAGI && self.home_city =~ CITY_ISHINOMAKI
+        self.in_city_flag = IN_CITY_FLAG_INSIDE
+      else
+        self.in_city_flag = IN_CITY_FLAG_OUTSIDE
+      end
+    end
   end
   
   # 避難者集計情報取得処理
@@ -161,7 +186,6 @@ class Evacuee < ActiveRecord::Base
     # 性別
     self.sex = local_person.sex
     # 年齢
-    # TODO 変換
     self.age = local_person.age
     # 郵便番号
     self.home_postal_code = local_person.home_postal_code
