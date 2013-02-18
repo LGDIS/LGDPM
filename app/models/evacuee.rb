@@ -91,6 +91,7 @@ class Evacuee < ActiveRecord::Base
   validates :updated_by,
               :length => {:maximum => 100}
   
+  before_validation :convert_to_kana
   before_create :set_attr_for_create
   before_save :set_attr_for_save
     
@@ -112,6 +113,24 @@ class Evacuee < ActiveRecord::Base
   STATE_MIYAGI = "04"
   # 石巻市正規表現
   CITY_ISHINOMAKI = /^(石巻)市?$/
+  
+  # 変換用ひらがな文字列
+  HIRAGANA = "ぁ-ん"
+  # 変換用カタカナ文字列
+  KATAKANA = "ァ-ン"
+  
+  # ひらがな、半角カタカナを全角カタカナに変換する
+  def convert_to_kana
+    require 'nkf'
+    # 氏名カナ（姓）を変換する
+    if self.alternate_family_name.present?
+      self.alternate_family_name = NKF::nkf( '-WwXm0', self.alternate_family_name.tr(HIRAGANA, KATAKANA) )
+    end
+    # 氏名カナ（名）を変換する
+    if self.alternate_given_name.present?
+      self.alternate_given_name = NKF::nkf( '-WwXm0', self.alternate_given_name.tr(HIRAGANA, KATAKANA) )
+    end
+  end
   
   # Evacuee登録時に項目を設定する
   def set_attr_for_create
