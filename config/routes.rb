@@ -28,5 +28,7 @@ Lgdpm::Application.routes.draw do
   match "autocomplete/city"   => "application#autocomplete_city",   :via => :get
   match "autocomplete/street" => "application#autocomplete_street", :via => :get
   
-  mount Resque::Server, at: "/resque"
+  match "shelters"            => "application#shelters", :via => :get
+  
+  # mount Resque::Server, at: "/resque"
 end

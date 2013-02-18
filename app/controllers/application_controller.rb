@@ -78,6 +78,18 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # 避難所情報取得処理
+  # 避難所情報をjson形式で返却する
+  # ==== Args
+  # ==== Return
+  # 避難所jsonオブジェクト
+  # ==== Raise
+  def shelters
+    respond_to do |format|
+      format.json { render :json => @shelter.to_json }
+    end
+  end
+  
   # DeviseLDAP認証で例外が発生した場合の処理
   rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
     render :text => exception, :status => 500
