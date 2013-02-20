@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 class ApplicationController < ActionController::Base
-  before_filter :authenticate_user!
+  # 避難所情報取得は認証なし
+  before_filter :authenticate_user!, :except => [ :shelters ]
   before_filter :init
   
   protect_from_forgery
