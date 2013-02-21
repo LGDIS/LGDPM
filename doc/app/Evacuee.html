@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Evacuee - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/evacuee.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-find_for_count">::find_for_count</a>
+    
+    <li><a href="#method-i-convert_to_kana">#convert_to_kana</a>
+    
+    <li><a href="#method-i-exec_insert">#exec_insert</a>
+    
+    <li><a href="#method-i-matching">#matching</a>
+    
+    <li><a href="#method-i-set_attr_for_create">#set_attr_for_create</a>
+    
+    <li><a href="#method-i-set_attr_for_save">#set_attr_for_save</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Batches.html">Batches</a>
+  
+    <li><a href="./Batches/EvacueesDestroy.html">Batches::EvacueesDestroy</a>
+  
+    <li><a href="./Batches/MemcacheStore.html">Batches::MemcacheStore</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationController/ParameterException.html">ApplicationController::ParameterException</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Constant.html">Constant</a>
+  
+    <li><a href="./DateValidator.html">DateValidator</a>
+  
+    <li><a href="./Evacuee.html">Evacuee</a>
+  
+    <li><a href="./EvacueesController.html">EvacueesController</a>
+  
+    <li><a href="./EvacueesHelper.html">EvacueesHelper</a>
+  
+    <li><a href="./Juki.html">Juki</a>
+  
+    <li><a href="./JukiHistory.html">JukiHistory</a>
+  
+    <li><a href="./JukiImportJob.html">JukiImportJob</a>
+  
+    <li><a href="./JukisController.html">JukisController</a>
+  
+    <li><a href="./JukisHelper.html">JukisHelper</a>
+  
+    <li><a href="./LinkagesController.html">LinkagesController</a>
+  
+    <li><a href="./LinkagesHelper.html">LinkagesHelper</a>
+  
+    <li><a href="./LocalPeopleController.html">LocalPeopleController</a>
+  
+    <li><a href="./LocalPeopleHelper.html">LocalPeopleHelper</a>
+  
+    <li><a href="./LocalPerson.html">LocalPerson</a>
+  
+    <li><a href="./MenuTabBuilder.html">MenuTabBuilder</a>
+  
+    <li><a href="./OmniauthCallbacksController.html">OmniauthCallbacksController</a>
+  
+    <li><a href="./Person.html">Person</a>
+  
+    <li><a href="./TimeValidator.html">TimeValidator</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Evacuee</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="ALLERGY_FLAG_OFF">ALLERGY_FLAG_OFF
+        
+        <dd class="description">
+        
+      
+        <dt id="ALLERGY_FLAG_ON">ALLERGY_FLAG_ON
+        
+        <dd class="description"><p>アレルギー</p>
+        
+      
+        <dt id="CITY_ISHINOMAKI">CITY_ISHINOMAKI
+        
+        <dd class="description"><p>石巻市正規表現</p>
+        
+      
+        <dt id="HIRAGANA">HIRAGANA
+        
+        <dd class="description"><p>変換用ひらがな文字列</p>
+        
+      
+        <dt id="INJURY_FLAG_OFF">INJURY_FLAG_OFF
+        
+        <dd class="description">
+        
+      
+        <dt id="INJURY_FLAG_ON">INJURY_FLAG_ON
+        
+        <dd class="description"><p>負傷</p>
+        
+      
+        <dt id="IN_CITY_FLAG_INSIDE">IN_CITY_FLAG_INSIDE
+        
+        <dd class="description"><p>市内・市外区分</p>
+        
+      
+        <dt id="IN_CITY_FLAG_OUTSIDE">IN_CITY_FLAG_OUTSIDE
+        
+        <dd class="description">
+        
+      
+        <dt id="JUKI_STATUS_CHK_NA">JUKI_STATUS_CHK_NA
+        
+        <dd class="description">
+        
+      
+        <dt id="JUKI_STATUS_COMPLETE">JUKI_STATUS_COMPLETE
+        
+        <dd class="description">
+        
+      
+        <dt id="JUKI_STATUS_INCOMPLETE">JUKI_STATUS_INCOMPLETE
+        
+        <dd class="description"><p>住基ステータス</p>
+        
+      
+        <dt id="KATAKANA">KATAKANA
+        
+        <dd class="description"><p>変換用カタカナ文字列</p>
+        
+      
+        <dt id="STATE_MIYAGI">STATE_MIYAGI
+        
+        <dd class="description"><p>宮城県コード</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-find_for_count" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_for_count</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>避難者集計情報取得処理</p>
+
+<h4 id="method-c-find_for_count-label-Args">Args</h4>
+
+<h4 id="method-c-find_for_count-label-Return">Return</h4>
+
+<p>Evacueeオブジェクト配列</p>
+
+<h4 id="method-c-find_for_count-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="find_for_count-source">
+            <pre><span class="ruby-comment"># File app/models/evacuee.rb, line 160</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_count</span>
+  <span class="ruby-identifier">select</span>(<span class="ruby-string">&quot;shelter_name,
+          COUNT(*) as head_count,
+          COUNT(CASE WHEN injury_flag  IN ('1') THEN 1 ELSE NULL END) AS injury_flag_count,
+          COUNT(CASE WHEN allergy_flag IN ('1') THEN 1 ELSE NULL END) AS allergy_flag_count,
+          COUNT(CASE WHEN pregnancy IN ('1') THEN 1 ELSE NULL END) AS pregnancy_count,
+          COUNT(CASE WHEN baby IN ('1','2') THEN 1 ELSE NULL END) AS baby_count,
+          COUNT(CASE WHEN upper_care_level_three IN ('01','02','03','04','05','06','91','92','93') THEN 1 ELSE NULL END) AS upper_care_level_three_count,
+          COUNT(CASE WHEN elderly_alone IN ('1') THEN 1 ELSE NULL END) AS elderly_alone_count,
+          COUNT(CASE WHEN elderly_couple IN ('1') THEN 1 ELSE NULL END) AS elderly_couple_count,
+          COUNT(CASE WHEN bedridden_elderly IN ('1') THEN 1 ELSE NULL END) AS bedridden_elderly_count,
+          COUNT(CASE WHEN elderly_dementia IN ('1') THEN 1 ELSE NULL END) AS elderly_dementia_count,
+          COUNT(CASE WHEN rehabilitation_certificate IN ('01','02','03','04','05','06','07') THEN 1 ELSE NULL END) AS rehabilitation_certificate_count,
+          COUNT(CASE WHEN physical_disability_certificate IN ('1','2') THEN 1 ELSE NULL END) AS physical_disability_certificate_count
+  &quot;</span>).<span class="ruby-identifier">group</span>(<span class="ruby-string">&quot;shelter_name&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_for_count-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_for_count-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-convert_to_kana" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">convert_to_kana</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>ひらがな、半角カタカナを全角カタカナに変換する</p>
+          
+
+          
+          <div class="method-source-code" id="convert_to_kana-source">
+            <pre><span class="ruby-comment"># File app/models/evacuee.rb, line 122</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">convert_to_kana</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'nkf'</span>
+  <span class="ruby-comment"># 氏名カナ（姓）を変換する</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_family_name</span>.<span class="ruby-identifier">present?</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_family_name</span> = <span class="ruby-constant">NKF</span><span class="ruby-operator">::</span><span class="ruby-identifier">nkf</span>( <span class="ruby-string">'-WwXm0'</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_family_name</span>.<span class="ruby-identifier">tr</span>(<span class="ruby-constant">HIRAGANA</span>, <span class="ruby-constant">KATAKANA</span>) )
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 氏名カナ（名）を変換する</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_given_name</span>.<span class="ruby-identifier">present?</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_given_name</span> = <span class="ruby-constant">NKF</span><span class="ruby-operator">::</span><span class="ruby-identifier">nkf</span>( <span class="ruby-string">'-WwXm0'</span>, <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_given_name</span>.<span class="ruby-identifier">tr</span>(<span class="ruby-constant">HIRAGANA</span>, <span class="ruby-constant">KATAKANA</span>) )
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- convert_to_kana-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- convert_to_kana-method -->
+
+    
+      <div id="method-i-exec_insert" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">exec_insert</span><span
+            class="method-args">(local_person)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>避難者編集処理 引数のLocalPersonオブジェクトを基に各項目を編集する</p>
+
+<h4 id="method-i-exec_insert-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>local_person</em> 
+<dd>
+<p>LocalPersonオブジェクト</p>
+</dd></dl>
+
+<h4 id="method-i-exec_insert-label-Return">Return</h4>
+
+<p>Evacueeオブジェクト</p>
+
+<h4 id="method-i-exec_insert-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="exec_insert-source">
+            <pre><span class="ruby-comment"># File app/models/evacuee.rb, line 184</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">exec_insert</span>(<span class="ruby-identifier">local_person</span>)
+  <span class="ruby-comment"># LocalPersonのid</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">local_person_id</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-comment"># LGDPFのperson_id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">lgdpf_person_id</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">lgdpf_person_id</span>
+  <span class="ruby-comment"># GooglePersonFinderのperson_id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">person_record_id</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">person_record_id</span>
+  <span class="ruby-comment"># 氏名（姓）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">family_name</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">family_name</span>
+  <span class="ruby-comment"># 氏名（名）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">given_name</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">given_name</span>
+  <span class="ruby-comment"># 氏名カナ</span>
+  <span class="ruby-keyword">if</span>  <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">alternate_names</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%r^(\S*)(?:\s*)(.*)$/</span>
+    <span class="ruby-comment"># 氏名カナ（姓）</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_family_name</span> = <span class="ruby-node">$1</span>
+    <span class="ruby-comment"># 氏名カナ（名）</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_given_name</span>  = <span class="ruby-node">$2</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 生年月日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_of_birth</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">date_of_birth</span>
+  <span class="ruby-comment"># 性別</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sex</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">sex</span>
+  <span class="ruby-comment"># 年齢</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">age</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">age</span>
+  <span class="ruby-comment"># 郵便番号</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_postal_code</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">home_postal_code</span>
+  <span class="ruby-comment"># 市内・市外区分</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">in_city_flag</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">in_city_flag</span>
+  <span class="ruby-comment"># 都道府県</span>
+  <span class="ruby-comment"># TODO 変換</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_state</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">home_state</span>
+  <span class="ruby-comment"># 市区町村</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_city</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">home_city</span>
+  <span class="ruby-comment"># 町名</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_street</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">home_street</span>
+  <span class="ruby-comment"># 避難所</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shelter_name</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">shelter_name</span>
+  <span class="ruby-comment"># 避難状況</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">refuge_status</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">refuge_status</span>
+  <span class="ruby-comment"># 避難理由</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">refuge_reason</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">refuge_reason</span>
+  <span class="ruby-comment"># 入所年月日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shelter_entry_date</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">shelter_entry_date</span>
+  <span class="ruby-comment"># 退所年月日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shelter_leave_date</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">shelter_leave_date</span>
+  <span class="ruby-comment"># 退所先</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">next_place</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">next_place</span>
+  <span class="ruby-comment"># 退所先電話番号</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">next_place_phone</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">next_place_phone</span>
+  <span class="ruby-comment"># 負傷</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">injury_flag</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">injury_flag</span>
+  <span class="ruby-comment"># 負傷内容</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">injury_condition</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">injury_condition</span>
+  <span class="ruby-comment"># アレルギー</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">allergy_flag</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">allergy_flag</span>
+  <span class="ruby-comment"># アレルギー物質</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">allergy_cause</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">allergy_cause</span>
+  <span class="ruby-comment"># 妊婦</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">pregnancy</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">pregnancy</span>
+  <span class="ruby-comment"># 乳幼児</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">baby</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">baby</span>
+  <span class="ruby-comment"># 要介護度3以上</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">upper_care_level_three</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">upper_care_level_three</span>
+  <span class="ruby-comment"># 一人暮らし高齢者（65歳以上）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">elderly_alone</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">elderly_alone</span>
+  <span class="ruby-comment"># 高齢者世帯（夫婦共に65歳以上）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">elderly_couple</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">elderly_couple</span>
+  <span class="ruby-comment"># 寝たきり高齢者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">bedridden_elderly</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">bedridden_elderly</span>
+  <span class="ruby-comment"># 認知症高齢者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">elderly_dementia</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">elderly_dementia</span>
+  <span class="ruby-comment"># 療育手帳所持者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">rehabilitation_certificate</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">rehabilitation_certificate</span>
+  <span class="ruby-comment"># 身体障害者手帳所持者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">physical_disability_certificate</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">physical_disability_certificate</span>
+  <span class="ruby-comment"># 備考</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">note</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">description</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- exec_insert-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- exec_insert-method -->
+
+    
+      <div id="method-i-matching" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">matching</span><span
+            class="method-args">(pattern)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>住基情報とのマッチングを行う</p>
+<ul><li>
+<p>patternがブランクの場合、規定の条件でマッチングを行い結果を返す</p>
+</li><li>
+<p>patternがブランクでない場合、ユーザが指定した条件でマッチングを行い結果を返す</p>
+</li></ul>
+
+<h4 id="method-i-matching-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>pattern</em> 
+<dd>
+<p>検索対象項目の配列</p>
+</dd></dl>
+
+<h4 id="method-i-matching-label-Return">Return</h4>
+
+<h4 id="method-i-matching-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="matching-source">
+            <pre><span class="ruby-comment"># File app/models/evacuee.rb, line 272</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">matching</span>(<span class="ruby-identifier">pattern</span>)
+  <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">automatic_matching</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">manual_matching</span>(<span class="ruby-identifier">pattern</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- matching-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- matching-method -->
+
+    
+      <div id="method-i-set_attr_for_create" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_attr_for_create</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Evacuee登録時に項目を設定する</p>
+          
+
+          
+          <div class="method-source-code" id="set_attr_for_create-source">
+            <pre><span class="ruby-comment"># File app/models/evacuee.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_attr_for_create</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">juki_status</span> = <span class="ruby-constant">JUKI_STATUS_INCOMPLETE</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_attr_for_create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_attr_for_create-method -->
+
+    
+      <div id="method-i-set_attr_for_save" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_attr_for_save</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Evacuee登録・更新時に項目を設定する</p>
+          
+
+          
+          <div class="method-source-code" id="set_attr_for_save-source">
+            <pre><span class="ruby-comment"># File app/models/evacuee.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_attr_for_save</span>
+  <span class="ruby-comment"># 負傷</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">injury_flag</span> = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">injury_condition</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">?</span> <span class="ruby-constant">INJURY_FLAG_ON</span> <span class="ruby-operator">:</span> <span class="ruby-constant">INJURY_FLAG_OFF</span>)
+  <span class="ruby-comment"># アレルギー</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">allergy_flag</span> = (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">allergy_cause</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">?</span> <span class="ruby-constant">ALLERGY_FLAG_ON</span> <span class="ruby-operator">:</span> <span class="ruby-constant">ALLERGY_FLAG_OFF</span>)
+  <span class="ruby-comment"># 市内・市外区分</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_state</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_city</span>.<span class="ruby-identifier">present?</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_state</span> <span class="ruby-operator">==</span> <span class="ruby-constant">STATE_MIYAGI</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_city</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">CITY_ISHINOMAKI</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">in_city_flag</span> = <span class="ruby-constant">IN_CITY_FLAG_INSIDE</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">in_city_flag</span> = <span class="ruby-constant">IN_CITY_FLAG_OUTSIDE</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_attr_for_save-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_attr_for_save-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

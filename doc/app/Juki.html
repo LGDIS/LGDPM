@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Juki - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/juki.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-find_for_family">::find_for_family</a>
+    
+    <li><a href="#method-c-find_for_match">::find_for_match</a>
+    
+    <li><a href="#method-c-import">::import</a>
+    
+    <li><a href="#method-i-exec_insert">#exec_insert</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Batches.html">Batches</a>
+  
+    <li><a href="./Batches/EvacueesDestroy.html">Batches::EvacueesDestroy</a>
+  
+    <li><a href="./Batches/MemcacheStore.html">Batches::MemcacheStore</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationController/ParameterException.html">ApplicationController::ParameterException</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Constant.html">Constant</a>
+  
+    <li><a href="./DateValidator.html">DateValidator</a>
+  
+    <li><a href="./Evacuee.html">Evacuee</a>
+  
+    <li><a href="./EvacueesController.html">EvacueesController</a>
+  
+    <li><a href="./EvacueesHelper.html">EvacueesHelper</a>
+  
+    <li><a href="./Juki.html">Juki</a>
+  
+    <li><a href="./JukiHistory.html">JukiHistory</a>
+  
+    <li><a href="./JukiImportJob.html">JukiImportJob</a>
+  
+    <li><a href="./JukisController.html">JukisController</a>
+  
+    <li><a href="./JukisHelper.html">JukisHelper</a>
+  
+    <li><a href="./LinkagesController.html">LinkagesController</a>
+  
+    <li><a href="./LinkagesHelper.html">LinkagesHelper</a>
+  
+    <li><a href="./LocalPeopleController.html">LocalPeopleController</a>
+  
+    <li><a href="./LocalPeopleHelper.html">LocalPeopleHelper</a>
+  
+    <li><a href="./LocalPerson.html">LocalPerson</a>
+  
+    <li><a href="./MenuTabBuilder.html">MenuTabBuilder</a>
+  
+    <li><a href="./OmniauthCallbacksController.html">OmniauthCallbacksController</a>
+  
+    <li><a href="./Person.html">Person</a>
+  
+    <li><a href="./TimeValidator.html">TimeValidator</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Juki</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-find_for_family" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_for_family</span><span
+            class="method-args">(evacuee)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>家族検索処理</p>
+
+<h4 id="method-c-find_for_family-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>evacuee</em> 
+<dd>
+<p>Evacueeオブジェクト</p>
+</dd></dl>
+
+<h4 id="method-c-find_for_family-label-Return">Return</h4>
+
+<h4 id="method-c-find_for_family-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="find_for_family-source">
+            <pre><span class="ruby-comment"># File app/models/juki.rb, line 166</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_family</span>(<span class="ruby-identifier">evacuee</span>)
+  <span class="ruby-identifier">t</span> = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">arel_table</span>
+  <span class="ruby-identifier">myself</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">t</span>[<span class="ruby-value">:id_number</span>].<span class="ruby-identifier">eq</span>(<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">juki_number</span>)).<span class="ruby-identifier">first</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">myself</span>.<span class="ruby-identifier">present?</span>
+    <span class="ruby-comment"># 筆頭者が同じ人物は家族として判断する</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">families</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">t</span>[<span class="ruby-value">:family_head</span>].<span class="ruby-identifier">eq</span>(<span class="ruby-identifier">myself</span>.<span class="ruby-identifier">family_head</span>)).<span class="ruby-identifier">where</span>(<span class="ruby-identifier">t</span>[<span class="ruby-value">:id</span>].<span class="ruby-identifier">not_eq</span>(<span class="ruby-identifier">myself</span>.<span class="ruby-identifier">id</span>))
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> []
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_for_family-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_for_family-method -->
+
+    
+      <div id="method-c-find_for_match" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_for_match</span><span
+            class="method-args">(evacuee, pattern)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>避難者住基マッチング検索処理</p>
+
+<h4 id="method-c-find_for_match-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>evacuee</em> 
+<dd>
+<p>Evacueeオブジェクト</p>
+</dd><dt><em>pattern</em> 
+<dd>
+<p>検索対象項目の配列</p>
+</dd></dl>
+
+<h4 id="method-c-find_for_match-label-Return">Return</h4>
+
+<h4 id="method-c-find_for_match-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="find_for_match-source">
+            <pre><span class="ruby-comment"># File app/models/juki.rb, line 117</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_match</span>(<span class="ruby-identifier">evacuee</span>, <span class="ruby-identifier">pattern</span>)
+  <span class="ruby-identifier">juki_table</span> = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">arel_table</span>
+  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">select</span>(<span class="ruby-string">&quot;*&quot;</span>)
+  
+  <span class="ruby-comment"># 氏名（姓）</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:family_name</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:family_name</span>].<span class="ruby-identifier">eq</span>(<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">family_name</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 氏名（名）</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:given_name</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:given_name</span>].<span class="ruby-identifier">eq</span>(<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">given_name</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 氏名カナ（姓）</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:alternate_family_name</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:alternate_family_name</span>].<span class="ruby-identifier">eq</span>(<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">alternate_family_name</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 氏名カナ（名）</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:alternate_given_name</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:alternate_given_name</span>].<span class="ruby-identifier">eq</span>(<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">alternate_given_name</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 生年月日</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:date_of_birth</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:date_of_birth</span>].<span class="ruby-identifier">eq</span>(<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">date_of_birth</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 性別</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:sex</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:sex</span>].<span class="ruby-identifier">eq</span>(<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">sex</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 都道府県</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:home_state</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:address</span>].<span class="ruby-identifier">matches</span>(<span class="ruby-node">&quot;%#{evacuee.home_state}%&quot;</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 市区町村</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:home_city</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:address</span>].<span class="ruby-identifier">matches</span>(<span class="ruby-node">&quot;%#{evacuee.home_city}%&quot;</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 町名</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:home_street</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:address</span>].<span class="ruby-identifier">matches</span>(<span class="ruby-node">&quot;%#{evacuee.home_street}%&quot;</span>))
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">result</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_for_match-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_for_match-method -->
+
+    
+      <div id="method-c-import" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import</span><span
+            class="method-args">(file, user)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>住基情報取込処理</p>
+
+<h4 id="method-c-import-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>file</em> 
+<dd>
+<p>住基CSVファイル</p>
+</dd><dt><em>user</em> 
+<dd>
+<p>実行ユーザ</p>
+</dd></dl>
+
+<h4 id="method-c-import-label-Return">Return</h4>
+
+<h4 id="method-c-import-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="import-source">
+            <pre><span class="ruby-comment"># File app/models/juki.rb, line 183</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">import</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">user</span>)
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'csv'</span>
+  <span class="ruby-identifier">number</span>, <span class="ruby-identifier">error_msgs</span> = <span class="ruby-value">0</span>, []
+  
+  <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-comment"># 住基情報をすべて削除する</span>
+    <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">destroy_all</span>
+    <span class="ruby-comment"># 住基情報の登録</span>
+    <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">file</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">begin</span>
+        <span class="ruby-comment"># 取込件数</span>
+        <span class="ruby-identifier">number</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+        <span class="ruby-comment"># 列数チェック</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;activerecord.errors.messages.invalid_column&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">row</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">64</span>
+        <span class="ruby-identifier">juki</span> = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">juki</span> = <span class="ruby-identifier">juki</span>.<span class="ruby-identifier">exec_insert</span>(<span class="ruby-identifier">row</span>, <span class="ruby-identifier">user</span>)
+        <span class="ruby-comment"># バリデーションエラーの場合メッセージを出力</span>
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">juki</span>.<span class="ruby-identifier">save</span>
+          <span class="ruby-identifier">juki</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">msg</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">error_msgs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;activerecord.errors.messages.import_error&quot;</span>, <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">number</span>, <span class="ruby-value">:message</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>)
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+        <span class="ruby-identifier">error_msgs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;activerecord.errors.messages.import_error&quot;</span>, <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">number</span>, <span class="ruby-value">:message</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>)
+      <span class="ruby-keyword">end</span> <span class="ruby-comment"># &lt;- begin</span>
+    <span class="ruby-keyword">end</span> <span class="ruby-comment"># &lt;- CSV.parse</span>
+    
+    <span class="ruby-comment"># エラーが存在する場合、例外を発生させる  </span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">error_msgs</span>.<span class="ruby-identifier">present?</span>
+      <span class="ruby-identifier">logger</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">BufferedLogger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">'log'</span>, <span class="ruby-string">'juki.log'</span>))
+      <span class="ruby-identifier">error_msgs</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span> <span class="ruby-identifier">m</span> }
+      <span class="ruby-identifier">raise</span>
+    <span class="ruby-keyword">end</span>
+    
+  <span class="ruby-keyword">end</span> <span class="ruby-comment"># &lt;- ActiveRecord::Base.transaction</span>
+<span class="ruby-keyword">ensure</span>
+  <span class="ruby-comment"># 住基情報取込履歴の登録</span>
+  <span class="ruby-identifier">juki_history</span> = <span class="ruby-constant">JukiHistory</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">juki_history</span>.<span class="ruby-identifier">number</span>     = <span class="ruby-identifier">number</span>
+  <span class="ruby-identifier">juki_history</span>.<span class="ruby-identifier">status</span>     = (<span class="ruby-identifier">error_msgs</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">?</span> <span class="ruby-constant">JukiHistory</span><span class="ruby-operator">::</span><span class="ruby-constant">STATUS_NORMAL</span> <span class="ruby-operator">:</span> <span class="ruby-constant">JukiHistory</span><span class="ruby-operator">::</span><span class="ruby-constant">STATUS_ERROR</span>)
+  <span class="ruby-identifier">juki_history</span>.<span class="ruby-identifier">created_by</span> = <span class="ruby-identifier">user</span>
+  <span class="ruby-identifier">juki_history</span>.<span class="ruby-identifier">save!</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- import-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- import-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-exec_insert" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">exec_insert</span><span
+            class="method-args">(row, user)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>住基情報編集処理 引数のrowオブジェクトを基に各項目を編集する</p>
+
+<h4 id="method-i-exec_insert-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>row</em> 
+<dd>
+<p>住基情報配列</p>
+</dd></dl>
+
+<h4 id="method-i-exec_insert-label-Return">Return</h4>
+
+<p>住基オブジェクト</p>
+
+<h4 id="method-i-exec_insert-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="exec_insert-source">
+            <pre><span class="ruby-comment"># File app/models/juki.rb, line 234</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">exec_insert</span>(<span class="ruby-identifier">row</span>, <span class="ruby-identifier">user</span>)
+  <span class="ruby-comment"># 識別番号</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id_number</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">0</span>]
+  <span class="ruby-comment"># 世帯番号</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">household_number</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">1</span>]
+  <span class="ruby-comment"># 住民種別</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">residents_type</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">2</span>]
+  <span class="ruby-comment"># 住民状態</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">residents_state</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">3</span>]
+  <span class="ruby-comment"># 住民票コード</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">residents_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">4</span>]
+  <span class="ruby-comment"># 氏名（姓）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">family_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">0</span>]
+  <span class="ruby-comment"># 氏名（名）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">given_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">1</span>]
+  <span class="ruby-comment"># 氏名カナ（姓）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_family_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">0</span>]
+  <span class="ruby-comment"># 氏名カナ（名）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_given_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">1</span>]
+  <span class="ruby-comment"># 性別</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sex</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">7</span>]
+  <span class="ruby-comment"># 生年月日：年号</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">year_number</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">8</span>]
+  <span class="ruby-comment"># 生年月日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_of_birth</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">9</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">10</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">11</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-comment"># 続柄1</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">relation1</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">12</span>]
+  <span class="ruby-comment"># 続柄2</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">relation2</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">13</span>]
+  <span class="ruby-comment"># 続柄3</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">relation3</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">14</span>]
+  <span class="ruby-comment"># 続柄4</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">relation4</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">15</span>]
+  <span class="ruby-comment"># 世帯主氏名（姓）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">household_family_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">16</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">0</span>]
+  <span class="ruby-comment"># 世帯主氏名（名）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">household_given_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">16</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">1</span>]
+  <span class="ruby-comment"># 世帯主氏名カナ（姓）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">household_alternate_family_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">17</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">0</span>]
+  <span class="ruby-comment"># 世帯主氏名カナ（名）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">household_alternate_given_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">17</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">1</span>]
+  <span class="ruby-comment"># 現住所：住所コード</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">address_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">18</span>]
+  <span class="ruby-comment"># 現住所：住所</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">address</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">19</span>]
+  <span class="ruby-comment"># 現住所：方書</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">building_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">20</span>]
+  <span class="ruby-comment"># 現住所：郵便番号</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">postal_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">21</span>]
+  <span class="ruby-comment"># 前住所：住所コード</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">former_address_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">22</span>]
+  <span class="ruby-comment"># 前住所：住所</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">former_address</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">23</span>]
+  <span class="ruby-comment"># 前住所：方書</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">former_building_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">24</span>]
+  <span class="ruby-comment"># 前住所：郵便番号</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">former_postal_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">25</span>]
+  <span class="ruby-comment"># 転出先：住所コード</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_address_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">26</span>]
+  <span class="ruby-comment"># 転出先：住所</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_address</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">27</span>]
+  <span class="ruby-comment"># 転出先：方書</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_building_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">28</span>]
+  <span class="ruby-comment"># 転出先：郵便番号</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_postal_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">29</span>]
+  <span class="ruby-comment"># 転出先区分</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_address_division</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">30</span>]
+  <span class="ruby-comment"># 本籍</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">domicile</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">31</span>]
+  <span class="ruby-comment"># 本籍住所コード</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">domicile_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">32</span>]
+  <span class="ruby-comment"># 筆頭者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">family_head</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">33</span>]
+  <span class="ruby-comment"># 住民となった情報：異動年月日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">became_change_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">34</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">35</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">36</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-comment"># 住民となった情報：届出年月日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">became_report_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">37</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">38</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">39</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-comment"># 住民となった情報：増異動事由</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">became_change_reason</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">40</span>]
+  <span class="ruby-comment"># 住民を定めた情報：異動年月日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">decided_change_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">41</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">42</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">43</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-comment"># 住民を定めた情報：届出年月日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">decided_report_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">44</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">45</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">46</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-comment"># 住民を定めた情報：異動事由</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">decided_change_reason</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">47</span>]
+  <span class="ruby-comment"># 住民でなくなった情報：異動年月日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">lost_change_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">48</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">49</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">50</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-comment"># 住民でなくなった情報：届出年月日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">lost_report_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">51</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">52</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">53</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-comment"># 住民でなくなった情報：減異動事由</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">lost_change_reason</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">54</span>]
+  <span class="ruby-comment"># 異動年月日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">change_date</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">55</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">56</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">57</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">58</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">59</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">60</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y/%m/%d %H:%M:%S&quot;</span>)
+  <span class="ruby-comment"># 独自領域</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">original_area</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">61</span>]
+  <span class="ruby-comment"># 異動中区分</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">change_division</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">62</span>]
+  <span class="ruby-comment"># 異動事由</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">change_reason</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">63</span>]
+  <span class="ruby-comment"># 登録者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">created_by</span> = <span class="ruby-identifier">user</span>
+  <span class="ruby-comment"># 更新者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">updated_by</span> = <span class="ruby-identifier">user</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- exec_insert-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- exec_insert-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

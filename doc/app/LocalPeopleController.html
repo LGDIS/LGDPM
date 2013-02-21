@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class LocalPeopleController - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/controllers/local_people_controller.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-approval">#approval</a>
+    
+    <li><a href="#method-i-import">#import</a>
+    
+    <li><a href="#method-i-index">#index</a>
+    
+    <li><a href="#method-i-search">#search</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Batches.html">Batches</a>
+  
+    <li><a href="./Batches/EvacueesDestroy.html">Batches::EvacueesDestroy</a>
+  
+    <li><a href="./Batches/MemcacheStore.html">Batches::MemcacheStore</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationController/ParameterException.html">ApplicationController::ParameterException</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Constant.html">Constant</a>
+  
+    <li><a href="./DateValidator.html">DateValidator</a>
+  
+    <li><a href="./Evacuee.html">Evacuee</a>
+  
+    <li><a href="./EvacueesController.html">EvacueesController</a>
+  
+    <li><a href="./EvacueesHelper.html">EvacueesHelper</a>
+  
+    <li><a href="./Juki.html">Juki</a>
+  
+    <li><a href="./JukiHistory.html">JukiHistory</a>
+  
+    <li><a href="./JukiImportJob.html">JukiImportJob</a>
+  
+    <li><a href="./JukisController.html">JukisController</a>
+  
+    <li><a href="./JukisHelper.html">JukisHelper</a>
+  
+    <li><a href="./LinkagesController.html">LinkagesController</a>
+  
+    <li><a href="./LinkagesHelper.html">LinkagesHelper</a>
+  
+    <li><a href="./LocalPeopleController.html">LocalPeopleController</a>
+  
+    <li><a href="./LocalPeopleHelper.html">LocalPeopleHelper</a>
+  
+    <li><a href="./LocalPerson.html">LocalPerson</a>
+  
+    <li><a href="./MenuTabBuilder.html">MenuTabBuilder</a>
+  
+    <li><a href="./OmniauthCallbacksController.html">OmniauthCallbacksController</a>
+  
+    <li><a href="./Person.html">Person</a>
+  
+    <li><a href="./TimeValidator.html">TimeValidator</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class LocalPeopleController</h1>
+
+  <div id="description" class="description">
+    
+<p>LGDPFからの避難者情報取り込み、および、取り込んだ避難者情報のEvacueeへの登録を行う</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-approval" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">approval</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>石巻PF避難者承認画面 承認処理 承認チェックボックスで選択された避難者をEvacueeに登録する ただし、登録済みの場合は処理しない
+承認処理後、検索を行い検索結果を表示する</p>
+
+<h4 id="method-i-approval-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>approval_local_people</em> 
+<dd>
+<p>LocalPersonID配列</p>
+</dd></dl>
+
+<h4 id="method-i-approval-label-Return">Return</h4>
+
+<h4 id="method-i-approval-label-Raise">Raise</h4>
+<dl class="rdoc-list note-list"><dt>ParameterException 
+<dd>
+<p>承認チェックボックスが選択されていない場合メッセージを出力する</p>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="approval-source">
+            <pre><span class="ruby-comment"># File app/controllers/local_people_controller.rb, line 53</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">approval</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ParameterException</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:approval_local_people</span>].<span class="ruby-identifier">blank?</span>
+  
+  <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">lp_ids</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:approval_local_people</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>)
+    <span class="ruby-identifier">lp_ids</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">id</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">local_person</span> = <span class="ruby-constant">LocalPerson</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">id</span>)
+      <span class="ruby-comment"># 承認済みの場合、Evacueeに取り込まない</span>
+      <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">find_by_local_person_id</span>(<span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">present?</span>
+      <span class="ruby-comment"># LGDPF上に存在する避難者の場合、Evacueeに取り込まない</span>
+      <span class="ruby-comment"># LGDPMまたはLGDPM-Androidから入力し連携した避難者の場合は重複するため</span>
+      <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">find_by_lgdpf_person_id</span>(<span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">lgdpf_person_id</span>).<span class="ruby-identifier">present?</span>
+      <span class="ruby-identifier">evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-identifier">evacuee</span> = <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">exec_insert</span>(<span class="ruby-identifier">local_person</span>)
+      <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">save!</span>
+      <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">approved_by</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">login</span>
+      <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">approved_at</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+      <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">save!</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">ParameterException</span>
+  <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;errors.messages.parameter_exception_approval&quot;</span>)
+<span class="ruby-keyword">ensure</span>
+  <span class="ruby-identifier">do_search</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- approval-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- approval-method -->
+
+    
+      <div id="method-i-import" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">import</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>石巻PF避難者承認画面 避難者情報取込処理 LGDPFとREST I/Fにて連携を行い、避難者情報を取得する
+取得した避難者情報を元に安否情報を取得する 避難者情報、安否情報をLocalPersonへ登録する
+避難者情報、安否情報の連携フラグを更新し、再連携させないようにする 取込処理後、検索を行い検索結果を表示する</p>
+
+<h4 id="method-i-import-label-Args">Args</h4>
+
+<h4 id="method-i-import-label-Return">Return</h4>
+
+<h4 id="method-i-import-label-Raise">Raise</h4>
+<dl class="rdoc-list note-list"><dt>ActiveResource::ServerError 
+<dd>
+<p>LGDPFで保存に失敗した場合メッセージを出力する</p>
+</dd><dt>Errno::ECONNREFUSED 
+<dd>
+<p>LGDPFに接続できなかった場合メッセージを出力する</p>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="import-source">
+            <pre><span class="ruby-comment"># File app/controllers/local_people_controller.rb, line 92</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">import</span>
+  <span class="ruby-comment"># LGDPF避難者情報取得</span>
+  <span class="ruby-ivar">@people</span> = <span class="ruby-constant">Person</span>.<span class="ruby-identifier">find_for_import</span>
+  <span class="ruby-ivar">@people</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">person</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment"># LocalPersonへ登録</span>
+    <span class="ruby-identifier">local_person</span> = <span class="ruby-constant">LocalPerson</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">local_person</span> = <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">exec_insert</span>(<span class="ruby-identifier">person</span>)
+    <span class="ruby-comment"># LGDPF安否情報取得</span>
+    <span class="ruby-identifier">note</span> = <span class="ruby-constant">Note</span>.<span class="ruby-identifier">find_for_import</span>(<span class="ruby-identifier">person</span>).<span class="ruby-identifier">first</span>
+    <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">status</span> = <span class="ruby-identifier">note</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:status</span>)
+    <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">last_known_location</span> = <span class="ruby-identifier">note</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:last_known_location</span>)
+    <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">save!</span>
+    <span class="ruby-comment"># 連携フラグ更新</span>
+    <span class="ruby-identifier">person</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:link_flag</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>)
+    <span class="ruby-identifier">note</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:link_flag</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">note</span>.<span class="ruby-identifier">blank?</span>
+  <span class="ruby-keyword">end</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@people</span>.<span class="ruby-identifier">present?</span>
+  
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">ServerError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-node">&quot;#{e}&quot;</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNREFUSED</span>
+  <span class="ruby-identifier">flash</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;errors.messages.connection_refused&quot;</span>)
+<span class="ruby-keyword">ensure</span>
+  <span class="ruby-identifier">do_search</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- import-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- import-method -->
+
+    
+      <div id="method-i-index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">index</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>石巻PF避難者承認画面 初期表示処理 検索結果が0件の状態で画面を表示させる</p>
+
+<h4 id="method-i-index-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>search</em> 
+<dd>
+<p>画面入力された検索条件</p>
+</dd><dt><em>page</em> 
+<dd>
+<p>ページ番号</p>
+</dd></dl>
+
+<h4 id="method-i-index-label-Return">Return</h4>
+
+<h4 id="method-i-index-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File app/controllers/local_people_controller.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-ivar">@search</span> = <span class="ruby-constant">LocalPerson</span>.<span class="ruby-identifier">search</span>(<span class="ruby-value">:id_eq</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>) <span class="ruby-comment"># 取得件数0件で初期表示させるため</span>
+  <span class="ruby-ivar">@local_people</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>], <span class="ruby-value">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">30</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- index-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- index-method -->
+
+    
+      <div id="method-i-search" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>石巻PF避難者承認画面 検索処理 押下されたボタンにより、処理を分岐する</p>
+<ul><li>
+<p>検索ボタンが押下された場合、検索を行い自画面に遷移する</p>
+</li><li>
+<p>取込ボタンが押下された場合、LGDPFから避難者情報を取得し、LocalPersonに登録する</p>
+</li><li>
+<p>承認ボタンが押下された場合、選択されたLocalPersonをEvacueeに登録する</p>
+</li><li>
+<p>その他の場合、例外を発生させる</p>
+</li></ul>
+
+<h4 id="method-i-search-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>commit_kind</em> 
+<dd>
+<p>ボタン種別</p>
+</dd></dl>
+
+<h4 id="method-i-search-label-Return">Return</h4>
+
+<h4 id="method-i-search-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="search-source">
+            <pre><span class="ruby-comment"># File app/controllers/local_people_controller.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">search</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit_kind</span>]
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;search&quot;</span> <span class="ruby-comment"># 検索ボタン</span>
+    <span class="ruby-identifier">do_search</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;approval&quot;</span> <span class="ruby-comment"># 承認ボタン</span>
+    <span class="ruby-identifier">approval</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;import&quot;</span> <span class="ruby-comment"># 取込ボタン</span>
+    <span class="ruby-identifier">import</span>
+  <span class="ruby-keyword">else</span> <span class="ruby-comment"># その他</span>
+    <span class="ruby-identifier">raise</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- search-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- search-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
