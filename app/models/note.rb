@@ -2,10 +2,10 @@
 class Note < ActiveResource::Base
   # ActiveResource各種設定
   settings      = YAML.load_file("#{Rails.root}/config/settings.yml")
-  self.site     = settings["ldgpf"][Rails.env]["site"]
-  self.user     = settings["ldgpf"][Rails.env]["user"]
-  self.password = settings["ldgpf"][Rails.env]["password"]
-  self.proxy    = settings["ldgpf"][Rails.env]["proxy"]
+  self.site     = settings["lgdpf"][Rails.env]["site"]
+  self.user     = settings["lgdpf"][Rails.env]["user"]
+  self.password = settings["lgdpf"][Rails.env]["password"]
+  self.proxy    = settings["lgdpf"][Rails.env]["proxy"]
   
   # ActiveResource
   # LGDPF Note取得処理
