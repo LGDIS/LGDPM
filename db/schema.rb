@@ -11,7 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121221122555) do
+ActiveRecord::Schema.define(:version => 20130201102920) do
+
+
 
   create_table "constants", :force => true do |t|
     t.string   "kind1"
@@ -25,168 +27,182 @@ ActiveRecord::Schema.define(:version => 20121221122555) do
   end
 
   create_table "evacuees", :force => true do |t|
-    t.string   "family_name"
-    t.string   "given_name"
-    t.string   "alternate_family_name"
-    t.string   "alternate_given_name"
+    t.integer  "local_person_id"
+    t.integer  "lgdpf_person_id"
+    t.string   "person_record_id",                :limit => 500
+    t.string   "family_name",                     :limit => 500
+    t.string   "given_name",                      :limit => 500
+    t.string   "alternate_family_name",           :limit => 500
+    t.string   "alternate_given_name",            :limit => 500
     t.date     "date_of_birth"
-    t.integer  "sex"
-    t.string   "home_postal_code"
-    t.integer  "in_city_flag"
-    t.string   "home_state"
-    t.string   "home_city"
-    t.string   "home_street"
-    t.string   "house_number"
-    t.string   "shelter_name"
-    t.integer  "refuge_status"
-    t.string   "refuge_reason"
+    t.string   "sex",                             :limit => 1
+    t.string   "age",                             :limit => 500
+    t.string   "home_postal_code",                :limit => 500
+    t.string   "in_city_flag",                    :limit => 1
+    t.string   "home_state",                      :limit => 500
+    t.string   "home_city",                       :limit => 500
+    t.string   "home_street",                     :limit => 500
+    t.string   "house_number",                    :limit => 500
+    t.string   "shelter_name",                    :limit => 20
+    t.string   "refuge_status",                   :limit => 1
+    t.text     "refuge_reason"
     t.date     "shelter_entry_date"
     t.date     "shelter_leave_date"
-    t.string   "next_place"
-    t.string   "next_place_phone"
-    t.integer  "injury_flag"
-    t.string   "injury_condition"
-    t.integer  "allergy_flag"
-    t.string   "allergy_cause"
-    t.integer  "pregnancy"
-    t.integer  "baby"
-    t.integer  "upper_care_level_three"
-    t.integer  "elderly_alone"
-    t.integer  "elderly_couple"
-    t.integer  "bedridden_elderly"
-    t.integer  "elderly_dementia"
-    t.integer  "rehabilitation_certificate"
-    t.integer  "physical_disability_certificate"
+    t.string   "next_place",                      :limit => 100
+    t.string   "next_place_phone",                :limit => 20
+    t.string   "injury_flag",                     :limit => 1
+    t.text     "injury_condition"
+    t.string   "allergy_flag",                    :limit => 1
+    t.text     "allergy_cause"
+    t.string   "pregnancy",                       :limit => 1
+    t.string   "baby",                            :limit => 1
+    t.string   "upper_care_level_three",          :limit => 2
+    t.string   "elderly_alone",                   :limit => 1
+    t.string   "elderly_couple",                  :limit => 1
+    t.string   "bedridden_elderly",               :limit => 1
+    t.string   "elderly_dementia",                :limit => 1
+    t.string   "rehabilitation_certificate",      :limit => 2
+    t.string   "physical_disability_certificate", :limit => 1
     t.integer  "juki_status"
-    t.string   "note"
-    t.string   "linked_by"
+    t.text     "note"
+    t.string   "family_well",                     :limit => 1
+    t.string   "juki_number",                     :limit => 500
+    t.string   "linked_by",                       :limit => 100
     t.datetime "linked_at"
-    t.string   "created_by"
-    t.string   "updated_by"
+    t.string   "created_by",                      :limit => 100
+    t.string   "updated_by",                      :limit => 100
     t.datetime "deleted_at"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
   end
 
   create_table "juki_histories", :force => true do |t|
     t.integer  "number"
     t.integer  "status"
-    t.string   "created_by"
-    t.string   "updated_by"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "created_by", :limit => 100
+    t.string   "updated_by", :limit => 100
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "jukis", :force => true do |t|
-    t.string   "id_number"
-    t.string   "household_number"
-    t.string   "residents_type"
-    t.string   "residents_state"
-    t.string   "residents_code"
-    t.string   "family_name"
-    t.string   "given_name"
-    t.string   "alternate_family_name"
-    t.string   "alternate_given_name"
-    t.string   "sex"
-    t.string   "year_number"
+    t.string   "id_number",                       :limit => 15
+    t.string   "household_number",                :limit => 15
+    t.string   "residents_type",                  :limit => 1
+    t.string   "residents_state",                 :limit => 1
+    t.string   "residents_code",                  :limit => 11
+    t.string   "family_name",                     :limit => 100
+    t.string   "given_name",                      :limit => 100
+    t.string   "alternate_family_name",           :limit => 100
+    t.string   "alternate_given_name",            :limit => 100
+    t.string   "sex",                             :limit => 1
+    t.string   "year_number",                     :limit => 2
     t.date     "date_of_birth"
-    t.string   "relation1"
-    t.string   "relation2"
-    t.string   "relation3"
-    t.string   "relation4"
-    t.string   "household_family_name"
-    t.string   "household_given_name"
-    t.string   "household_alternate_family_name"
-    t.string   "household_alternate_given_name"
-    t.string   "address_code"
-    t.string   "address"
-    t.string   "building_name"
-    t.string   "postal_code"
-    t.string   "former_address_code"
-    t.string   "former_address"
-    t.string   "former_building_name"
-    t.string   "former_postal_code"
-    t.string   "new_address_code"
-    t.string   "new_address"
-    t.string   "new_building_name"
-    t.string   "new_postal_code"
-    t.string   "new_address_division"
-    t.string   "domicile"
-    t.string   "domicile_code"
-    t.string   "family_head"
+    t.string   "relation1",                       :limit => 2
+    t.string   "relation2",                       :limit => 2
+    t.string   "relation3",                       :limit => 2
+    t.string   "relation4",                       :limit => 2
+    t.string   "household_family_name",           :limit => 100
+    t.string   "household_given_name",            :limit => 100
+    t.string   "household_alternate_family_name", :limit => 100
+    t.string   "household_alternate_given_name",  :limit => 100
+    t.string   "address_code",                    :limit => 30
+    t.string   "address",                         :limit => 100
+    t.string   "building_name",                   :limit => 150
+    t.string   "postal_code",                     :limit => 10
+    t.string   "former_address_code",             :limit => 30
+    t.string   "former_address",                  :limit => 100
+    t.string   "former_building_name",            :limit => 150
+    t.string   "former_postal_code",              :limit => 10
+    t.string   "new_address_code",                :limit => 30
+    t.string   "new_address",                     :limit => 100
+    t.string   "new_building_name",               :limit => 150
+    t.string   "new_postal_code",                 :limit => 10
+    t.string   "new_address_division",            :limit => 1
+    t.string   "domicile",                        :limit => 100
+    t.string   "domicile_code",                   :limit => 30
+    t.string   "family_head",                     :limit => 100
     t.date     "became_change_date"
     t.date     "became_report_date"
-    t.string   "became_change_reason"
+    t.string   "became_change_reason",            :limit => 2
     t.date     "decided_change_date"
     t.date     "decided_report_date"
-    t.string   "decided_change_reason"
+    t.string   "decided_change_reason",           :limit => 2
     t.date     "lost_change_date"
     t.date     "lost_report_date"
-    t.string   "lost_change_reason"
+    t.string   "lost_change_reason",              :limit => 2
     t.datetime "change_date"
-    t.string   "original_area"
-    t.string   "change_division"
-    t.string   "change_reason"
-    t.string   "created_by"
-    t.string   "updated_by"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.string   "original_area",                   :limit => 50
+    t.string   "change_division",                 :limit => 1
+    t.string   "change_reason",                   :limit => 2
+    t.string   "created_by",                      :limit => 100
+    t.string   "updated_by",                      :limit => 100
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
   end
 
   create_table "local_people", :force => true do |t|
-    t.string   "person_record_id"
+    t.integer  "lgdpf_person_id"
+    t.string   "person_record_id",                :limit => 500
     t.datetime "entry_date"
     t.datetime "expiry_date"
-    t.string   "author_name"
-    t.string   "author_email"
-    t.string   "author_phone"
-    t.string   "source_name"
+    t.string   "author_name",                     :limit => 500
+    t.string   "author_email",                    :limit => 500
+    t.string   "author_phone",                    :limit => 500
+    t.string   "source_name",                     :limit => 500
     t.datetime "source_date"
-    t.string   "source_url"
-    t.string   "full_name"
-    t.string   "given_name"
-    t.string   "family_name"
-    t.string   "alternate_names"
+    t.string   "source_url",                      :limit => 500
+    t.string   "full_name",                       :limit => 500
+    t.string   "given_name",                      :limit => 500
+    t.string   "family_name",                     :limit => 500
+    t.string   "alternate_names",                 :limit => 500
     t.text     "description"
-    t.integer  "sex"
+    t.string   "sex",                             :limit => 1
     t.date     "date_of_birth"
-    t.string   "age"
-    t.string   "house_number"
-    t.string   "home_street"
-    t.string   "home_neighborhood"
-    t.string   "home_city"
-    t.string   "home_state"
-    t.string   "home_postal_code"
-    t.string   "photo_url"
-    t.integer  "in_city_flag"
-    t.string   "shelter_name"
-    t.integer  "refuge_status"
-    t.string   "refuge_reason"
+    t.string   "age",                             :limit => 500
+    t.string   "home_street",                     :limit => 500
+    t.string   "home_neighborhood",               :limit => 500
+    t.string   "home_city",                       :limit => 500
+    t.string   "home_state",                      :limit => 500
+    t.string   "home_postal_code",                :limit => 500
+    t.string   "home_country",                    :limit => 500
+    t.string   "photo_url",                       :limit => 500
+    t.string   "profile_urls",                    :limit => 500
+    t.integer  "public_flag"
+    t.string   "in_city_flag",                    :limit => 1
+    t.string   "shelter_name",                    :limit => 20
+    t.string   "refuge_status",                   :limit => 1
+    t.text     "refuge_reason"
     t.date     "shelter_entry_date"
     t.date     "shelter_leave_date"
-    t.string   "next_place"
-    t.string   "next_place_phone"
-    t.integer  "injury_flag"
-    t.string   "injury_condition"
-    t.integer  "allergy_flag"
-    t.string   "allergy_cause"
-    t.integer  "pregnancy"
-    t.integer  "baby"
-    t.integer  "upper_care_level_three"
-    t.integer  "elderly_alone"
-    t.integer  "elderly_couple"
-    t.integer  "bedridden_elderly"
-    t.integer  "elderly_dementia"
-    t.integer  "rehabilitation_certificate"
-    t.integer  "physical_disability_certificate"
+    t.string   "next_place",                      :limit => 100
+    t.string   "next_place_phone",                :limit => 20
+    t.string   "injury_flag",                     :limit => 1
+    t.text     "injury_condition"
+    t.string   "allergy_flag",                    :limit => 1
+    t.text     "allergy_cause"
+    t.string   "pregnancy",                       :limit => 1
+    t.string   "baby",                            :limit => 1
+    t.string   "upper_care_level_three",          :limit => 2
+    t.string   "elderly_alone",                   :limit => 1
+    t.string   "elderly_couple",                  :limit => 1
+    t.string   "bedridden_elderly",               :limit => 1
+    t.string   "elderly_dementia",                :limit => 1
+    t.string   "rehabilitation_certificate",      :limit => 2
+    t.string   "physical_disability_certificate", :limit => 1
+    t.boolean  "link_flag",                                      :default => false
+    t.boolean  "notes_disabled",                                 :default => false
+    t.boolean  "email_flag",                                     :default => false
     t.integer  "status"
-    t.string   "last_known_location"
-    t.string   "approved_by"
+    t.string   "last_known_location",             :limit => 500
+    t.string   "family_well",                     :limit => 1
+    t.string   "approved_by",                     :limit => 100
     t.datetime "approved_at"
-    t.string   "created_by"
-    t.string   "updated_by"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.string   "created_by",                      :limit => 100
+    t.string   "updated_by",                      :limit => 100
+    t.datetime "deleted_at"
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -198,9 +214,11 @@ ActiveRecord::Schema.define(:version => 20121221122555) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
+    t.string   "provider"
+    t.string   "uid"
   end
 
-  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
+  add_index "users", ["login", "provider", "uid"], :name => "index_users_on_login_and_provider_and_uid", :unique => true
 
   set_column_comment 'constants', 'kind1', '種別'
   set_column_comment 'constants', 'kind2', 'テーブル名'
@@ -211,12 +229,16 @@ ActiveRecord::Schema.define(:version => 20121221122555) do
   set_column_comment 'constants', 'created_at', '登録日時'
   set_column_comment 'constants', 'updated_at', '更新日時'
 
+  set_column_comment 'evacuees', 'local_person_id', 'LocalPersonのid'
+  set_column_comment 'evacuees', 'lgdpf_person_id', 'LGDPFのperson_id'
+  set_column_comment 'evacuees', 'person_record_id', 'GooglePersonFinderのperson_id'
   set_column_comment 'evacuees', 'family_name', '氏名（姓）'
   set_column_comment 'evacuees', 'given_name', '氏名（名）'
   set_column_comment 'evacuees', 'alternate_family_name', '氏名カナ（姓）'
   set_column_comment 'evacuees', 'alternate_given_name', '氏名カナ（名）'
   set_column_comment 'evacuees', 'date_of_birth', '生年月日'
   set_column_comment 'evacuees', 'sex', '性別'
+  set_column_comment 'evacuees', 'age', '年齢'
   set_column_comment 'evacuees', 'home_postal_code', '郵便番号'
   set_column_comment 'evacuees', 'in_city_flag', '市内・市外区分'
   set_column_comment 'evacuees', 'home_state', '都道府県'
@@ -245,6 +267,8 @@ ActiveRecord::Schema.define(:version => 20121221122555) do
   set_column_comment 'evacuees', 'physical_disability_certificate', '身体障害者手帳所持者'
   set_column_comment 'evacuees', 'juki_status', '住基ステータス'
   set_column_comment 'evacuees', 'note', '備考'
+  set_column_comment 'evacuees', 'family_well', '家族も無事'
+  set_column_comment 'evacuees', 'juki_number', '住基番号'
   set_column_comment 'evacuees', 'linked_by', '連携者'
   set_column_comment 'evacuees', 'linked_at', '連携日時'
   set_column_comment 'evacuees', 'created_by', '登録者'
@@ -314,7 +338,8 @@ ActiveRecord::Schema.define(:version => 20121221122555) do
   set_column_comment 'jukis', 'created_at', '登録日時'
   set_column_comment 'jukis', 'updated_at', '更新日時'
 
-  set_column_comment 'local_people', 'person_record_id', 'id'
+  set_column_comment 'local_people', 'lgdpf_person_id', 'LGDPFのperson_id'
+  set_column_comment 'local_people', 'person_record_id', 'GooglePersonFinderのperson_id'
   set_column_comment 'local_people', 'entry_date', 'レコード作成日時'
   set_column_comment 'local_people', 'expiry_date', 'レコード削除予定日時'
   set_column_comment 'local_people', 'author_name', 'レコード作成者名'
@@ -331,13 +356,15 @@ ActiveRecord::Schema.define(:version => 20121221122555) do
   set_column_comment 'local_people', 'sex', '性別'
   set_column_comment 'local_people', 'date_of_birth', '生年月日'
   set_column_comment 'local_people', 'age', '年齢'
-  set_column_comment 'local_people', 'house_number', '番地'
   set_column_comment 'local_people', 'home_street', '町名'
   set_column_comment 'local_people', 'home_neighborhood', '近隣'
   set_column_comment 'local_people', 'home_city', '市区町村'
   set_column_comment 'local_people', 'home_state', '都道府県'
   set_column_comment 'local_people', 'home_postal_code', '郵便番号'
+  set_column_comment 'local_people', 'home_country', '出身国'
   set_column_comment 'local_people', 'photo_url', '写真のURL'
+  set_column_comment 'local_people', 'profile_urls', 'プロフィールURL'
+  set_column_comment 'local_people', 'public_flag', '公開フラグ'
   set_column_comment 'local_people', 'in_city_flag', '市内・市外区分'
   set_column_comment 'local_people', 'shelter_name', '避難所'
   set_column_comment 'local_people', 'refuge_status', '避難状況'
@@ -359,13 +386,21 @@ ActiveRecord::Schema.define(:version => 20121221122555) do
   set_column_comment 'local_people', 'elderly_dementia', '認知症高齢者'
   set_column_comment 'local_people', 'rehabilitation_certificate', '療育手帳所持者'
   set_column_comment 'local_people', 'physical_disability_certificate', '身体障害者手帳所持者'
+  set_column_comment 'local_people', 'link_flag', '連携フラグ'
+  set_column_comment 'local_people', 'notes_disabled', 'メモ無効フラグ'
+  set_column_comment 'local_people', 'email_flag', '新着メッセージ受取フラグ'
   set_column_comment 'local_people', 'status', '状況'
   set_column_comment 'local_people', 'last_known_location', '最後に見かけた場所'
+  set_column_comment 'local_people', 'family_well', '家族も無事'
   set_column_comment 'local_people', 'approved_by', '承認者'
   set_column_comment 'local_people', 'approved_at', '承認日時'
   set_column_comment 'local_people', 'created_by', '登録者'
   set_column_comment 'local_people', 'updated_by', '更新者'
+  set_column_comment 'local_people', 'deleted_at', '削除日時'
   set_column_comment 'local_people', 'created_at', '登録日時'
   set_column_comment 'local_people', 'updated_at', '更新日時'
+
+  set_column_comment 'users', 'provider', '認可プロバイダ名'
+  set_column_comment 'users', 'uid', '認可プロバイダのユーザ識別子'
 
 end
