@@ -32,7 +32,8 @@ class Evacuee < ActiveRecord::Base
   validates :sex,
              :length => {:maximum => 1}
   validates :age, :allow_blank => true,
-             :format => { :with => /^\d+(-\d+)?$/ }
+             :format => { :with => /^\d+(-\d+)?$/ },
+             :length => {:maximum => 500}
   validates :home_postal_code,
              :length => {:maximum => 500}
   validates :in_city_flag,
@@ -86,6 +87,7 @@ class Evacuee < ActiveRecord::Base
   validates :linked_by,
               :length => {:maximum => 100}
   validates :linked_at, :time => true
+  validates :deleted_at, :time => true
   validates :created_by,
               :length => {:maximum => 100}
   validates :updated_by,

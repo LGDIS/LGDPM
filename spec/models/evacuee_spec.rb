@@ -33,6 +33,8 @@ describe Evacuee do
     it_should_behave_like :max_length, :elderly_dementia
     it_should_behave_like :max_length, :rehabilitation_certificate
     it_should_behave_like :max_length, :physical_disability_certificate
+    it_should_behave_like :max_length, :family_well
+    it_should_behave_like :max_length, :juki_number
     it_should_behave_like :max_length, :linked_by
     it_should_behave_like :max_length, :created_by
     it_should_behave_like :max_length, :updated_by
@@ -44,15 +46,117 @@ describe Evacuee do
     it_should_behave_like :date, :shelter_entry_date
     it_should_behave_like :date, :shelter_leave_date
     
-    # it_should_behave_like :integer, :age
+    it_should_behave_like :datetime, :linked_at
+    it_should_behave_like :datetime, :deleted_at
+    
     it_should_behave_like :integer, :local_person_id
     it_should_behave_like :integer, :lgdpf_person_id
     it_should_behave_like :integer, :juki_status
+    
+    describe "age" do
+      describe "文字列の場合" do
+        subject { model.save }
+        before { model.age = "hoge" }
+        it { should be_false }
+      end
+      describe "数字の場合" do
+        subject { model.save }
+        before { model.age = "123" }
+        it { should be_true }
+      end
+      describe "ハイフン区切りの場合" do
+        subject { model.save }
+        before { model.age = "123-456" }
+        it { should be_true }
+      end
+      describe "ハイフンで終わる数字の場合" do
+        subject { model.save }
+        before { model.age = "123-" }
+        it { should be_false }
+      end
+      describe "ハイフンで始まる数字の場合" do
+        subject { model.save }
+        before { model.age = "-456" }
+        it { should be_false }
+      end
+      describe "500文字以内の場合" do
+        subject { model.save }
+        before { model.age = "1"*500 }
+        it { should be_true }
+      end
+      describe "500文字より多い場合" do
+        subject { model.save }
+        before { model.age = "1"*501 }
+        it { should be_false }
+      end
+    end
+  end
+  
+  describe "#convert_to_kana" do
+    subject { model.save }
+    let(:model) { FactoryGirl.create(:evacuee) }
+    it_should_behave_like :convert_to_kana, :alternate_family_name
+    it_should_behave_like :convert_to_kana, :alternate_given_name
   end
   
   describe "#set_attr_for_create" do
     let(:model) { FactoryGirl.create(:evacuee) }
     it { model.juki_status.should == Evacuee::JUKI_STATUS_INCOMPLETE }
+  end
+  
+  describe "#set_attr_for_save" do
+    subject { model.save }
+    let(:model) { FactoryGirl.create(:evacuee) }
+    describe "injury_flag" do
+      describe do
+        before(:each) { model.injury_condition = "hoge" }
+        it { subject.should be_true }
+        it { subject; model.injury_flag.should == Evacuee::INJURY_FLAG_ON }
+      end
+      describe do
+        before(:each) { model.injury_condition = nil }
+        it { subject.should be_true }
+        it { subject; model.injury_flag.should == Evacuee::INJURY_FLAG_OFF }
+      end
+    end
+    describe "allergy_flag" do
+      describe do
+        before(:each) { model.allergy_cause = "hoge" }
+        it { subject.should be_true }
+        it { subject; model.allergy_flag.should == Evacuee::ALLERGY_FLAG_ON }
+      end
+      describe do
+        before(:each) { model.allergy_cause = nil }
+        it { subject.should be_true }
+        it { subject; model.allergy_flag.should == Evacuee::ALLERGY_FLAG_OFF }
+      end
+    end
+    describe "in_city_flag" do
+      describe do
+        before(:each) do
+          model.home_state = Evacuee::STATE_MIYAGI
+          model.home_city = "石巻市"
+        end
+        it { subject.should be_true }
+        it { subject; model.in_city_flag.should == Evacuee::IN_CITY_FLAG_INSIDE }
+      end
+      describe do
+        before(:each) do
+          model.home_state = "01"
+          model.home_city = "aaa"
+        end
+        it { subject.should be_true }
+        it { subject; model.in_city_flag.should == Evacuee::IN_CITY_FLAG_OUTSIDE }
+      end
+      describe do
+        before(:each) do
+          model.home_state = nil
+          model.home_city = nil
+        end
+        it { subject.should be_true }
+        it { subject; model.in_city_flag.should be_nil }
+      end
+    end
   end
   
   describe "#find_for_count" do
@@ -99,7 +203,7 @@ describe Evacuee do
       let(:value) { "1" }
       before(:each) do
         @evacuee = FactoryGirl.create(:evacuee)
-        @evacuee.update_attributes(:injury_flag => value)
+        @evacuee.update_attributes(:injury_condition => value)
       end
       it { subject.first.shelter_name.should == nil }
       it { subject.first.head_count.should == "1" }
@@ -119,7 +223,7 @@ describe Evacuee do
       let(:value) { "1" }
       before(:each) do
         @evacuee = FactoryGirl.create(:evacuee)
-        @evacuee.update_attributes(:allergy_flag => value)
+        @evacuee.update_attributes(:allergy_cause => value)
       end
       it { subject.first.shelter_name.should == nil }
       it { subject.first.head_count.should == "1" }

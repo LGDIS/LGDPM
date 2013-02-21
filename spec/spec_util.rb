@@ -86,39 +86,39 @@ shared_examples_for :date do |attr|
 end
 
 shared_examples_for :datetime do |attr|
-  describe do
+  describe "#{attr} : 20120101 123456" do
     before { model[attr] = "20120101 123456" }
     it { model.save.should be_true }
   end
-  describe do
+  describe "#{attr} : 2012-1-1 12:34:56" do
     before { model[attr] = "2012-1-1 12:34:56" }
     it { model.save.should be_true }
   end
-  describe do
+  describe "#{attr} : 2012-01-01 12:34:56" do
     before { model[attr] = "2012-01-01 12:34:56" }
     it { model.save.should be_true }
   end
-  describe do
+  describe "#{attr} : 2012.01.01 12:34:56" do
     before { model[attr] = "2012.01.01 12:34:56" }
     it { model.save.should be_true }
   end
-  describe do
+  describe "#{attr} : 2012-01-01 12:34:56" do
     before { model[attr] = "2012-01-01 12:34:56" }
     it { model.save.should be_true }
   end
-  describe do
+  describe "#{attr} : 2012/02/31 12:34:56" do
     before { model[attr] = "2012/02/31 12:34:56" }
     it { model.save.should be_false }
   end
-  describe do
+  describe "#{attr} : 2012/02/01 26:87:82" do
     before { model[attr] = "2012/02/01 26:87:82" }
     it { model.save.should be_false }
   end
-  describe do
+  describe "#{attr} : aaaa" do
     before { model[attr] = "aaaa" }
     it { model.save.should be_false }
   end
-  describe do
+  describe "#{attr} : 123" do
     before { model[attr] = "123" }
     it { model.save.should be_false }
   end
@@ -182,5 +182,50 @@ shared_examples_for :find_for_match do |evacuee_attr, juki_attr, val|
     end
     it { subject.size.should == 1 }
     it { subject.first[juki_attr].to_s.should == val }
+  end
+end
+
+shared_examples_for :convert_to_kana do |attr|
+  describe "#{attr}" do
+    describe "ひらがなの場合" do
+      before { model[attr] = "あいうえお" }
+      it { subject.should be_true }
+      it { subject; model[attr].should == "アイウエオ" }
+    end
+    describe "漢字の場合" do
+      before { model[attr] = "漢字" }
+      it { subject.should be_true }
+      it { subject; model[attr].should == "漢字" }
+    end
+    describe "半角カタカナの場合" do
+      before { model[attr] = "ｱｲｳｴｵ" }
+      it { subject.should be_true }
+      it { subject; model[attr].should == "アイウエオ" }
+    end
+    describe "全角カタカナの場合" do
+      before { model[attr] = "アイウエオ" }
+      it { subject.should be_true }
+      it { subject; model[attr].should == "アイウエオ" }
+    end
+    describe "半角英字の場合" do
+      before { model[attr] = "aiueo" }
+      it { subject.should be_true }
+      it { subject; model[attr].should == "aiueo" }
+    end
+    describe "全角英字の場合" do
+      before { model[attr] = "ａｉｕｅｏ" }
+      it { subject.should be_true }
+      it { subject; model[attr].should == "ａｉｕｅｏ" }
+    end
+    describe "半角数字の場合" do
+      before { model[attr] = "12345" }
+      it { subject.should be_true }
+      it { subject; model[attr].should == "12345" }
+    end
+    describe "全角数字の場合" do
+      before { model[attr] = "１２３４５" }
+      it { subject.should be_true }
+      it { subject; model[attr].should == "１２３４５" }
+    end
   end
 end
