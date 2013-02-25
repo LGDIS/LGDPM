@@ -12,7 +12,7 @@ class Evacuee < ActiveRecord::Base
     :baby, :upper_care_level_three, :elderly_alone, :elderly_couple,
     :bedridden_elderly, :elderly_dementia, :rehabilitation_certificate,
     :physical_disability_certificate, :juki_status, :note, :created_by,
-    :updated_by, :family_well
+    :updated_by, :family_well, :juki_number
     
   validates :local_person_id, :allow_blank => true,
              :numericality => { :only_integer => true }
