@@ -80,6 +80,7 @@ gem 'resque', '1.23.0', :require => 'resque/server'
 
 # external-authorize
 gem 'omniauth', '1.1.2'
+gem 'omniauth-saml', '1.0.0', :git => 'git://github.com/ruvr/omniauth-saml.git'
 gem 'omniauth-openid', '1.0.1' # for google
 gem 'omniauth-oauth', '1.0.1'
 gem 'omniauth-oauth2', '1.0.0' # for facebook

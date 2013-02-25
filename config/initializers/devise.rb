@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -220,6 +221,16 @@ Devise.setup do |config|
   config.omniauth :open_id, :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id'
   config.omniauth :twitter, '6BD7k5IRNoKR9yzcYZBgQ', 'ndW0wTejpTs5fwqZX8GsDdLL1YfiUXL03jg8mdEA2Y'
   config.omniauth :facebook, '266345620165564', 'ba77e7cf1e5e080aa6bd394989e1bbf6'
+  config.omniauth :saml,
+  {
+    :name                           => 'openam',
+    :assertion_consumer_service_url => 'http://vmhost.example.com:3000/users/auth/openam/callback', # SP(RoR)へのリダイレクトURI
+    :issuer                         => 'http://vmhost.example.com:3000/',
+    :idp_sso_target_url             => 'http://app.isk.local:8080/openam/SSORedirect/metaAlias/idp', # IdPのSSO(SOAP)サービスURI
+#    :idp_cert                       => "-----BEGIN CERTIFICATE-----\n...-----END CERTIFICATE-----",
+    :idp_cert_fingerprint           => "DE:F1:8D:BE:D5:47:CD:F3:D5:2B:62:7F:41:63:7C:44:30:45:FE:33",
+    :name_identifier_format         => "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+  }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
