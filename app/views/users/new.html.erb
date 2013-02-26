@@ -18,15 +18,13 @@
         <td class="set_left"></td>
       </tr>
       <tr>
-        <td class="set_left"></td>
-        <td class="set_right">
-          <%= f.submit "ログイン" %>
-  <% end %>
-<%= button_to "googleアカウントでログイン", user_omniauth_authorize_path(:google) %>
-<%= button_to "twitterアカウントでログイン", user_omniauth_authorize_path(:twitter) %>
-<%= button_to "facebookアカウントでログイン", user_omniauth_authorize_path(:facebook) %>
-<%= button_to "OpenAM(SAML対応システム)経由でログイン", user_omniauth_authorize_path(:openam) %>
-        </td>
+        <td></td>
+        <td class="set_right"><%= f.submit "ログイン" %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="set_right"><%= render "devise/shared/links" %></td>
       </tr>
     </table>
+  <% end %>
 </div>

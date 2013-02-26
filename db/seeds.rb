@@ -85,4 +85,6 @@ Constant.create(kind1: 'TD', kind2: 'local_people', kind3: 'status', text: 'こ�
 Constant.create(kind1: 'TD', kind2: 'local_people', kind3: 'status', text: 'この人を行方不明と判断した理由がある', value: '5', _order: '5')
 
 # ユーザテーブル
-User.create(:login => "admin") if User.find_by_login("admin").blank?
+if User.find_by_login("admin").blank?
+  User.create(:login => "admin", :email => "admin@admin.co.jp", :password => "adminadmin", :confirmed_at => Time.now)
+end

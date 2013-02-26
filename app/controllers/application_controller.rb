@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!, :except => [ :shelters ]
   before_filter :init
   
+  layout :layout_by_resource
+  
   protect_from_forgery
   
   class ParameterException < StandardError; end
@@ -94,5 +96,14 @@ class ApplicationController < ActionController::Base
   # DeviseLDAP認証で例外が発生した場合の処理
   rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
     render :text => exception, :status => 500
+  end
+  
+  protected
+  def layout_by_resource
+    if devise_controller? && !user_signed_in?
+      "users"
+    else
+      "application"
+    end
   end
 end
