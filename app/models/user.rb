@@ -80,7 +80,19 @@ class User < ActiveRecord::Base
     if user = User.where(:provider => provider, :uid => uid).first
       return user
     else
-      return User.create!(:provider => provider, :uid => uid, :login => loginid)
+      return User.create!(:provider => provider, :uid => uid, :login => loginid, :email => "#{uid.gsub('@','_')}@#{provider}.local", :password => random_password, :confirmed_at => Time.now)
     end
+  end
+
+  # 擬似ランダム文字列を生成
+  # ==== Args
+  # ==== Return
+  # 半角英数字(40文字)からなるランダムな文字列
+  # ==== Raise
+  def self.random_password
+    chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+    password = ''
+    40.times { |i| password << chars[rand(chars.size-1)] }
+    return password
   end
 end
