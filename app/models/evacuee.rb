@@ -213,8 +213,8 @@ class Evacuee < ActiveRecord::Base
     # 市内・市外区分
     self.in_city_flag = local_person.in_city_flag
     # 都道府県
-    # TODO 変換
-    self.home_state = local_person.home_state
+    @state = Rails.cache.read("state")
+    self.home_state = @state.invert[local_person.home_state]
     # 市区町村
     self.home_city = local_person.home_city
     # 町名

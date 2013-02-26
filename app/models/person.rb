@@ -7,6 +7,10 @@ class Person < ActiveResource::Base
   self.password = settings["lgdpf"][Rails.env]["password"]
   self.proxy    = settings["lgdpf"][Rails.env]["proxy"]
   
+  # 公開フラグ
+  PUBLIC_FLAG_ON  = 1
+  PUBLIC_FLAG_OFF = 0
+  
   # ActiveResource
   # LGDPF Person取得処理
   # ==== Args
@@ -44,7 +48,6 @@ class Person < ActiveResource::Base
     # 避難者_姓
     self.family_name = evacuee.family_name
     # 避難者_よみがな
-    # TODO: 変換
     self.alternate_names = "#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}"
     # 説明
     self.description = evacuee.note
@@ -59,14 +62,14 @@ class Person < ActiveResource::Base
     # 市区町村
     self.home_city = evacuee.home_city
     # 都道府県
-    # TODO: 変換
-    self.home_state = evacuee.home_state
+    @state = Rails.cache.read("state")
+    self.home_state = @state[evacuee.home_state]
     # 郵便番号
     self.home_postal_code = evacuee.home_postal_code
     # 出身国
     # self.home_country
     # 公開フラグ
-    # self.public_flag
+    self.public_flag = PUBLIC_FLAG_ON
     # 市内・市外区分
     self.in_city_flag = evacuee.in_city_flag
     # 避難所
