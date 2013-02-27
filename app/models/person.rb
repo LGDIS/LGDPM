@@ -1,11 +1,10 @@
 # -*- coding:utf-8 -*-
 class Person < ActiveResource::Base
   # ActiveResource各種設定
-  settings      = YAML.load_file("#{Rails.root}/config/settings.yml")
-  self.site     = settings["lgdpf"][Rails.env]["site"]
-  self.user     = settings["lgdpf"][Rails.env]["user"]
-  self.password = settings["lgdpf"][Rails.env]["password"]
-  self.proxy    = settings["lgdpf"][Rails.env]["proxy"]
+  self.site     = SETTINGS["activeresource"]["lgdpf"]["site"]
+  self.user     = SETTINGS["activeresource"]["lgdpf"]["user"]
+  self.password = SETTINGS["activeresource"]["lgdpf"]["password"]
+  self.proxy    = SETTINGS["activeresource"]["lgdpf"]["proxy"]
   
   # 公開フラグ
   PUBLIC_FLAG_ON  = 1

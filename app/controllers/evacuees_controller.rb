@@ -53,6 +53,9 @@ class EvacueesController < ApplicationController
     # 画面印刷ボタン
     when "print"
       print
+    # 集計ボタン
+    when "total"
+      total
     # その他  
     else
       raise
@@ -97,6 +100,62 @@ class EvacueesController < ApplicationController
     # PDFファイルを出力する
     send_data(report.generate, filename: "sample_#{Time.now.instance_eval {'%s%06d' % [strftime('%Y%m%d%H%M%S'),usec]}}.pdf",
       type: "application/pdf", disposition: "attachment")
+  end
+  
+  # 避難者一覧画面
+  # 集計処理
+  # 避難者情報を集計しLGDISに連携する
+  # ==== Args
+  # _search_ :: 画面入力された検索条件
+  # _page_ :: ページ番号
+  # ==== Return
+  # ==== Raise
+  def total
+    # ルーティング上プロジェクト識別子が必要
+    project = Project.find(:first)
+    raise ParameterException if project.blank?
+    
+    shelters = Shelter.find(:all, :params => { project_id: project.identifier })
+    
+    Evacuee.find_for_count.each do |result|
+      # 避難所識別番号が一致する避難所を取得
+      index = shelters.rindex{|s| s.shelter_code == result.shelter_name }
+      next if index.blank?
+      shelter = shelters[index]
+      # 人数（自主避難人数を含む）
+      shelter.head_count = result["head_count"]
+      # 世帯数（自主避難世帯数を含む）
+      # shelter.households = result["households_count"]
+      # 負傷_計
+      shelter.injury_count = result["injury_flag_count"]
+      # 要介護度3以上_計
+      shelter.upper_care_level_three_count = result["upper_care_level_three_count"]
+      # 一人暮らし高齢者（65歳以上）_計
+      shelter.elderly_alone_count = result["elderly_alone_count"]
+      # 高齢者世帯（夫婦共に65歳以上）_計
+      shelter.elderly_couple_count = result["elderly_couple_count"]
+      # 寝たきり高齢者_計
+      shelter.bedridden_elderly_count = result["bedridden_elderly_count"]
+      # 認知症高齢者_計
+      shelter.elderly_dementia_count = result["elderly_dementia_count"]
+      # 療育手帳所持者_計
+      shelter.rehabilitation_certificate_count = result["rehabilitation_certificate_count"]
+      # 身体障害者手帳所持者_計
+      shelter.physical_disability_certificate_count = result["physical_disability_certificate_count"]
+      shelter.save
+    end
+    
+  rescue ParameterException
+    flash.now[:alert] = I18n.t("errors.messages.projects_not_exists")
+  rescue ActiveResource::ServerError, ActiveResource::UnauthorizedAccess => e
+    flash.now[:alert] = "#{e}"
+  rescue Errno::ECONNREFUSED
+    flash.now[:alert] = I18n.t("errors.messages.connection_refused")
+  ensure
+    @search = Evacuee.search(params[:search])
+    @evacuees = @search.paginate(:page => params[:page],
+      :per_page => 30).order("alternate_family_name ASC, alternate_given_name ASC")
+    render :action => :index
   end
 
   # 避難者登録画面
@@ -237,7 +296,7 @@ class EvacueesController < ApplicationController
     when "save"
       juki = Juki.find(params[:juki_id])
       # 住基ステータスを照合済に更新する
-      @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_COMPLETE, :juki_number => juki.id_number)
+      @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_COMPLETE, :juki_number => juki.id_number, :household_number => juki.household_number)
       redirect_to :action => :edit, :id => @evacuee.id
     when "na"
       # 住基ステータスを照合済対象者なしに更新する

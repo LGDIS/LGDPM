@@ -1,18 +1,42 @@
 # -*- coding:utf-8 -*-
-# LGDPF ActiveResource settings
-lgdpf:
-  development:
-    site: "http://localhost:3000/"
-    user: 
-    password: 
-    proxy: 
-  test:
-    site: 
-    user: 
-    password: 
-    proxy: 
-  production:
-    site: "http://localhost:3000/lgdpf"
-    user: 
-    password: 
-    proxy: 
+development:
+  activeresource:
+    lgdpf:
+      site: "http://localhost:3000"
+      user: 
+      password: 
+      proxy: 
+    lgdis:
+      site: "http://localhost:3003"
+      user: 
+      password: 
+      proxy: 
+      api_key: 
+    
+test:
+  activeresource:
+    lgdpf:
+      site: "http://localhost:3000"
+      user: 
+      password: 
+      proxy: 
+    lgdis:
+      site: "http://localhost:3003"
+      user: 
+      password: 
+      proxy:
+      api_key: 
+    
+production:
+  activeresource:
+    lgdpf:
+      site: "http://localhost:3000/LGDPF"
+      user: 
+      password: 
+      proxy: 
+    lgdis:
+      site: "http://localhost:3003/LGDIS"
+      user: 
+      password: 
+      proxy: 
+      api_key: 

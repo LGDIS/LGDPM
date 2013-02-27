@@ -133,6 +133,7 @@ ja:
       connection_refused: "接続できませんでした。"
       parameter_exception_link: "連携したい避難者を選択してください。"
       parameter_exception_approval: "承認したい避難者を選択してください。"
+      projects_not_exists: "プロジェクトが存在しません。"
     template:
       body: 次の項目を確認してください。
       header:

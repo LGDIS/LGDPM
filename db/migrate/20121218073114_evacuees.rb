@@ -42,6 +42,8 @@ class Evacuees < ActiveRecord::Migration
       t.column "note", :text
       t.column "family_well", :string, :limit => 1
       t.column "juki_number", :string, :limit => 500
+      t.column "household_number", :string, :limit => 500
+      t.column "area", :string, :limit => 255
       t.column "linked_by", :string, :limit => 100
       t.column "linked_at", :datetime
       t.column "created_by", :string, :limit => 100
@@ -90,6 +92,8 @@ class Evacuees < ActiveRecord::Migration
     set_column_comment(:evacuees, :note, "備考")
     set_column_comment(:evacuees, :family_well, "家族も無事")
     set_column_comment(:evacuees, :juki_number, "住基番号")
+    set_column_comment(:evacuees, :household_number, "世帯番号")
+    set_column_comment(:evacuees, :area, "地区")
     set_column_comment(:evacuees, :linked_by, "連携者")
     set_column_comment(:evacuees, :linked_at, "連携日時")
     set_column_comment(:evacuees, :created_by, "登録者")
