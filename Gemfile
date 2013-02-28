@@ -78,6 +78,9 @@ gem 'thinreports', '0.7.6'
 # placing those jobs on multiple queues, and processing them later.
 gem 'resque', '1.23.0', :require => 'resque/server'
 
+# libzip is a C library for reading, creating, and modifying zip archives.
+gem 'zipruby', '0.3.6'
+
 # external-authorize
 gem 'omniauth', '1.1.2'
 gem 'omniauth-openid', '1.0.1' # for google

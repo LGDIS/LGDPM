@@ -72,34 +72,56 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def print
     @search   = Evacuee.search(params[:search])
-    @evacuees = @search.paginate(:page => params[:page],
-      :per_page => 30).order("alternate_family_name ASC, alternate_given_name ASC")
+    @evacuees = @search.paginate(:page => params[:page])
     # 避難者情報が存在しない場合、出力しない
     if @evacuees.blank?
       flash[:alert] = I18n.t("errors.messages.evacuees_not_exists")
       render :action => :index
       return
     end
-    
-    # PDFファイルを生成する
-    report = ThinReports::Report.new layout: File.join(Rails.root, 'lib', 'sample.tlf')
+    # 避難者を避難所単位に分ける
+    evacuees_list = {}
     @search.each do |evacuee|
-      report.list(:sample_list).add_row do |row|
-        row.values name:          "#{evacuee.family_name} #{evacuee.given_name}",
-                   name_kana:     "#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}",
-                   address:       "#{@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}",
-                   city:          @evacuee_const["in_city_flag"]["#{evacuee.in_city_flag}"],
-                   date_of_birth: (evacuee.date_of_birth.present? ? evacuee.date_of_birth.strftime("%y/%m/%d") : ""),
-                   shelter:       @shelter[evacuee.shelter_name],
-                   note:          evacuee.note,
-                   juki:          @evacuee_const["juki_status"]["#{evacuee.juki_status}"],
-                   created_by:    evacuee.created_by,
-                   created_at:    evacuee.created_at.strftime("%y/%m/%d")
+      shelter = Rails.cache.read("shelter")[evacuee.shelter_name]
+      shelter_name = (shelter.blank? ? "避難所なし" : shelter["name"])
+      evacuees_list[shelter_name] = {} unless evacuees_list[shelter_name]
+      evacuees_list[shelter_name][evacuee.id] = evacuee
+    end
+    # 避難所単位でpdfを生成する
+    reports = {}
+    evacuees_list.each_pair do |shelter_name, evacuees_hash|
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'lib', 'sample.tlf')
+      evacuees_hash.each_pair do |id, evacuee|
+        report.list(:sample_list).add_row do |row|
+          row.values name:          "#{evacuee.family_name} #{evacuee.given_name}",
+                     name_kana:     "#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}",
+                     address:       "#{@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}",
+                     city:          @evacuee_const["in_city_flag"]["#{evacuee.in_city_flag}"],
+                     date_of_birth: (evacuee.date_of_birth.present? ? evacuee.date_of_birth.strftime("%y/%m/%d") : ""),
+                     shelter:       @shelter[evacuee.shelter_name],
+                     note:          evacuee.note,
+                     juki:          @evacuee_const["juki_status"]["#{evacuee.juki_status}"],
+                     created_by:    evacuee.created_by,
+                     created_at:    evacuee.created_at.strftime("%y/%m/%d")
+        end
+      end
+      reports[shelter_name] = report
+    end
+    # pdfを生成する
+    files = {}
+    reports.each_pair do |shelter_name, report|
+      files[NKF.nkf('-sxm0', "#{shelter_name}.pdf")] = report.generate
+    end
+    # 生成されたpdfをzipで圧縮する
+    buf = ''
+    Zip::Archive.open_buffer(buf, Zip::CREATE) do |archive|
+      files.each_pair do |filename, filestream|
+        archive.add_buffer(NKF.nkf('-sxm0', filename), filestream)
       end
     end
-    # PDFファイルを出力する
-    send_data(report.generate, filename: "sample_#{Time.now.instance_eval {'%s%06d' % [strftime('%Y%m%d%H%M%S'),usec]}}.pdf",
-      type: "application/pdf", disposition: "attachment")
+    # zipを出力する
+    send_data(buf, filename: "避難者一覧_#{Time.now.instance_eval {'%s%06d' % [strftime('%Y%m%d%H%M%S'),usec]}}.zip",
+      type: "application/zip", disposition: "attached")
   end
   
   # 避難者一覧画面
