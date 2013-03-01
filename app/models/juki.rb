@@ -145,7 +145,7 @@ class Juki < ActiveRecord::Base
     end
     # 都道府県
     if pattern.include?(:home_state)
-      @state = Rails.cache.read("state")
+      @state = State.hash_for_table
       result = result.where(juki_table[:address].matches("%#{@state[evacuee.home_state]}%"))
     end
     # 市区町村

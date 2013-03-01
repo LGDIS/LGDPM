@@ -12,9 +12,9 @@
         </p>
         <p>
           <label style="font-weight: normal">地区名</label>
-          <%= f.select(:shelter_name_sw,
+          <%= f.select(:area_eq,
           options_for_select(@area.invert,
-          @search.shelter_name_sw),
+          @search.area_eq),
           { :include_blank => true }) %>
         </p>
       </div>

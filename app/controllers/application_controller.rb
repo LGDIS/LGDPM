@@ -2,7 +2,7 @@
 class ApplicationController < ActionController::Base
   # 避難所情報取得は認証なし
   before_filter :authenticate_user!, :except => [ :shelters ]
-  before_filter :init
+  before_filter :init, :except => [:autocomplete_city, :autocomplete_street]
   
   layout :layout_by_resource
   
@@ -19,26 +19,10 @@ class ApplicationController < ActionController::Base
     @evacuee_const      = Constant.hash_for_table(Evacuee.table_name)
     @juki_history_const = Constant.hash_for_table(JukiHistory.table_name)
     @local_person_const = Constant.hash_for_table(LocalPerson.table_name)
-    # memcacheからマスタを取得
-    # TODO 見直し
-    @area    = get_cache("area")
-    @shelter = get_cache("shelter")
-    @state   = Rails.cache.read("state")
-  end
-  
-  # memcacheされた値を取得・加工
-  # === Args
-  # _key_name_ :: キャッシュされているハッシュのキー名
-  # === Return
-  # _constant_list_ :: {code => name}
-  # ==== Raise
-  def get_cache(key_name)
-    constant_list = {}
-    constant = Rails.cache.read(key_name)
-    constant.each do |c|
-      constant_list[c[0]] = c[1]["name"]
-    end
-    return constant_list
+    # DBからマスタを取得
+    @area    = Area.hash_for_table
+    @shelter = LocalShelter.hash_for_table
+    @state   = State.hash_for_table
   end
   
   # オートコンプリート市区町村取得処理
@@ -49,15 +33,9 @@ class ApplicationController < ActionController::Base
   # 市区町村jsonオブジェクト
   # ==== Raise
   def autocomplete_city
-    # 都道府県が未選択の場合オートコンプリートを表示しない
-    if params["state"].present?
-      # @city = Rails.cache.read("city_#{params["state"]}")
-      @city = Rails.cache.read("city")
-      @city.delete_if{|key,value| value !~ /#{params["term"]}/}
-    end
-    
+    @city = City.hash_for_table(params["state"], params["term"])
     respond_to do |format|
-      format.json { render :json => (@city.present? ? @city.values.to_json : Hash.new) }
+      format.json { render :json => @city.values.to_json }
     end
   end
   
@@ -69,15 +47,9 @@ class ApplicationController < ActionController::Base
   # 町名jsonオブジェクト
   # ==== Raise
   def autocomplete_street
-    # 都道府県が未選択の場合オートコンプリートを表示しない
-    if params["state"].present?
-      # @street = Rails.cache.read("street_#{params["state"]}")
-      @street = Rails.cache.read("street")
-      @street.delete_if{|key,value| value !~ /#{params["term"]}/}
-    end
-    
+    @street = Street.hash_for_table(params["state"], params["term"])
     respond_to do |format|
-      format.json { render :json => (@street.present? ? @street.values.to_json : Hash.new) }
+      format.json { render :json => @street.values.to_json }
     end
   end
   

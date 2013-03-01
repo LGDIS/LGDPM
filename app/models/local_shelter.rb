@@ -12,4 +12,19 @@ class LocalShelter < ActiveRecord::Base
    :elderly_couple_count, :bedridden_elderly_count, :elderly_dementia_count, 
    :rehabilitation_certificate_count, :physical_disability_certificate_count, 
    :note, :deleted_at, :created_by, :updated_by
+
+  # 避難所ハッシュ取得処理
+  # ==== Args
+  # ==== Return
+  # 避難所ハッシュオブジェクト {:shelter_code=>:name, :shelter_code=>:name}
+  # ==== Raise
+  def self.hash_for_table
+    shelters_list = {}
+    shelters = LocalShelter.select([:shelter_code, :name]).order(:shelter_code)
+    shelters.each do |shelter|
+      shelters_list[shelter.shelter_code] = {} unless shelters_list[shelter.shelter_code]
+      shelters_list[shelter.shelter_code] = shelter.name
+    end
+    return shelters_list
+  end
 end

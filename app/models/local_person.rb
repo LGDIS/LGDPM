@@ -216,6 +216,8 @@ class LocalPerson < ActiveRecord::Base
     self.email_flag = person.email_flag
     # 削除日時
     self.deleted_at = person.deleted_at
+    # 家族も無事
+    self.family_well = person.family_well
     
     return self
   end

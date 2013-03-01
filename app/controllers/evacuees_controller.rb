@@ -83,8 +83,8 @@ class EvacueesController < ApplicationController
     # 避難者を避難所単位に分ける
     evacuees_list = {}
     @search.each do |evacuee|
-      shelter = Rails.cache.read("shelter")[evacuee.shelter_name]
-      shelter_name = (shelter.blank? ? "避難所なし" : shelter["name"])
+      shelter = LocalShelter.hash_for_table[evacuee.shelter_name]
+      shelter_name = (shelter.blank? ? "避難所なし" : shelter)
       evacuees_list[shelter_name] = {} unless evacuees_list[shelter_name]
       evacuees_list[shelter_name][evacuee.id] = evacuee
     end

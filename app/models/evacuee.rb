@@ -160,6 +160,12 @@ class Evacuee < ActiveRecord::Base
         self.in_city_flag = IN_CITY_FLAG_OUTSIDE
       end
     end
+    # 地区
+    if self.shelter_name.present?
+      self.area = LocalShelter.where(:shelter_code => self.shelter_name).first.try(:area)
+    else
+      self.area = nil
+    end
   end
   
   # 避難者集計情報取得処理
@@ -220,7 +226,7 @@ class Evacuee < ActiveRecord::Base
     # 市内・市外区分
     self.in_city_flag = local_person.in_city_flag
     # 都道府県
-    @state = Rails.cache.read("state")
+    @state = State.hash_for_table
     self.home_state = @state.invert[local_person.home_state]
     # 市区町村
     self.home_city = local_person.home_city
@@ -268,6 +274,8 @@ class Evacuee < ActiveRecord::Base
     self.physical_disability_certificate = local_person.physical_disability_certificate
     # 備考
     self.note = local_person.description
+    # 家族も無事
+    self.family_well = local_person.family_well
     
     return self
   end

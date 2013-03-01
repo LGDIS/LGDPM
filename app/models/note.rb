@@ -36,7 +36,7 @@ class Note < ActiveResource::Base
     # 状況
     self.status = 4
     # 最後に見かけた場所
-    self.last_known_location = Rails.cache.read("shelter")["#{evacuee.shelter_name}"]["name"] if evacuee.shelter_name.present?
+    self.last_known_location = LocalShelter.hash_for_table[evacuee.shelter_name]
     # if evacuee.juki_status == Evacuee::JUKI_STATUS_COMPLETE
       # メッセージ
       self.text = I18n.t("messages.note.text")

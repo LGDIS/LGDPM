@@ -61,7 +61,7 @@ class Person < ActiveResource::Base
     # 市区町村
     self.home_city = evacuee.home_city
     # 都道府県
-    @state = Rails.cache.read("state")
+    @state = State.hash_for_table
     self.home_state = @state[evacuee.home_state]
     # 郵便番号
     self.home_postal_code = evacuee.home_postal_code
