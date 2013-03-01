@@ -71,7 +71,8 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def print
-    @search   = Evacuee.search(params[:search])
+    require 'nkf'
+    @search   = Evacuee.search(params[:search]).order("alternate_family_name ASC, alternate_given_name ASC")
     @evacuees = @search.paginate(:page => params[:page])
     # 避難者情報が存在しない場合、出力しない
     if @evacuees.blank?
@@ -90,19 +91,22 @@ class EvacueesController < ApplicationController
     # 避難所単位でpdfを生成する
     reports = {}
     evacuees_list.each_pair do |shelter_name, evacuees_hash|
-      report = ThinReports::Report.new layout: File.join(Rails.root, 'lib', 'sample.tlf')
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'lib', 'evacuees_list.tlf')
+      # ヘッダー部の設定
+      report.list(:evacuees_list).header do |h|
+        h.item(:shelter_name).value(shelter_name)
+      end
+      # 明細部の設定
       evacuees_hash.each_pair do |id, evacuee|
-        report.list(:sample_list).add_row do |row|
-          row.values name:          "#{evacuee.family_name} #{evacuee.given_name}",
-                     name_kana:     "#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}",
-                     address:       "#{@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}",
-                     city:          @evacuee_const["in_city_flag"]["#{evacuee.in_city_flag}"],
-                     date_of_birth: (evacuee.date_of_birth.present? ? evacuee.date_of_birth.strftime("%y/%m/%d") : ""),
-                     shelter:       @shelter[evacuee.shelter_name],
-                     note:          evacuee.note,
-                     juki:          @evacuee_const["juki_status"]["#{evacuee.juki_status}"],
-                     created_by:    evacuee.created_by,
-                     created_at:    evacuee.created_at.strftime("%y/%m/%d")
+        report.list(:evacuees_list).add_row do |row|
+          row.values name:               "#{evacuee.family_name} #{evacuee.given_name}",
+                     name_kana:          "#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}",
+                     address:            "#{@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}",
+                     date_of_birth:      (evacuee.date_of_birth.present? ? evacuee.date_of_birth.strftime("%y/%m/%d") : ""),
+                     age:                evacuee.age,
+                     shelter_entry_date: (evacuee.shelter_entry_date.present? ? evacuee.shelter_entry_date.strftime("%y/%m/%d") : ""),
+                     shelter_leave_date: (evacuee.shelter_leave_date.present? ? evacuee.shelter_leave_date.strftime("%y/%m/%d") : ""),
+                     next_place:         evacuee.next_place
         end
       end
       reports[shelter_name] = report
