@@ -88,3 +88,49 @@ Constant.create(kind1: 'TD', kind2: 'local_people', kind3: 'status', text: 'こ�
 if User.find_by_login("admin").blank?
   User.create(:login => "admin", :email => "admin@admin.co.jp", :password => "adminadmin", :confirmed_at => Time.now)
 end
+
+# 地区
+require 'csv'
+Area.delete_all
+reader = CSV.open(File.join(Rails.root,"lib", "batches", "area.csv"), "r", encoding: "utf8")
+header = reader.take(1)[0]
+reader.each do |row|
+  Area.create(:area_code => row[0], :name => row[1], :remarks=> row[2], :polygon=> row[3])
+end
+# 避難所
+LocalShelter.delete_all
+reader = CSV.open(File.join(Rails.root,"lib", "batches", "work_shelter.csv"), "r", encoding: "utf8")
+header = reader.take(1)[0]
+reader.each do |row|
+  LocalShelter.create(
+    :name         => row[0],
+    :area         => row[1],
+    :address      => row[2],
+    :shelter_type => row[3],
+    :shelter_sort => row[4],
+    :shelter_code => row[5])
+end
+# 住所
+State.delete_all
+City.delete_all
+Street.delete_all
+reader = CSV.open(File.join(Rails.root,"lib", "batches", "work_address.csv"), "r", encoding: "utf8")
+header = reader.take(1)[0]
+work_state, work_city, work_street = nil, nil, nil
+reader.each do |row|
+  # 都道府県
+  if work_state != row[1]
+    work_state = row[1]
+    State.create(:code => row[0][0..1], :name => row[1])
+  end
+  # 市区町村
+  if work_city != row[2]
+    work_city = row[2]
+    City.create(:code => row[0][0..4], :name => row[2])
+  end
+  # 町名
+  if work_street != row[3]
+    work_street = row[3]
+    Street.create(:code => row[0], :name => row[3])
+  end
+end
