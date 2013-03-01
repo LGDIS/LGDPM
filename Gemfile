@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
 
@@ -7,24 +7,24 @@ gem 'rails', '3.2.11'
 
 # Pg is the Ruby interface to the PostgreSQL RDBMS.
 # It works with PostgreSQL 8.3 and later.
-gem 'pg', '0.14.1'
+gem 'pg'
 
 # ActiveRecord extension to get more from PostgreSQL.
-gem 'pg_power', '1.3.0'
+gem 'pg_power'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '3.2.6'
-  gem 'coffee-rails', '3.2.2'
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', '0.11.3', :platforms => :ruby
+  # gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '1.0.3'
+  gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails', '2.2.0'
+gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -33,7 +33,7 @@ gem 'jquery-rails', '2.2.0'
 # gem 'jbuilder'
 
 # Use unicorn as the app server. LGDPM default Rack HTTP Server.
-gem 'unicorn', '4.5.0'
+gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -42,60 +42,86 @@ gem 'unicorn', '4.5.0'
 # gem 'debugger'
 
 # Dalli is a high performance pure Ruby client for accessing memcached servers.
-gem 'dalli', '2.6.0'
+gem 'dalli'
 
 # jpmobile is Rails plugin for Japanese mobile-phones.
-gem 'jpmobile', '3.0.7'
+gem 'jpmobile'
 
 # Devise is Flexible authentication solution for Rails with Warden.
-gem 'devise', '2.2.2'
+gem 'devise'
 
 # Devise extension to allow authentication via LDAP.
-gem 'devise_ldap_authenticatable', '0.6.1'
+gem 'devise_ldap_authenticatable'
+
+# omniauth is external-authorize for Devise.
+# A generalized Rack framework for multiple-provider authentication.
+gem 'omniauth'
+
+# OpenID strategy for OmniAuth. Using for Google.
+gem 'omniauth-openid'
+
+# A generic OAuth (1.0/1.0a) strategy for OmniAuth.
+gem 'omniauth-oauth'
+
+# An abstract OAuth2 strategy for OmniAuth. Using for Facebook.
+gem 'omniauth-oauth2'
+
+# A generic SAML strategy for OmniAuth.
+gem 'omniauth-saml', '1.0.0', :git => 'git://github.com/ruvr/omniauth-saml.git'
+
+# OmniAuth strategy for Twitter.
+gem 'omniauth-twitter'
+
+# Facebook strategy for OmniAuth.
+gem 'omniauth-facebook'
 
 # meta_search is Allows simple search forms to be created against an AR3
 # model and its associations, has useful view helpers for sort links and
 # multiparameter fields as well.
-gem 'meta_search', '1.1.3'
+gem 'meta_search'
 
 # acts_as_paranoid is Active Record (~>3.2) plugin which allows you to
 # hide and restore records without actually deleting them.
-gem 'acts_as_paranoid', '0.4.1'
+gem 'acts_as_paranoid'
 
 # TabsOnRails is a simple Rails plugin for creating tabs and navigation menus.
-gem 'tabs_on_rails', '2.1.1'
+gem 'tabs_on_rails'
 
 # will_paginate provides a simple API for performing paginated queries with
 # Active Record, DataMapper and Sequel, and includes helpers for rendering
 #  pagination links in Rails, Sinatra and Merb web apps.
-gem 'will_paginate', '3.0.4'
+gem 'will_paginate'
 
 # ThinReports is Open Source Reporting Solution for Ruby. It provides a GUI
 # Designer and a Library for Ruby.
-gem 'thinreports', '0.7.6'
+gem 'thinreports'
 
 # Resque is a Redis-backed Ruby library for creating background jobs,
 # placing those jobs on multiple queues, and processing them later.
-gem 'resque', '1.23.0', :require => 'resque/server'
+gem 'resque', :require => 'resque/server'
 
 # libzip is a C library for reading, creating, and modifying zip archives.
-gem 'zipruby', '0.3.6'
-
-# external-authorize
-gem 'omniauth', '1.1.2'
-gem 'omniauth-openid', '1.0.1' # for google
-gem 'omniauth-oauth', '1.0.1'
-gem 'omniauth-oauth2', '1.0.0' # for facebook
-gem 'omniauth-saml', '1.0.0', :git => 'git://github.com/ruvr/omniauth-saml.git'
-gem 'omniauth-twitter', '0.0.9'
-gem 'omniauth-facebook', '1.2.0'
+gem 'zipruby'
 
 group :test do
-  gem 'rspec', '2.12.0'
-  
-  gem 'factory_girl_rails', '4.2.0'
-  
-  gem 'resque_spec', '0.13.0'
+  # Rspec-2 meta-gem that depends on the other components.
+  gem 'rspec'
+
+  # factory_girl is a fixtures replacement with a straightforward
+  # definition syntax, support for multiple build strategies (saved
+  # instances, unsaved instances, attribute hashes, and stubbed objects),
+  # and support for multiple factories for the same class (user,
+  # admin_user, and so on), including factory inheritance.
+  gem 'factory_girl_rails'
+
+  # RSpec matcher for Resque.
+  gem 'resque_spec'
+end
+
+# Iconv is a wrapper class for the UNIX 95 iconv() function family,
+# which translates string between various encoding systems.
+platforms :mri_20 do
+  gem "iconv"
 end
 
 # Load Local Gemfile
