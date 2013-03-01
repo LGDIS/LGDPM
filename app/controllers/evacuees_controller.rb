@@ -225,7 +225,7 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def edit
     @evacuee = Evacuee.find(params[:id])
-    @jukis = Juki.find_for_family(@evacuee)
+    @jukis   = Juki.find_for_family(@evacuee) if @evacuee.family_well == Evacuee::FAMILY_WELL_ON
   end
 
   # 避難者更新画面

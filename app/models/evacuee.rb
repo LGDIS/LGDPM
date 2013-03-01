@@ -114,6 +114,9 @@ class Evacuee < ActiveRecord::Base
   # アレルギー
   ALLERGY_FLAG_ON  = "1" # アレルギー有
   ALLERGY_FLAG_OFF = "0" # アレルギー無
+  # 家族も無事
+  FAMILY_WELL_ON  = "1" # 有
+  FAMILY_WELL_OFF = "0" # 無
   
   # 宮城県コード
   STATE_MIYAGI = "04"
