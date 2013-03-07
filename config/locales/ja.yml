@@ -317,6 +317,17 @@ ja:
     errors:
       <<: *errors
   
+  notice_successful_create: 作成しました。
+  notice_successful_update: 更新しました。
+  notice_successful_delete: 削除しました。
+  notice_successful_total: 集計しました。
+  notice_successful_import: 取り込みました。
+  notice_successful_approval: 承認しました。
+  notice_successful_link: 連携しました。
+  notice_successful_matching: マッチングしました。
+  error_candidate_not_found: 候補者が存在しません。
+  text_destroy_confirmation: 本当に削除しますか？
+  
   will_paginate:
     page_entries_info:
       single_page:

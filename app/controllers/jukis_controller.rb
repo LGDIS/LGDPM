@@ -13,7 +13,7 @@ class JukisController < ApplicationController
   # ==== Raise
   def index
     @search = JukiHistory.search.order("created_at DESC")
-    @juki_histories = @search.paginate(:page => params[:page], :per_page => 30)
+    @juki_histories = @search.paginate(:page => params[:page])
   end
   
   # 住基情報取込画面

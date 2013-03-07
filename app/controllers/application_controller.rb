@@ -10,6 +10,9 @@ class ApplicationController < ActionController::Base
   
   class ParameterException < StandardError; end
   
+  # set per_page globally
+  WillPaginate.per_page = 30
+  
   # 初期処理
   # ==== Args
   # ==== Return

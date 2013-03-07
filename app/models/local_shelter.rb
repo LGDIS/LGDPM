@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 class LocalShelter < ActiveRecord::Base
-  set_table_name "shelters"
+  self.table_name = "shelters"
   attr_accessible :name, :name_kana, :area, :address, :phone, :fax, 
    :e_mail, :person_responsible, :shelter_type, :shelter_type_detail, 
    :shelter_sort, :opened_at, :closed_at, :capacity, :status, :head_count, 

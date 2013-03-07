@@ -15,7 +15,7 @@ class EvacueesController < ApplicationController
     respond_to do |format|
       format.html {
         @search = Evacuee.search(:id_eq => 0) # 取得件数0件で初期表示させるため
-        @evacuees = @search.paginate(:page => params[:page], :per_page => 30)
+        @evacuees = @search.paginate(:page => params[:page])
         render :index
       }
       # 災害トラッキング管理機能(LGDIS)との連携のため
@@ -44,8 +44,7 @@ class EvacueesController < ApplicationController
     # 検索ボタン
     when "search"
       @search = Evacuee.search(params[:search])
-      @evacuees = @search.paginate(:page => params[:page],
-        :per_page => 30).order("alternate_family_name ASC, alternate_given_name ASC")
+      @evacuees = @search.paginate(:page => params[:page])
       render :action => :index
     # 新規登録ボタン
     when "new"
@@ -72,11 +71,11 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def print
     require 'nkf'
-    @search   = Evacuee.search(params[:search]).order("alternate_family_name ASC, alternate_given_name ASC")
+    @search   = Evacuee.search(params[:search])
     @evacuees = @search.paginate(:page => params[:page])
     # 避難者情報が存在しない場合、出力しない
     if @evacuees.blank?
-      flash[:alert] = I18n.t("errors.messages.evacuees_not_exists")
+      flash.now[:alert] = I18n.t("errors.messages.evacuees_not_exists")
       render :action => :index
       return
     end
@@ -170,7 +169,7 @@ class EvacueesController < ApplicationController
       shelter.physical_disability_certificate_count = result["physical_disability_certificate_count"]
       shelter.save
     end
-    
+    flash.now[:notice] = I18n.t("notice_successful_total")
   rescue ParameterException
     flash.now[:alert] = I18n.t("errors.messages.projects_not_exists")
   rescue ActiveResource::ServerError, ActiveResource::UnauthorizedAccess => e
@@ -179,8 +178,7 @@ class EvacueesController < ApplicationController
     flash.now[:alert] = I18n.t("errors.messages.connection_refused")
   ensure
     @search = Evacuee.search(params[:search])
-    @evacuees = @search.paginate(:page => params[:page],
-      :per_page => 30).order("alternate_family_name ASC, alternate_given_name ASC")
+    @evacuees = @search.paginate(:page => params[:page])
     render :action => :index
   end
 
@@ -207,6 +205,7 @@ class EvacueesController < ApplicationController
       @evacuee = Evacuee.new(params[:evacuee])
       if @evacuee.save
         respond_to do |format|
+          flash[:notice] = I18n.t("notice_successful_create")
           format.html { redirect_to :action => :edit, :id => @evacuee.id }
           format.json { render :json => @evacuee.to_json } # LGDPM-Android
         end
@@ -245,6 +244,7 @@ class EvacueesController < ApplicationController
     if params[:commit_kind] == "save"
       @evacuee = Evacuee.find(params[:id])
       if @evacuee.update_attributes(params[:evacuee])
+        flash[:notice] = I18n.t("notice_successful_update")
         redirect_to :action => :edit, :id => @evacuee.id
       else
         render :action => :edit, :id => @evacuee.id
@@ -272,6 +272,7 @@ class EvacueesController < ApplicationController
     when "delete"
       @evacuee = Evacuee.find(params[:id])
       @evacuee.destroy
+      flash[:notice] = I18n.t("notice_successful_delete")
       redirect_to :action => :index
     when "match"
       @evacuee = Evacuee.find(params[:id])
@@ -279,6 +280,7 @@ class EvacueesController < ApplicationController
         redirect_to :action => :list, :id => @evacuee.id, :pattern => params[:pattern]
       else
         @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_CHK_NA)
+        flash.now[:alert] = I18n.t("error_candidate_not_found")
         render :action => :edit, :id => @evacuee.id
       end
     when "back"
@@ -314,15 +316,13 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def match
-    # TODO
-    # 家族も無事
-    # 住基情報とのマージ
     @evacuee = Evacuee.find(params[:id])
     case params[:commit_kind]
     when "save"
       juki = Juki.find(params[:juki_id])
       # 住基ステータスを照合済に更新する
       @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_COMPLETE, :juki_number => juki.id_number, :household_number => juki.household_number)
+      flash[:notice] = I18n.t("notice_successful_matching")
       redirect_to :action => :edit, :id => @evacuee.id
     when "na"
       # 住基ステータスを照合済対象者なしに更新する

@@ -3,6 +3,8 @@ class Evacuee < ActiveRecord::Base
   # 論理削除機能の有効化
   acts_as_paranoid
   
+  default_scope order(:alternate_family_name, :alternate_given_name)
+  
   attr_accessible :family_name, :given_name, :alternate_family_name,
     :alternate_given_name, :date_of_birth, :sex, :age, :home_postal_code,
     :in_city_flag, :home_state, :home_city, :home_street, :house_number,
@@ -174,7 +176,7 @@ class Evacuee < ActiveRecord::Base
   # Evacueeオブジェクト配列
   # ==== Raise
   def self.find_for_count
-    select("shelter_name,
+    unscoped.select("shelter_name,
             COUNT(*) as head_count,
             COUNT(CASE WHEN injury_flag  IN ('1') THEN 1 ELSE NULL END) AS injury_flag_count,
             COUNT(CASE WHEN allergy_flag IN ('1') THEN 1 ELSE NULL END) AS allergy_flag_count,

@@ -13,7 +13,7 @@ class LinkagesController < ApplicationController
   # ==== Raise
   def index
     @search = Evacuee.search(:id_eq => 0) # 取得件数0件で初期表示させるため
-    @evacuees = @search.paginate(:page => params[:page], :per_page => 30)
+    @evacuees = @search.paginate(:page => params[:page])
   end
   
   # 石巻PF避難者連携画面
@@ -90,7 +90,7 @@ class LinkagesController < ApplicationController
       evacuee.linked_at = Time.now
       evacuee.save!
     end
-  
+    flash.now[:notice] = I18n.t("notice_successful_link")
   rescue ActiveResource::ServerError => e
     flash.now[:alert] = "#{e}"
   rescue ParameterException
@@ -110,7 +110,7 @@ class LinkagesController < ApplicationController
   # ==== Raise
   def do_search
     @search = Evacuee.search(params[:search])
-    @evacuees = @search.paginate(:page => params[:page], :per_page => 30)
+    @evacuees = @search.paginate(:page => params[:page])
     render :action => :index
   end
 end

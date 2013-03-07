@@ -95,7 +95,7 @@
       <div class="splitcontentright">
         <p style="float: right;">
           <%= submit_tag "保存", :kind => "save", :tabindex => 33 %>
-          <%= submit_tag "削除", :kind => "delete", :disabled => @evacuee.new_record?, :tabindex => 34 %>
+          <%= submit_tag "削除", :kind => "delete", :disabled => @evacuee.new_record?, :confirm => I18n.t("text_destroy_confirmation"), :tabindex => 34 %>
           <%= submit_tag "住基マッチング", :kind => "match", :disabled => @evacuee.new_record?, :tabindex => 35 %>
           <%= submit_tag "戻る", :kind => "back", :tabindex => 36 %>
         </p>

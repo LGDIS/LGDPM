@@ -14,7 +14,7 @@ class LocalPeopleController < ApplicationController
   # ==== Raise
   def index
     @search = LocalPerson.search(:id_eq => 0) # 取得件数0件で初期表示させるため
-    @local_people = @search.paginate(:page => params[:page], :per_page => 30)
+    @local_people = @search.paginate(:page => params[:page])
   end
   
   # 石巻PF避難者承認画面
@@ -71,7 +71,7 @@ class LocalPeopleController < ApplicationController
         local_person.save!
       end
     end
-    
+    flash.now[:notice] = I18n.t("notice_successful_approval")
   rescue ParameterException
     flash.now[:alert] = I18n.t("errors.messages.parameter_exception_approval")
   ensure
@@ -93,6 +93,8 @@ class LocalPeopleController < ApplicationController
   def import
     # LGDPF避難者情報取得
     @people = Person.find_for_import
+    raise ParameterException if @people.blank?
+    
     @people.each do |person|
       # LocalPersonへ登録
       local_person = LocalPerson.new
@@ -105,12 +107,15 @@ class LocalPeopleController < ApplicationController
       # 連携フラグ更新
       person.update_attributes(:link_flag => true)
       note.update_attributes(:link_flag => true) unless note.blank?
-    end if @people.present?
+    end
     
+    flash.now[:notice] = I18n.t("notice_successful_import")
+  rescue ParameterException
+    flash.now[:alert] = I18n.t("errors.messages.evacuees_not_exists")
   rescue ActiveResource::ServerError => e
     flash.now[:alert] = "#{e}"
   rescue Errno::ECONNREFUSED
-    flash[:alert] = I18n.t("errors.messages.connection_refused")
+    flash.now[:alert] = I18n.t("errors.messages.connection_refused")
   ensure
     do_search
   end
@@ -124,7 +129,7 @@ class LocalPeopleController < ApplicationController
   # ==== Raise
   def do_search
     @search = LocalPerson.search(params[:search])
-    @local_people = @search.paginate(:page => params[:page], :per_page => 30).order("created_at DESC")
+    @local_people = @search.paginate(:page => params[:page]).order("created_at DESC")
     render :action => :index
   end
 end
