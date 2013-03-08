@@ -310,13 +310,13 @@
           <%= "#{juki.alternate_family_name} #{juki.alternate_given_name}" %>
         </td>
         <td class="set_center">
-          <%= juki.sex %>
+          <%= @evacuee_const["sex"][juki.sex] %>
         </td>
         <td class="set_center">
           <%= juki.date_of_birth.strftime("%y/%m/%d") if juki.date_of_birth.present? %>
         </td>
         <td class="set_center">
-          <%= juki.address %>
+          <%= "#{juki.home_state}#{juki.home_city}#{juki.home_street}#{juki.house_number}" %>
         </td>
         <td class="set_center">
           <%= juki.family_head %>

@@ -56,7 +56,7 @@
           <%= juki.date_of_birth.strftime("%y/%m/%d") if juki.date_of_birth.present? %>
         </td>
         <td class="set_center">
-          <%= juki.address %>
+          <%= "#{juki.home_state}#{juki.home_city}#{juki.home_street}#{juki.house_number}" %>
         </td>
         <td class="set_center">
           <%= radio_button_tag "matched", juki.id, (i == 0 ? true : false) %>

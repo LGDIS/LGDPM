@@ -1,114 +1,45 @@
 # -*- coding:utf-8 -*-
 class Juki < ActiveRecord::Base
-  attr_accessible :id_number, :household_number, :residents_type,
-    :residents_state, :residents_code, :family_name, :given_name,
-    :alternate_family_name, :alternate_given_name, :sex, :year_number,
-    :date_of_birth, :relation1, :relation2, :relation3, :relation4,
-    :household_family_name, :household_given_name, :household_alternate_family_name,
-    :household_alternate_given_name, :address_code, :address, :building_name,
-    :postal_code, :former_address_code, :former_address, :former_building_name,
-    :former_postal_code, :new_address_code, :new_address, :new_building_name,
-    :new_postal_code, :new_address_division, :domicile, :domicile_code,
-    :family_head, :became_change_date, :became_report_date, :became_change_reason,
-    :decided_change_date, :decided_report_date, :decided_change_reason,
-    :lost_change_date, :lost_report_date, :lost_change_reason, :change_date,
-    :original_area, :change_division, :change_reason, :created_by, :updated_by
-
-  validates :id_number,
-              :length => {:maximum => 15}
-  validates :household_number,
-              :length => {:maximum => 15}
-  validates :residents_type,
-              :length => {:maximum => 1}
-  validates :residents_state,
-              :length => {:maximum => 1}
-  validates :residents_code,
-              :length => {:maximum => 11}
-  validates :family_name,
-              :length => {:maximum => 100}
-  validates :given_name,
-              :length => {:maximum => 100}
-  validates :alternate_family_name,
-              :length => {:maximum => 100}
-  validates :alternate_given_name,
-              :length => {:maximum => 100}
-  validates :sex,
-              :length => {:maximum => 1}
-  validates :year_number,
-              :length => {:maximum => 2}
+  attr_accessible :id_number,:household_number,:residents_type,:residents_state,
+    :residents_code,:family_name,:given_name,:alternate_family_name,:alternate_given_name,:sex,:age,
+    :date_of_birth,:home_state,:home_city,:home_street,:house_number,:home_postal_code,:injury_flag,
+    :injury_condition,:allergy_flag,:allergy_cause,:pregnancy,:baby,:upper_care_level_three,:elderly_alone,
+    :elderly_couple,:bedridden_elderly,:elderly_dementia,:rehabilitation_certificate,
+    :physical_disability_certificate,:domicile,:family_head,:created_by,:updated_by
+    
+  validates :id_number, :length => {:maximum => 500}
+  validates :household_number, :length => {:maximum => 500}
+  validates :residents_type, :length => {:maximum => 500}
+  validates :residents_state, :length => {:maximum => 500}
+  validates :residents_code, :length => {:maximum => 500}
+  validates :family_name, :length => {:maximum => 500}
+  validates :given_name, :length => {:maximum => 500}
+  validates :alternate_family_name, :length => {:maximum => 500}
+  validates :alternate_given_name, :length => {:maximum => 500}
+  validates :sex, :length => {:maximum => 1}
+  validates :age, :length => {:maximum => 500}
   validates :date_of_birth, :date => true
-  validates :relation1,
-              :length => {:maximum => 2}
-  validates :relation2,
-              :length => {:maximum => 2}
-  validates :relation3,
-              :length => {:maximum => 2}
-  validates :relation4,
-              :length => {:maximum => 2}
-  validates :household_family_name,
-              :length => {:maximum => 100}
-  validates :household_given_name,
-              :length => {:maximum => 100}
-  validates :household_alternate_family_name,
-              :length => {:maximum => 100}
-  validates :household_alternate_given_name,
-              :length => {:maximum => 100}
-  validates :address_code,
-              :length => {:maximum => 30}
-  validates :address,
-              :length => {:maximum => 100}
-  validates :building_name,
-              :length => {:maximum => 150}
-  validates :postal_code,
-              :length => {:maximum => 10}
-  validates :former_address_code,
-              :length => {:maximum => 30}
-  validates :former_address,
-              :length => {:maximum => 100}
-  validates :former_building_name,
-              :length => {:maximum => 150}
-  validates :former_postal_code,
-              :length => {:maximum => 10}
-  validates :new_address_code,
-              :length => {:maximum => 30}
-  validates :new_address,
-              :length => {:maximum => 100}
-  validates :new_building_name,
-              :length => {:maximum => 150}
-  validates :new_postal_code,
-              :length => {:maximum => 10}
-  validates :new_address_division,
-              :length => {:maximum => 1}
-  validates :domicile,
-              :length => {:maximum => 100}
-  validates :domicile_code,
-              :length => {:maximum => 30}
-  validates :family_head,
-              :length => {:maximum => 100}
-  validates :became_change_date, :date => true
-  validates :became_report_date, :date => true
-  validates :became_change_reason,
-              :length => {:maximum => 2}
-  validates :decided_change_date, :date => true
-  validates :decided_report_date, :date => true
-  validates :decided_change_reason,
-              :length => {:maximum => 2}
-  validates :lost_change_date, :date => true
-  validates :lost_report_date, :date => true
-  validates :lost_change_reason,
-              :length => {:maximum => 2}
-  validates :change_date, :time => true
-  validates :original_area,
-              :length => {:maximum => 50}
-  validates :change_division,
-              :length => {:maximum => 1}
-  validates :change_reason,
-              :length => {:maximum => 2}
-  validates :created_by,
-              :length => {:maximum => 100}
-  validates :updated_by,
-              :length => {:maximum => 100}
-
+  validates :home_state, :length => {:maximum => 500}
+  validates :home_city, :length => {:maximum => 500}
+  validates :home_street, :length => {:maximum => 500}
+  validates :house_number, :length => {:maximum => 500}
+  validates :home_postal_code, :length => {:maximum => 500}
+  validates :injury_flag, :length => {:maximum => 1}
+  validates :allergy_flag, :length => {:maximum => 1}
+  validates :pregnancy, :length => {:maximum => 1}
+  validates :baby, :length => {:maximum => 1}
+  validates :upper_care_level_three, :length => {:maximum => 2}
+  validates :elderly_alone, :length => {:maximum => 1}
+  validates :elderly_couple, :length => {:maximum => 1}
+  validates :bedridden_elderly, :length => {:maximum => 1}
+  validates :elderly_dementia, :length => {:maximum => 1}
+  validates :rehabilitation_certificate, :length => {:maximum => 2}
+  validates :physical_disability_certificate, :length => {:maximum => 1}
+  validates :domicile, :length => {:maximum => 500}
+  validates :family_head, :length => {:maximum => 500}
+  validates :created_by, :length => {:maximum => 100}
+  validates :updated_by, :length => {:maximum => 100}
+  
   # 避難者住基マッチング検索処理
   # ==== Args
   # _evacuee_ :: Evacueeオブジェクト
@@ -146,15 +77,15 @@ class Juki < ActiveRecord::Base
     # 都道府県
     if pattern.include?(:home_state)
       @state = State.hash_for_table
-      result = result.where(juki_table[:address].matches("%#{@state[evacuee.home_state]}%"))
+      result = result.where(juki_table[:home_state].matches("%#{@state[evacuee.home_state]}%"))
     end
     # 市区町村
     if pattern.include?(:home_city)
-      result = result.where(juki_table[:address].matches("%#{evacuee.home_city}%"))
+      result = result.where(juki_table[:home_city].matches("%#{evacuee.home_city}%"))
     end
     # 町名
     if pattern.include?(:home_street)
-      result = result.where(juki_table[:address].matches("%#{evacuee.home_street}%"))
+      result = result.where(juki_table[:home_street].matches("%#{evacuee.home_street}%"))
     end
     
     return result
@@ -195,7 +126,7 @@ class Juki < ActiveRecord::Base
           # 取込件数
           number += 1
           # 列数チェック
-          raise I18n.t("activerecord.errors.messages.invalid_column") unless row.length == 64
+          raise I18n.t("activerecord.errors.messages.invalid_column") unless row.length == 32
           juki = Juki.new
           juki = juki.exec_insert(row, user)
           # バリデーションエラーの場合メッセージを出力
@@ -230,6 +161,7 @@ class Juki < ActiveRecord::Base
   # 引数のrowオブジェクトを基に各項目を編集する
   # ==== Args
   # _row_ :: 住基情報配列
+  # _user_ :: ユーザ名
   # ==== Return
   # 住基オブジェクト
   # ==== Raise
@@ -245,93 +177,59 @@ class Juki < ActiveRecord::Base
     # 住民票コード
     self.residents_code = row[4]
     # 氏名（姓）
-    self.family_name = row[5].split("　")[0]
+    self.family_name = row[5]
     # 氏名（名）
-    self.given_name = row[5].split("　")[1]
+    self.given_name = row[6]
     # 氏名カナ（姓）
-    self.alternate_family_name = row[6].split("　")[0]
+    self.alternate_family_name = row[7]
     # 氏名カナ（名）
-    self.alternate_given_name = row[6].split("　")[1]
+    self.alternate_given_name = row[8]
     # 性別
-    self.sex = row[7]
-    # 生年月日：年号
-    self.year_number = row[8]
+    self.sex = row[9]
+    # 年齢
+    self.age = row[10]
     # 生年月日
-    self.date_of_birth = Date.new(row[9].to_i, row[10].to_i, row[11].to_i).to_s
-    # 続柄1
-    self.relation1 = row[12]
-    # 続柄2
-    self.relation2 = row[13]
-    # 続柄3
-    self.relation3 = row[14]
-    # 続柄4
-    self.relation4 = row[15]
-    # 世帯主氏名（姓）
-    self.household_family_name = row[16].split("　")[0]
-    # 世帯主氏名（名）
-    self.household_given_name = row[16].split("　")[1]
-    # 世帯主氏名カナ（姓）
-    self.household_alternate_family_name = row[17].split("　")[0]
-    # 世帯主氏名カナ（名）
-    self.household_alternate_given_name = row[17].split("　")[1]
-    # 現住所：住所コード
-    self.address_code = row[18]
-    # 現住所：住所
-    self.address = row[19]
-    # 現住所：方書
-    self.building_name = row[20]
-    # 現住所：郵便番号
-    self.postal_code = row[21]
-    # 前住所：住所コード
-    self.former_address_code = row[22]
-    # 前住所：住所
-    self.former_address = row[23]
-    # 前住所：方書
-    self.former_building_name = row[24]
-    # 前住所：郵便番号
-    self.former_postal_code = row[25]
-    # 転出先：住所コード
-    self.new_address_code = row[26]
-    # 転出先：住所
-    self.new_address = row[27]
-    # 転出先：方書
-    self.new_building_name = row[28]
-    # 転出先：郵便番号
-    self.new_postal_code = row[29]
-    # 転出先区分
-    self.new_address_division = row[30]
+    self.date_of_birth = row[11]
+    # 都道府県
+    self.home_state = row[12]
+    # 市区町村
+    self.home_city = row[13]
+    # 町名
+    self.home_street = row[14]
+    # 番地
+    self.house_number = row[15]
+    # 郵便番号
+    self.home_postal_code = row[16]
+    # 負傷
+    self.injury_flag = row[17]
+    # 負傷内容
+    self.injury_condition = row[18]
+    # アレルギー
+    self.allergy_flag = row[19]
+    # アレルギー物質
+    self.allergy_cause = row[20]
+    # 妊婦
+    self.pregnancy = row[21]
+    # 乳幼児
+    self.baby = row[22]
+    # 要介護度3以上
+    self.upper_care_level_three = row[23]
+    # 一人暮らし高齢者（65歳以上）
+    self.elderly_alone = row[24]
+    # 高齢者世帯（夫婦共に65歳以上）
+    self.elderly_couple = row[25]
+    # 寝たきり高齢者
+    self.bedridden_elderly = row[26]
+    # 認知症高齢者
+    self.elderly_dementia = row[27]
+    # 療育手帳所持者
+    self.rehabilitation_certificate = row[28]
+    # 身体障害者手帳所持者
+    self.physical_disability_certificate = row[29]
     # 本籍
-    self.domicile = row[31]
-    # 本籍住所コード
-    self.domicile_code = row[32]
+    self.domicile = row[30]
     # 筆頭者
-    self.family_head = row[33]
-    # 住民となった情報：異動年月日
-    self.became_change_date = Date.new(row[34].to_i, row[35].to_i, row[36].to_i).to_s
-    # 住民となった情報：届出年月日
-    self.became_report_date = Date.new(row[37].to_i, row[38].to_i, row[39].to_i).to_s
-    # 住民となった情報：増異動事由
-    self.became_change_reason = row[40]
-    # 住民を定めた情報：異動年月日
-    self.decided_change_date = Date.new(row[41].to_i, row[42].to_i, row[43].to_i).to_s
-    # 住民を定めた情報：届出年月日
-    self.decided_report_date = Date.new(row[44].to_i, row[45].to_i, row[46].to_i).to_s
-    # 住民を定めた情報：異動事由
-    self.decided_change_reason = row[47]
-    # 住民でなくなった情報：異動年月日
-    self.lost_change_date = Date.new(row[48].to_i, row[49].to_i, row[50].to_i).to_s
-    # 住民でなくなった情報：届出年月日
-    self.lost_report_date = Date.new(row[51].to_i, row[52].to_i, row[53].to_i).to_s
-    # 住民でなくなった情報：減異動事由
-    self.lost_change_reason = row[54]
-    # 異動年月日
-    self.change_date = DateTime.new(row[55].to_i, row[56].to_i, row[57].to_i, row[58].to_i, row[59].to_i, row[60].to_i).strftime("%Y/%m/%d %H:%M:%S")
-    # 独自領域
-    self.original_area = row[61]
-    # 異動中区分
-    self.change_division = row[62]
-    # 異動事由
-    self.change_reason = row[63]
+    self.family_head = row[31]
     # 登録者
     self.created_by = user
     # 更新者

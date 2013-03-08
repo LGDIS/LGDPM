@@ -3,103 +3,69 @@ class Jukis < ActiveRecord::Migration
   def up
     create_table :jukis, :force => true do |t|
       # 識別番号
-      t.column "id_number", :string, :limit => 15
+      t.column "id_number", :string, :limit => 500
       # 世帯番号
-      t.column "household_number", :string, :limit => 15
+      t.column "household_number", :string, :limit => 500
       # 住民種別
-      t.column "residents_type", :string, :limit => 1
+      t.column "residents_type", :string, :limit => 500
       # 住民状態
-      t.column "residents_state", :string, :limit => 1
+      t.column "residents_state", :string, :limit => 500
       # 住民票コード
-      t.column "residents_code", :string, :limit => 11
+      t.column "residents_code", :string, :limit => 500
       # 氏名（姓）
-      t.column "family_name", :string, :limit => 100
+      t.column "family_name", :string, :limit => 500
       # 氏名（名）
-      t.column "given_name", :string, :limit => 100
+      t.column "given_name", :string, :limit => 500
       # 氏名カナ（姓）
-      t.column "alternate_family_name", :string, :limit => 100
+      t.column "alternate_family_name", :string, :limit => 500
       # 氏名カナ（名）
-      t.column "alternate_given_name", :string, :limit => 100
+      t.column "alternate_given_name", :string, :limit => 500
       # 性別
       t.column "sex", :string, :limit => 1
-      # 生年月日：年号
-      t.column "year_number", :string, :limit => 2
+      # 年齢
+      t.column "age", :string, :limit => 500
       # 生年月日
       t.column "date_of_birth", :date
-      # 続柄1
-      t.column "relation1", :string, :limit => 2
-      # 続柄2
-      t.column "relation2", :string, :limit => 2
-      # 続柄3
-      t.column "relation3", :string, :limit => 2
-      # 続柄4
-      t.column "relation4", :string, :limit => 2
-      # 世帯主氏名（姓）
-      t.column "household_family_name", :string, :limit => 100
-      # 世帯主氏名（名）
-      t.column "household_given_name", :string, :limit => 100
-      # 世帯主氏名カナ（姓）
-      t.column "household_alternate_family_name", :string, :limit => 100
-      # 世帯主氏名カナ（名）
-      t.column "household_alternate_given_name", :string, :limit => 100
-      # 現住所：住所コード
-      t.column "address_code", :string, :limit => 30
-      # 現住所：住所
-      t.column "address", :string, :limit => 100
-      # 現住所：方書
-      t.column "building_name", :string, :limit => 150
-      # 現住所：郵便番号
-      t.column "postal_code", :string, :limit => 10
-      # 前住所：住所コード
-      t.column "former_address_code", :string, :limit => 30
-      # 前住所：住所
-      t.column "former_address", :string, :limit => 100
-      # 前住所：方書
-      t.column "former_building_name", :string, :limit => 150
-      # 前住所：郵便番号
-      t.column "former_postal_code", :string, :limit => 10
-      # 転出先：住所コード
-      t.column "new_address_code", :string, :limit => 30
-      # 転出先：住所
-      t.column "new_address", :string, :limit => 100
-      # 転出先：方書
-      t.column "new_building_name", :string, :limit => 150
-      # 転出先：郵便番号
-      t.column "new_postal_code", :string, :limit => 10
-      # 転出先区分
-      t.column "new_address_division", :string, :limit => 1
+      # 都道府県
+      t.column "home_state", :string, :limit => 500
+      # 市区町村
+      t.column "home_city", :string, :limit => 500
+      # 町名
+      t.column "home_street", :string, :limit => 500
+      # 番地
+      t.column "house_number", :string, :limit => 500
+      # 郵便番号
+      t.column "home_postal_code", :string, :limit => 500
+      # 負傷
+      t.column "injury_flag", :string, :limit => 1
+      # 負傷内容
+      t.column "injury_condition", :text
+      # アレルギー
+      t.column "allergy_flag", :string, :limit => 1
+      # アレルギー物質
+      t.column "allergy_cause", :text
+      # 妊婦
+      t.column "pregnancy", :string, :limit => 1
+      # 乳幼児
+      t.column "baby", :string, :limit => 1
+      # 要介護度3以上
+      t.column "upper_care_level_three", :string, :limit => 2
+      # 一人暮らし高齢者（65歳以上）
+      t.column "elderly_alone", :string, :limit => 1
+      # 高齢者世帯（夫婦共に65歳以上）
+      t.column "elderly_couple", :string, :limit => 1
+      # 寝たきり高齢者
+      t.column "bedridden_elderly", :string, :limit => 1
+      # 認知症高齢者
+      t.column "elderly_dementia", :string, :limit => 1
+      # 療育手帳所持者
+      t.column "rehabilitation_certificate", :string, :limit => 2
+      # 身体障害者手帳所持者
+      t.column "physical_disability_certificate", :string, :limit => 1
       # 本籍
-      t.column "domicile", :string, :limit => 100
-      # 本籍住所コード
-      t.column "domicile_code", :string, :limit => 30
+      t.column "domicile", :string, :limit => 500
       # 筆頭者
-      t.column "family_head", :string, :limit => 100
-      # 住民となった情報：異動年月日
-      t.column "became_change_date", :date
-      # 住民となった情報：届出年月日
-      t.column "became_report_date", :date
-      # 住民となった情報：増異動事由
-      t.column "became_change_reason", :string, :limit => 2
-      # 住民を定めた情報：異動年月日
-      t.column "decided_change_date", :date
-      # 住民を定めた情報：届出年月日
-      t.column "decided_report_date", :date
-      # 住民を定めた情報：異動事由
-      t.column "decided_change_reason", :string, :limit => 2
-      # 住民でなくなった情報：異動年月日
-      t.column "lost_change_date", :date
-      # 住民でなくなった情報：届出年月日
-      t.column "lost_report_date", :date
-      # 住民でなくなった情報：減異動事由
-      t.column "lost_change_reason", :string, :limit => 2
-      # 異動年月日
-      t.column "change_date", :datetime
-      # 独自領域
-      t.column "original_area", :string, :limit => 50
-      # 異動中区分
-      t.column "change_division", :string, :limit => 1
-      # 異動事由
-      t.column "change_reason", :string, :limit => 2
+      t.column "family_head", :string, :limit => 500
       # 登録者
       t.column "created_by", :string, :limit => 100
       # 更新者
@@ -118,45 +84,28 @@ class Jukis < ActiveRecord::Migration
     set_column_comment(:jukis, :alternate_family_name, "氏名カナ（姓）")
     set_column_comment(:jukis, :alternate_given_name, "氏名カナ（名）")
     set_column_comment(:jukis, :sex, "性別")
-    set_column_comment(:jukis, :year_number, "生年月日：年号")
+    set_column_comment(:jukis, :age, "年齢")
     set_column_comment(:jukis, :date_of_birth, "生年月日")
-    set_column_comment(:jukis, :relation1, "続柄1")
-    set_column_comment(:jukis, :relation2, "続柄2")
-    set_column_comment(:jukis, :relation3, "続柄3")
-    set_column_comment(:jukis, :relation4, "続柄4")
-    set_column_comment(:jukis, :household_family_name, "世帯主氏名（姓）")
-    set_column_comment(:jukis, :household_given_name, "世帯主氏名（名）")
-    set_column_comment(:jukis, :household_alternate_family_name, "世帯主氏名カナ（姓）")
-    set_column_comment(:jukis, :household_alternate_given_name, "世帯主氏名カナ（名）")
-    set_column_comment(:jukis, :address_code, "現住所：住所コード")
-    set_column_comment(:jukis, :address, "現住所：住所")
-    set_column_comment(:jukis, :building_name, "現住所：方書")
-    set_column_comment(:jukis, :postal_code, "現住所：郵便番号")
-    set_column_comment(:jukis, :former_address_code, "前住所：住所コード")
-    set_column_comment(:jukis, :former_address, "前住所：住所")
-    set_column_comment(:jukis, :former_building_name, "前住所：方書")
-    set_column_comment(:jukis, :former_postal_code, "前住所：郵便番号")
-    set_column_comment(:jukis, :new_address_code, "転出先：住所コード")
-    set_column_comment(:jukis, :new_address, "転出先：住所")
-    set_column_comment(:jukis, :new_building_name, "転出先：方書")
-    set_column_comment(:jukis, :new_postal_code, "転出先：郵便番号")
-    set_column_comment(:jukis, :new_address_division, "転出先区分")
+    set_column_comment(:jukis, :home_state, "都道府県")
+    set_column_comment(:jukis, :home_city, "市区町村")
+    set_column_comment(:jukis, :home_street, "町名")
+    set_column_comment(:jukis, :house_number, "番地")
+    set_column_comment(:jukis, :home_postal_code, "郵便番号")
+    set_column_comment(:jukis, :injury_flag, "負傷")
+    set_column_comment(:jukis, :injury_condition, "負傷内容")
+    set_column_comment(:jukis, :allergy_flag, "アレルギー")
+    set_column_comment(:jukis, :allergy_cause, "アレルギー物質")
+    set_column_comment(:jukis, :pregnancy, "妊婦")
+    set_column_comment(:jukis, :baby, "乳幼児")
+    set_column_comment(:jukis, :upper_care_level_three, "要介護度3以上")
+    set_column_comment(:jukis, :elderly_alone, "一人暮らし高齢者（65歳以上）")
+    set_column_comment(:jukis, :elderly_couple, "高齢者世帯（夫婦共に65歳以上）")
+    set_column_comment(:jukis, :bedridden_elderly, "寝たきり高齢者")
+    set_column_comment(:jukis, :elderly_dementia, "認知症高齢者")
+    set_column_comment(:jukis, :rehabilitation_certificate, "療育手帳所持者")
+    set_column_comment(:jukis, :physical_disability_certificate, "身体障害者手帳所持者")
     set_column_comment(:jukis, :domicile, "本籍")
-    set_column_comment(:jukis, :domicile_code, "本籍住所コード")
     set_column_comment(:jukis, :family_head, "筆頭者")
-    set_column_comment(:jukis, :became_change_date, "住民となった情報：異動年月日")
-    set_column_comment(:jukis, :became_report_date, "住民となった情報：届出年月日")
-    set_column_comment(:jukis, :became_change_reason, "住民となった情報：増異動事由")
-    set_column_comment(:jukis, :decided_change_date, "住民を定めた情報：異動年月日")
-    set_column_comment(:jukis, :decided_report_date, "住民を定めた情報：届出年月日")
-    set_column_comment(:jukis, :decided_change_reason, "住民を定めた情報：異動事由")
-    set_column_comment(:jukis, :lost_change_date, "住民でなくなった情報：異動年月日")
-    set_column_comment(:jukis, :lost_report_date, "住民でなくなった情報：届出年月日")
-    set_column_comment(:jukis, :lost_change_reason, "住民でなくなった情報：減異動事由")
-    set_column_comment(:jukis, :change_date, "異動年月日")
-    set_column_comment(:jukis, :original_area, "独自領域")
-    set_column_comment(:jukis, :change_division, "異動中区分")
-    set_column_comment(:jukis, :change_reason, "異動事由")
     set_column_comment(:jukis, :created_by, "登録者")
     set_column_comment(:jukis, :updated_by, "更新者")
     set_column_comment(:jukis, :created_at, "登録日時")
