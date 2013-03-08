@@ -16,49 +16,29 @@ describe Juki do
     it_should_behave_like :max_length, :alternate_family_name
     it_should_behave_like :max_length, :alternate_given_name
     it_should_behave_like :max_length, :sex
-    it_should_behave_like :max_length, :year_number
-    it_should_behave_like :max_length, :relation1
-    it_should_behave_like :max_length, :relation2
-    it_should_behave_like :max_length, :relation3
-    it_should_behave_like :max_length, :relation4
-    it_should_behave_like :max_length, :household_family_name
-    it_should_behave_like :max_length, :household_given_name
-    it_should_behave_like :max_length, :household_alternate_family_name
-    it_should_behave_like :max_length, :household_alternate_given_name
-    it_should_behave_like :max_length, :address_code
-    it_should_behave_like :max_length, :address
-    it_should_behave_like :max_length, :building_name
-    it_should_behave_like :max_length, :postal_code
-    it_should_behave_like :max_length, :former_address_code
-    it_should_behave_like :max_length, :former_address
-    it_should_behave_like :max_length, :former_building_name
-    it_should_behave_like :max_length, :former_postal_code
-    it_should_behave_like :max_length, :new_address_code
-    it_should_behave_like :max_length, :new_address
-    it_should_behave_like :max_length, :new_building_name
-    it_should_behave_like :max_length, :new_postal_code
-    it_should_behave_like :max_length, :new_address_division
+    it_should_behave_like :max_length, :age
+    it_should_behave_like :max_length, :home_state
+    it_should_behave_like :max_length, :home_city
+    it_should_behave_like :max_length, :home_street
+    it_should_behave_like :max_length, :house_number
+    it_should_behave_like :max_length, :home_postal_code
+    it_should_behave_like :max_length, :injury_flag
+    it_should_behave_like :max_length, :allergy_flag
+    it_should_behave_like :max_length, :pregnancy
+    it_should_behave_like :max_length, :baby
+    it_should_behave_like :max_length, :upper_care_level_three
+    it_should_behave_like :max_length, :elderly_alone
+    it_should_behave_like :max_length, :elderly_couple
+    it_should_behave_like :max_length, :bedridden_elderly
+    it_should_behave_like :max_length, :elderly_dementia
+    it_should_behave_like :max_length, :rehabilitation_certificate
+    it_should_behave_like :max_length, :physical_disability_certificate
     it_should_behave_like :max_length, :domicile
-    it_should_behave_like :max_length, :domicile_code
     it_should_behave_like :max_length, :family_head
-    it_should_behave_like :max_length, :became_change_reason
-    it_should_behave_like :max_length, :decided_change_reason
-    it_should_behave_like :max_length, :lost_change_reason
-    it_should_behave_like :max_length, :original_area
-    it_should_behave_like :max_length, :change_division
-    it_should_behave_like :max_length, :change_reason
     it_should_behave_like :max_length, :created_by
     it_should_behave_like :max_length, :updated_by
     
     it_should_behave_like :date, :date_of_birth
-    it_should_behave_like :date, :became_change_date
-    it_should_behave_like :date, :became_report_date
-    it_should_behave_like :date, :decided_change_date
-    it_should_behave_like :date, :decided_report_date
-    it_should_behave_like :date, :lost_change_date
-    it_should_behave_like :date, :lost_report_date
-    
-    it_should_behave_like :datetime, :change_date
   end
   
   describe "#find_for_match" do
@@ -69,16 +49,17 @@ describe Juki do
       FactoryGirl.create(:juki)
       j = FactoryGirl.create(:juki)
       j.update_attributes(:alternate_family_name => "aaaaa", :alternate_given_name => "bbbbb",
-        :date_of_birth => "2012-12-24", :sex => "2", :address => "poiuytrewq")
+        :date_of_birth => "2012-12-24", :sex => "2", :home_state => "poiuytrewq",
+        :home_city => "kjgfds", :home_street => "2ertyu")
     end
     
     it_should_behave_like :find_for_match, :alternate_family_name, :alternate_family_name, "abc"
     it_should_behave_like :find_for_match, :alternate_given_name, :alternate_given_name, "efg"
     it_should_behave_like :find_for_match, :date_of_birth, :date_of_birth, "2013-01-02"
     it_should_behave_like :find_for_match, :sex, :sex, "1"
-    it_should_behave_like :find_for_match, :home_state, :address, "qwer"
-    it_should_behave_like :find_for_match, :home_city, :address, "asdf"
-    it_should_behave_like :find_for_match, :home_street, :address, "zxcv"
+    it_should_behave_like :find_for_match, :home_state, :home_state, "qwer"
+    it_should_behave_like :find_for_match, :home_city, :home_city, "asdf"
+    it_should_behave_like :find_for_match, :home_street, :home_street, "zxcv"
   end
   
   describe "#import" do
