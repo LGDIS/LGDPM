@@ -12,6 +12,10 @@ development:
       password: 
       proxy: 
       api_key: 
+  ldap_auth:
+    enable: false
+  external_auth:
+    enable: true
     
 test:
   activeresource:
@@ -26,6 +30,10 @@ test:
       password: 
       proxy:
       api_key: 
+  ldap_auth:
+    enable: false
+  external_auth:
+    enable: true
     
 production:
   activeresource:
@@ -40,3 +48,7 @@ production:
       password: 
       proxy: 
       api_key: 
+  ldap_auth:
+    enable: false
+  external_auth:
+    enable: true

@@ -1,4 +1,30 @@
 <div id="login-form">
+<% if SETTINGS['ldap_auth']['enable'] %>
+  <%= form_tag(user_omniauth_callback_path(:ldap)) do %>
+    <table>
+      <tr>
+        <td class="set_right">
+          <%= label_tag :username, "ログイン:" %>
+        </td>
+        <td class="set_left">
+          <%= text_field_tag :username %>
+        </td>
+      </tr>
+      <tr>
+        <td class="set_right"><%= label_tag :password, "パスワード:" %></td>
+        <td class="set_left"><%= password_field_tag :password %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="set_left"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="set_right"><%= submit_tag "ログイン" %></td>
+      </tr>
+    </table>
+  <% end %>
+<% else %>
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
     <table>
       <tr>
@@ -21,10 +47,8 @@
         <td></td>
         <td class="set_right"><%= f.submit "ログイン" %></td>
       </tr>
-      <tr>
-        <td></td>
-        <td class="set_right"><%= render "devise/shared/links" %></td>
-      </tr>
     </table>
   <% end %>
+<% end %>
 </div>
+<%= render "devise/shared/links" %></td>

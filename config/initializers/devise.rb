@@ -2,16 +2,6 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  # ==> LDAP Configuration 
-  # config.ldap_logger = true
-  # config.ldap_create_user = false
-  # config.ldap_update_password = true
-  # config.ldap_config = "#{Rails.root}/config/ldap.yml"
-  # config.ldap_check_group_membership = false
-  # config.ldap_check_attributes = false
-  # config.ldap_use_admin_to_bind = false
-  # config.ldap_ad_group_check = false
-  
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
@@ -254,4 +244,18 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
+
+  # ==> LDAP Configuration
+  config.omniauth :ldap,
+  {
+    :host => API_KEY['ldap']['host'],
+    :port => API_KEY['ldap']['port'],
+    :method => :plain,
+    :base => API_KEY['ldap']['base_dn'],
+    :uid => API_KEY['ldap']['uid_key'],
+#    :name_proc => Proc.new {|name| name.gsub(/@.*$/,'')},
+    :bind_dn => API_KEY['ldap']['bind_dn'],
+    :password => API_KEY['ldap']['admin_password'],
+  }
+
 end

@@ -75,6 +75,9 @@ gem 'omniauth-twitter'
 # Facebook strategy for OmniAuth.
 gem 'omniauth-facebook'
 
+# LDAP strategy for OmniAuth.
+gem 'omniauth-ldap'
+
 # meta_search is Allows simple search forms to be created against an AR3
 # model and its associations, has useful view helpers for sort links and
 # multiparameter fields as well.
