@@ -6,13 +6,12 @@ class LinkagesController < ApplicationController
   
   # 石巻PF避難者連携画面
   # 初期表示処理
-  # 検索結果が0件の状態で画面を表示させる
   # ==== Args
   # _page_ :: ページ番号
   # ==== Return
   # ==== Raise
   def index
-    @search = Evacuee.search(:id_eq => 0) # 取得件数0件で初期表示させるため
+    @search = Evacuee.search
     @evacuees = @search.paginate(:page => params[:page])
   end
   

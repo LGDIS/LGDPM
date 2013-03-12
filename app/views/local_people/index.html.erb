@@ -3,7 +3,7 @@
   <%= hidden_field_tag "commit_kind" %>
   <%= hidden_field_tag "approval_local_people" %>
   <fieldset class="collapsible ">
-    <legend onclick="toggleFieldset(this);">検索条件</legend>
+    <legend id="local_people_search_conditions" onclick="toggleFieldset(this);">検索条件</legend>
     <div style="">
       <div class="splitcontentleft">
         <p style="margin-left: 74px;">
@@ -45,14 +45,13 @@
           { :include_blank => true }) %>
         </p>
       </div>
+      
+      <%= f.submit '検索', :kind => "search" %>
+      <input type="button" value="クリア" id="clear_button">
     </div>
   </fieldset>
   
   <div class="splitcontentleft">
-    <p>
-      <td><%= f.submit '検索', :kind => "search" %></td>
-      <td><input type="button" value="クリア" id="clear_button"></td>
-    </p>
     <p>
       <label class="floating">
         <strong>石巻PersonFinder（安否情報）一覧</strong>
@@ -122,3 +121,10 @@
     <% end if @local_people.present? %>
   </tbody>
 </table>
+
+<%= javascript_tag do %>
+  $(document).ready(function() {
+    // 検索条件を初期表示時に非表示にする
+    $("#local_people_search_conditions").click();
+  });
+<% end %>

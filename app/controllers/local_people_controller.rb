@@ -6,14 +6,13 @@ class LocalPeopleController < ApplicationController
   
   # 石巻PF避難者承認画面
   # 初期表示処理
-  # 検索結果が0件の状態で画面を表示させる
   # ==== Args
   # _search_ :: 画面入力された検索条件
   # _page_ :: ページ番号
   # ==== Return
   # ==== Raise
   def index
-    @search = LocalPerson.search(:id_eq => 0) # 取得件数0件で初期表示させるため
+    @search = LocalPerson.search
     @local_people = @search.paginate(:page => params[:page])
   end
   
