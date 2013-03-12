@@ -324,3 +324,9 @@ ja:
 
       multi_page: "Displaying %{model} %{from} - %{to} of %{count} in total"
       multi_page_html: "(%{from}～%{to}/%{count})"
+
+  twitter: Twitter
+  facebook: Facebook
+  google: Google
+  openam: OpenAM
+  ldap: LDAP
