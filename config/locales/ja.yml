@@ -100,7 +100,8 @@ ja:
       author_name: "LGDPM"
     note:
       author_name: "LGDPM"
-      text: "石巻市役所が安否確認済み"
+      complete_text: "石巻市民であることが確認されました。"
+      incomplete_text: "石巻市民であることが確認されていません。"
   errors: &errors
     format: ! '%{attribute}%{message}'
     messages:
@@ -310,6 +311,18 @@ ja:
   notice_successful_matching: マッチングしました。
   error_candidate_not_found: 候補者が存在しません。
   text_destroy_confirmation: 本当に削除しますか？
+
+  label_title: 石巻市PersonManager
+  label_tab_register: 新規登録
+  label_tab_local_person: PFデータの取込・承認
+  label_tab_evacuee: 住基マッチング登録・印刷
+  label_tab_linkage: 石巻PFへ出力
+  label_tab_juki: 住基情報取込
+  
+  button_search: 検索
+  button_new: 新規登録
+  button_print: 避難者名簿印刷
+  button_total: 避難所情報に連携
   
   will_paginate:
     page_entries_info:

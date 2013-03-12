@@ -37,10 +37,12 @@ class Note < ActiveResource::Base
     self.status = 4
     # 最後に見かけた場所
     self.last_known_location = LocalShelter.hash_for_table[evacuee.shelter_name]
-    # if evacuee.juki_status == Evacuee::JUKI_STATUS_COMPLETE
-      # メッセージ
-      self.text = I18n.t("messages.note.text")
-    # end
+    # メッセージ
+    if evacuee.juki_status == Evacuee::JUKI_STATUS_COMPLETE
+      self.text = I18n.t("messages.note.complete_text")
+    else
+      self.text = I18n.t("messages.note.incomplete_text")
+    end
     
     return self
   end

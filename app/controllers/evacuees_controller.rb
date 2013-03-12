@@ -3,10 +3,10 @@
 class EvacueesController < ApplicationController
   # タブリンクのカレントタブ制御に使用
   set_tab :evacuee
+  set_tab :register, :only => [:new, :create]
   
   # 避難者一覧画面
   # 初期表示処理
-  # 検索結果が0件の状態で画面を表示させる
   # ==== Args
   # _page_ :: ページ番号
   # ==== Return
@@ -14,7 +14,7 @@ class EvacueesController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @search = Evacuee.search(:id_eq => 0) # 取得件数0件で初期表示させるため
+        @search = Evacuee.search
         @evacuees = @search.paginate(:page => params[:page])
         render :index
       }
