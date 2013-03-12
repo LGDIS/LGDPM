@@ -4,7 +4,7 @@
   <%= hidden_field_tag "approval_local_people" %>
   <fieldset class="collapsible ">
     <legend id="local_people_search_conditions" onclick="toggleFieldset(this);">検索条件</legend>
-    <div style="">
+    <div class="splitcontent">
       <div class="splitcontentleft">
         <p style="margin-left: 74px;">
           <label>氏名</label>
@@ -45,9 +45,12 @@
           { :include_blank => true }) %>
         </p>
       </div>
-      
+    </div>
+    <div class="splitcontent">
+      <div class="splitcontentleft">
       <%= f.submit '検索', :kind => "search" %>
       <input type="button" value="クリア" id="clear_button">
+     </div>
     </div>
   </fieldset>
   
