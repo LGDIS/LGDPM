@@ -19,7 +19,8 @@ class LinkagesController < ApplicationController
   # 検索処理
   # 押下されたボタンにより、処理を分岐する
   # * 検索ボタンが押下された場合、検索を行い自画面に遷移する
-  # * 連携ボタンが押下された場合、linkメソッドに委譲する
+  # * 出力ボタンが押下された場合、linkメソッドに委譲する
+  # * 一括出力ボタンが押下された場合、bulk_linkメソッドに委譲する
   # * その他の場合、例外を発生させる
   # ==== Args
   # _commit_kind_ :: ボタン種別
@@ -32,9 +33,12 @@ class LinkagesController < ApplicationController
     # 検索ボタン
     when "search"
       do_search
-    # 連携ボタン
+    # 出力ボタン
     when "link"
       link
+    # 一括出力ボタン
+    when "bulk_link"
+      bulk_link
     # その他  
     else
       raise
@@ -61,40 +65,35 @@ class LinkagesController < ApplicationController
   def link
     raise ParameterException if params[:link_evacuees].blank?
     
-    evacuee_ids = params[:link_evacuees].split(",")
-    evacuee_ids.each do |id|
-      evacuee = Evacuee.find(id)
-      # 入力元システムを判定する
-      if evacuee.lgdpf_person_id.blank?
-        # LGDPF上に存在しない場合
-        # 避難者情報登録
-        person = Person.new
-        person = person.exec_insert(evacuee)
-        person.save
-        # LGDPF IDの更新
-        evacuee.lgdpf_person_id = person.id
-        # 安否情報登録
-        note = Note.new
-        note = note.exec_insert(evacuee)
-        note.save
-      else
-        # LGDPF上に存在する場合
-        # 安否情報登録
-        note = Note.new
-        note = note.exec_insert(evacuee)
-        note.save
-      end
-      # 連携実施者、連携日時の更新
-      evacuee.linked_by   = current_user.login
-      evacuee.linked_at   = Time.now
-      evacuee.linked_flag = Evacuee::LINKED_FLAG_ON
-      evacuee.save!
-    end
+    Evacuee.exec_link(params[:link_evacuees].split(","), current_user)
+    
     flash.now[:notice] = I18n.t("notice_successful_link")
   rescue ActiveResource::ServerError => e
     flash.now[:alert] = "#{e}"
   rescue ParameterException
     flash.now[:alert] = I18n.t("errors.messages.parameter_exception_link")
+  rescue Errno::ECONNREFUSED
+    flash.now[:alert] = I18n.t("errors.messages.connection_refused")
+  ensure
+    do_search
+  end
+  
+  # 石巻PF避難者連携画面
+  # 一括連携処理
+  # 避難者情報をLGDPFに連携する
+  # 連携する避難者情報は連携状態が未済のものとする
+  # ==== Args
+  # ==== Return
+  # ==== Raise
+  # ActiveResource::ServerError :: LGDPFで保存に失敗した場合メッセージを出力する
+  # Errno::ECONNREFUSED :: LGDPFに接続できなかった場合メッセージを出力する
+  def bulk_link
+    evacuees = Evacuee.select(:id).where(:linked_flag => Evacuee::LINKED_FLAG_OFF)
+    Evacuee.exec_link(evacuees.map{|e| e.id }, current_user)
+    
+    flash.now[:notice] = I18n.t("notice_successful_link")
+  rescue ActiveResource::ServerError => e
+    flash.now[:alert] = "#{e}"
   rescue Errno::ECONNREFUSED
     flash.now[:alert] = I18n.t("errors.messages.connection_refused")
   ensure

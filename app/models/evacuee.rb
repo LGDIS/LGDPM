@@ -198,8 +198,46 @@ class Evacuee < ActiveRecord::Base
     ").group("shelter_name")
   end
   
+  # 避難者連携処理
+  # 引数のID配列を元に避難者情報をLGDPFへ連携する
+  # ==== Args
+  # _ids_ :: 避難者ID配列
+  # _user_ :: ユーザオブジェクト
+  # ==== Return
+  # ==== Raise
+  def self.exec_link(ids, user)
+    ids.each do |id|
+      evacuee = Evacuee.find(id)
+      # 入力元システムを判定する
+      if evacuee.lgdpf_person_id.blank?
+        # LGDPF上に存在しない場合
+        # 避難者情報登録
+        person = Person.new
+        person = person.exec_insert(evacuee)
+        person.save
+        # LGDPF IDの更新
+        evacuee.lgdpf_person_id = person.id
+        # 安否情報登録
+        note = Note.new
+        note = note.exec_insert(evacuee)
+        note.save
+      else
+        # LGDPF上に存在する場合
+        # 安否情報登録
+        note = Note.new
+        note = note.exec_insert(evacuee)
+        note.save
+      end
+      # 連携実施者、連携日時の更新
+      evacuee.linked_by   = user.login
+      evacuee.linked_at   = Time.now
+      evacuee.linked_flag = Evacuee::LINKED_FLAG_ON
+      evacuee.save!
+    end
+  end
+  
   # 避難者編集処理
-  # 引数のLocalPersonオブジェクトを基に各項目を編集する
+  # 引数のLocalPersonオブジェクトを元に各項目を編集する
   # ==== Args
   # _local_person_ :: LocalPersonオブジェクト
   # ==== Return

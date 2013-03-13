@@ -139,6 +139,7 @@
   <div class="splitcontentright">
     <p class="set_right">
       <%= f.submit '出力', :kind => "link", :id => "link_button" %>
+      <%= f.submit '一括出力', :kind => "bulk_link" %>
     </p>
     <p class="set_right">
       <%= will_paginate @evacuees, :previous_label => "前 &lt;&lt; ",
