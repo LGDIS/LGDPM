@@ -86,7 +86,8 @@ Constant.create(kind1: 'TD', kind2: 'local_people', kind3: 'status', text: 'こ�
 
 # ユーザテーブル
 if User.find_by_login("admin").blank?
-  User.create(:login => "admin", :email => "admin@admin.co.jp", :password => "adminadmin", :confirmed_at => Time.now)
+  # TODO : adminでログインするため一次的に対応（結合時に削除する）
+  User.find_by_sql("insert into users (login, email, encrypted_password, created_at, updated_at, confirmed_at) values('admin', 'admin@gmail.example.com', '$2a$10$iYGZzQPGW0Ig1S.bblPsaeeIicuRyXMzs/O.EcaU3vT0KRSF56E7C', now(), now(), now())")
 end
 
 # 地区
