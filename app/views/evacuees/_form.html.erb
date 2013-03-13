@@ -313,7 +313,7 @@
           <%= @evacuee_const["sex"][juki.sex] %>
         </td>
         <td class="set_center">
-          <%= juki.date_of_birth.strftime("%y/%m/%d") if juki.date_of_birth.present? %>
+          <%= l(juki.date_of_birth) if juki.date_of_birth.present? %>
         </td>
         <td class="set_center">
           <%= "#{juki.home_state}#{juki.home_city}#{juki.home_street}#{juki.house_number}" %>

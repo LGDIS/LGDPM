@@ -12,7 +12,7 @@
         <%= "#{@evacuee.alternate_family_name} #{@evacuee.alternate_given_name}" %>
       </label>
       <label class="floating"><strong>生年月日</strong>
-        <%= @evacuee.date_of_birth.strftime("%y/%m/%d") if @evacuee.date_of_birth.present? %>
+        <%= l(@evacuee.date_of_birth) if @evacuee.date_of_birth.present? %>
       </label>
     </p>
     <p>
@@ -53,7 +53,7 @@
           <%= "#{juki.alternate_family_name} #{juki.alternate_given_name}" %>
         </td>
         <td class="set_center">
-          <%= juki.date_of_birth.strftime("%y/%m/%d") if juki.date_of_birth.present? %>
+          <%= l(juki.date_of_birth) if juki.date_of_birth.present? %>
         </td>
         <td class="set_center">
           <%= "#{juki.home_state}#{juki.home_city}#{juki.home_street}#{juki.house_number}" %>

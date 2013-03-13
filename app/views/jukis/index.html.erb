@@ -36,7 +36,7 @@
   <tbody>
     <% @juki_histories.each do |juki_history| %>
     <tr class="<%= cycle("even", "odd") -%>">
-      <td class="set_center"><%= juki_history.created_at.strftime("%y/%m/%d %H:%M:%S") if juki_history.created_at.present? %></td>
+      <td class="set_center"><%= l(juki_history.created_at) if juki_history.created_at.present? %></td>
       <td class="set_right"> 　<%= juki_history.number %></td>
       <td class="set_center"><%= juki_history.created_by %></td>
       <td class="set_center"><%= @juki_history_const["status"]["#{juki_history.status}"] %></td>

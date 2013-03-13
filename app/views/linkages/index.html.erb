@@ -183,7 +183,7 @@
           <%= @evacuee_const["in_city_flag"]["#{evacuee.in_city_flag}"] %>
         </td>
         <td class="set_center">
-          <%= evacuee.date_of_birth.strftime("%y/%m/%d") if evacuee.date_of_birth.present? %>
+          <%= l(evacuee.date_of_birth) if evacuee.date_of_birth.present? %>
         </td>
         <td class="set_center">
           <%= @shelter[evacuee.shelter_name] %>
@@ -201,7 +201,7 @@
           <%= evacuee.linked_by %>
         </td>
         <td class="set_center">
-          <%= evacuee.linked_at.strftime("%y/%m/%d") if evacuee.linked_at.present? %>
+          <%= l(evacuee.linked_at.to_date) if evacuee.linked_at.present? %>
         </td>
         <td class="set_center">
           <%= check_box_tag "link_evacuee", evacuee.id %>

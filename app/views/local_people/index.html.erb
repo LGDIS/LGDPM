@@ -107,7 +107,7 @@
           <%= local_person.alternate_names %>
         </td>
         <td class="set_center">
-          <%= local_person.date_of_birth.strftime("%y/%m/%d") if local_person.date_of_birth.present? %>
+          <%= l(local_person.date_of_birth) if local_person.date_of_birth.present? %>
         </td>
         <td class="set_center">
           <%= "#{local_person.home_state}#{local_person.home_city}#{local_person.home_street}" %>
@@ -122,7 +122,7 @@
           <%= local_person.approved_by %>
         </td>
         <td class="set_center">
-          <%= local_person.approved_at.strftime("%y/%m/%d") if local_person.approved_at.present? %>
+          <%= l(local_person.approved_at.to_date) if local_person.approved_at.present? %>
         </td>
         <td class="set_center">
           <%= check_box_tag "approval_local_person", local_person.id %>
