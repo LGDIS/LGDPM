@@ -101,10 +101,10 @@ class EvacueesController < ApplicationController
           row.values name:               "#{evacuee.family_name} #{evacuee.given_name}",
                      name_kana:          "#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}",
                      address:            "#{@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}",
-                     date_of_birth:      (evacuee.date_of_birth.present? ? evacuee.date_of_birth.strftime("%y/%m/%d") : ""),
+                     date_of_birth:      (evacuee.date_of_birth.present? ? evacuee.date_of_birth.strftime("%Y/%m/%d") : ""),
                      age:                evacuee.age,
-                     shelter_entry_date: (evacuee.shelter_entry_date.present? ? evacuee.shelter_entry_date.strftime("%y/%m/%d") : ""),
-                     shelter_leave_date: (evacuee.shelter_leave_date.present? ? evacuee.shelter_leave_date.strftime("%y/%m/%d") : ""),
+                     shelter_entry_date: (evacuee.shelter_entry_date.present? ? evacuee.shelter_entry_date.strftime("%Y/%m/%d") : ""),
+                     shelter_leave_date: (evacuee.shelter_leave_date.present? ? evacuee.shelter_leave_date.strftime("%Y/%m/%d") : ""),
                      next_place:         evacuee.next_place
         end
       end
