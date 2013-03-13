@@ -40,10 +40,16 @@
           @search.injury_flag_eq),
           { :include_blank => true }) %>
         </label>
-        <label style="font-weight: normal">アレルギー
+        <label class="floating">アレルギー
           <%= f.select(:allergy_flag_eq,
           options_for_select(@evacuee_const["allergy_flag"].invert,
           @search.allergy_flag_eq),
+          { :include_blank => true }) %>
+        </label>
+        <label class="floating">住基マッチング
+          <%= f.select(:juki_status_eq,
+          options_for_select(@evacuee_const["juki_status"].invert,
+          @search.juki_status_eq),
           { :include_blank => true }) %>
         </label>
       </p>

@@ -119,6 +119,9 @@ class Evacuee < ActiveRecord::Base
   # 家族も無事
   FAMILY_WELL_ON  = "1" # 有
   FAMILY_WELL_OFF = "0" # 無
+  # 連携状況
+  LINKED_FLAG_ON  = "1" # 済
+  LINKED_FLAG_OFF = "0" # 未済
   
   # 宮城県コード
   STATE_MIYAGI = "04"
@@ -145,7 +148,10 @@ class Evacuee < ActiveRecord::Base
   
   # Evacuee登録時に項目を設定する
   def set_attr_for_create
+    # 住基ステータス
     self.juki_status = JUKI_STATUS_INCOMPLETE
+    # 連携状況
+    self.linked_flag = LINKED_FLAG_OFF
   end
   
   # Evacuee登録・更新時に項目を設定する

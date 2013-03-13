@@ -6,6 +6,14 @@ class Note < ActiveResource::Base
   self.password = SETTINGS["activeresource"]["lgdpf"]["password"]
   self.proxy    = SETTINGS["activeresource"]["lgdpf"]["proxy"]
   
+  # 状況
+  STATUS_UNSPECIFIED        = 1 # 指定なし
+  STATUS_INFORMATION_SOUGHT = 2 # 情報を探している
+  STATUS_IS_NOTE_AUTHOR     = 3 # 私が本人である
+  STATUS_BELIEVED_ALIVE     = 4 # この人が生きているという情報を入手した
+  STATUS_BELIEVED_MISSING   = 5 # この人を行方不明と判断した理由がある
+  STATUS_BELIEVED_DEAD      = 6 # この人物が死亡したという情報を入手した
+  
   # ActiveResource
   # LGDPF Note取得処理
   # ==== Args
@@ -34,7 +42,7 @@ class Note < ActiveResource::Base
     # 作成日時
     self.source_date = Time.now
     # 状況
-    self.status = 4
+    self.status = STATUS_UNSPECIFIED
     # 最後に見かけた場所
     self.last_known_location = LocalShelter.hash_for_table[evacuee.shelter_name]
     # メッセージ
@@ -43,6 +51,8 @@ class Note < ActiveResource::Base
     else
       self.text = I18n.t("messages.note.incomplete_text")
     end
+    # 連携フラグ
+    self.link_flag = true
     
     return self
   end

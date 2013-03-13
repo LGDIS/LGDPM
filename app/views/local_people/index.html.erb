@@ -44,6 +44,13 @@
           @search.status_eq),
           { :include_blank => true }) %>
         </p>
+        <p style="margin-left: 50px;">
+          <%= f.label :approved_flag_eq, "承認状態" %>
+          <%= f.select(:approved_flag_eq,
+          options_for_select(@local_person_const["approved_flag"].invert,
+          @search.approved_flag_eq),
+          { :include_blank => true }) %>
+        </p>
       </div>
     </div>
     <div class="splitcontent">

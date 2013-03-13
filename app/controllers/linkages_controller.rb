@@ -85,8 +85,9 @@ class LinkagesController < ApplicationController
         note.save
       end
       # 連携実施者、連携日時の更新
-      evacuee.linked_by = current_user.login
-      evacuee.linked_at = Time.now
+      evacuee.linked_by   = current_user.login
+      evacuee.linked_at   = Time.now
+      evacuee.linked_flag = Evacuee::LINKED_FLAG_ON
       evacuee.save!
     end
     flash.now[:notice] = I18n.t("notice_successful_link")

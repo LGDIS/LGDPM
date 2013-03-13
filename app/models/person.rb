@@ -7,8 +7,8 @@ class Person < ActiveResource::Base
   self.proxy    = SETTINGS["activeresource"]["lgdpf"]["proxy"]
   
   # 公開フラグ
-  PUBLIC_FLAG_ON  = 1
-  PUBLIC_FLAG_OFF = 0
+  PUBLIC_FLAG_ON  = 1 # 公開
+  PUBLIC_FLAG_OFF = 0 # 非公開
   
   # ActiveResource
   # LGDPF Person取得処理
@@ -111,6 +111,8 @@ class Person < ActiveResource::Base
     self.rehabilitation_certificate = evacuee.rehabilitation_certificate
     # 身体障害者手帳所持者
     self.physical_disability_certificate = evacuee.physical_disability_certificate
+    # 連携フラグ
+    self.link_flag = true
     
     return self
   end

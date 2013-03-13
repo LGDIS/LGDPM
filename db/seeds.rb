@@ -74,6 +74,9 @@ Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'physical_disability_cert
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'juki_status', text: '未照合',  value: '1', _order: '1')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'juki_status', text: '照合済',  value: '2', _order: '2')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'juki_status', text: '照合済対象者なし',  value: '3', _order: '3')
+# 連携状況
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'linked_flag', text: '未済',  value: '0', _order: '1')
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'linked_flag', text: '済',  value: '1', _order: '2')
 # 住基取込履歴ステータス
 Constant.create(kind1: 'TD', kind2: 'juki_histories', kind3: 'status', text: '正常終了',  value: '1', _order: '1')
 Constant.create(kind1: 'TD', kind2: 'juki_histories', kind3: 'status', text: '異常終了',  value: '2', _order: '2')
@@ -83,6 +86,9 @@ Constant.create(kind1: 'TD', kind2: 'local_people', kind3: 'status', text: '情�
 Constant.create(kind1: 'TD', kind2: 'local_people', kind3: 'status', text: '私が本人である', value: '3', _order: '3')
 Constant.create(kind1: 'TD', kind2: 'local_people', kind3: 'status', text: 'この人が生きているという情報を入手した', value: '4', _order: '4')
 Constant.create(kind1: 'TD', kind2: 'local_people', kind3: 'status', text: 'この人を行方不明と判断した理由がある', value: '5', _order: '5')
+# 承認状態
+Constant.create(kind1: 'TD', kind2: 'local_people', kind3: 'approved_flag', text: '未済',  value: '0', _order: '1')
+Constant.create(kind1: 'TD', kind2: 'local_people', kind3: 'approved_flag', text: '済',  value: '1', _order: '2')
 
 # ユーザテーブル
 if User.find_by_login("admin").blank?

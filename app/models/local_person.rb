@@ -103,7 +103,11 @@ class LocalPerson < ActiveRecord::Base
   validates :updated_by,
               :length => {:maximum => 100}
   validates :deleted_at, :time => true
-
+  
+  # 承認状態
+  APPROVED_FLAG_ON  = "1" # 済
+  APPROVED_FLAG_OFF = "0" # 未済
+  
   # 避難者編集処理
   # 引数のLGDPF.personオブジェクトを基に各項目を編集する
   # ==== Args
@@ -218,6 +222,8 @@ class LocalPerson < ActiveRecord::Base
     self.deleted_at = person.deleted_at
     # 家族も無事
     self.family_well = person.family_well
+    # 承認状態
+    self.approved_flag = APPROVED_FLAG_OFF
     
     return self
   end

@@ -61,6 +61,7 @@ class LocalPeople < ActiveRecord::Migration
       t.column "family_well", :string, :limit => 1
       t.column "approved_by", :string, :limit => 100
       t.column "approved_at", :datetime
+      t.column "approved_flag", :string, :limit => 1
       t.column "created_by", :string, :limit => 100
       t.column "updated_by", :string, :limit => 100
       t.column "deleted_at", :datetime
@@ -123,6 +124,7 @@ class LocalPeople < ActiveRecord::Migration
     set_column_comment(:local_people, :family_well, "家族も無事")
     set_column_comment(:local_people, :approved_by, "承認者")
     set_column_comment(:local_people, :approved_at, "承認日時")
+    set_column_comment(:local_people, :approved_flag, "承認状態")
     set_column_comment(:local_people, :created_by, "登録者")
     set_column_comment(:local_people, :updated_by, "更新者")
     set_column_comment(:local_people, :created_at, "登録日時")

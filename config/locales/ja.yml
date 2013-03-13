@@ -256,6 +256,7 @@ ja:
         note: 備考
         linked_by: 連携者
         linked_at: 連携日時
+        linked_flag: 連携状況
         created_by: 登録者
         updated_by: 更新者
         deleted_at: 削除日時

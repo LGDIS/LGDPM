@@ -18,6 +18,13 @@
           @search.shelter_name_sw),
           { :include_blank => true }) %>
         </p>
+        <p>
+          <label style="font-weight: normal">連携状況</label>
+          <%= f.select(:linked_flag_eq,
+          options_for_select(@evacuee_const["linked_flag"].invert,
+          @search.linked_flag_eq),
+          { :include_blank => true }) %>
+        </p>
       </div>
       <div class="splitcontentright">
         <p>
@@ -32,6 +39,13 @@
           @search.shelter_name_eq),
           { :include_blank => true }) %>
         </p>
+        <p>
+          <label style="font-weight: normal">住基マッチング</label>
+          <%= f.select(:juki_status_eq,
+          options_for_select(@evacuee_const["juki_status"].invert,
+          @search.juki_status_eq),
+          { :include_blank => true }) %>
+        </p>
       </div>
   
       <p style="clear: left; margin-left: -28px;">
@@ -41,7 +55,7 @@
           @search.injury_flag_eq),
           { :include_blank => true }) %>
         </label>
-        <label style="font-weight: normal">アレルギー
+        <label class="floating">アレルギー
           <%= f.select(:allergy_flag_eq,
           options_for_select(@evacuee_const["allergy_flag"].invert,
           @search.allergy_flag_eq),
@@ -124,7 +138,7 @@
   
   <div class="splitcontentright">
     <p class="set_right">
-      <%= f.submit '連携', :kind => "link", :id => "link_button" %>
+      <%= f.submit '出力', :kind => "link", :id => "link_button" %>
     </p>
     <p class="set_right">
       <%= will_paginate @evacuees, :previous_label => "前 &lt;&lt; ",
@@ -146,6 +160,7 @@
       <th class="set_center">避難所名</th>
       <th class="set_center">備考</th>
       <th class="set_center">住基マッチング</th>
+      <th class="set_center">連携状況</th>
       <th class="set_center">連携者名</th>
       <th class="set_center">連携日</th>
       <th class="set_center">連携</th>
@@ -177,6 +192,9 @@
         </td>
         <td class="set_center">
           <%= @evacuee_const["juki_status"]["#{evacuee.juki_status}"] %>
+        </td>
+        <td class="set_center">
+          <%= @evacuee_const["linked_flag"]["#{evacuee.linked_flag}"] %>
         </td>
         <td class="set_center">
           <%= evacuee.linked_by %>

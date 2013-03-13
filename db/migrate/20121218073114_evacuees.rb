@@ -46,6 +46,7 @@ class Evacuees < ActiveRecord::Migration
       t.column "area", :string, :limit => 255
       t.column "linked_by", :string, :limit => 100
       t.column "linked_at", :datetime
+      t.column "linked_flag", :string, :limit => 1
       t.column "created_by", :string, :limit => 100
       t.column "updated_by", :string, :limit => 100
       t.column "deleted_at", :timestamp
@@ -96,6 +97,7 @@ class Evacuees < ActiveRecord::Migration
     set_column_comment(:evacuees, :area, "地区")
     set_column_comment(:evacuees, :linked_by, "連携者")
     set_column_comment(:evacuees, :linked_at, "連携日時")
+    set_column_comment(:evacuees, :linked_flag, "連携状況")
     set_column_comment(:evacuees, :created_by, "登録者")
     set_column_comment(:evacuees, :updated_by, "更新者")
     set_column_comment(:evacuees, :deleted_at, "削除日時")

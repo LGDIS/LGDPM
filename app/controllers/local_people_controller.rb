@@ -65,8 +65,9 @@ class LocalPeopleController < ApplicationController
         evacuee = Evacuee.new
         evacuee = evacuee.exec_insert(local_person)
         evacuee.save!
-        local_person.approved_by = current_user.login
-        local_person.approved_at = Time.now
+        local_person.approved_by   = current_user.login
+        local_person.approved_at   = Time.now
+        local_person.approved_flag = LocalPerson::APPROVED_FLAG_ON
         local_person.save!
       end
     end
