@@ -206,8 +206,7 @@ class Evacuee < ActiveRecord::Base
   # ==== Return
   # ==== Raise
   def self.exec_link(ids, user)
-    ids.each do |id|
-      evacuee = Evacuee.find(id)
+    Evacuee.where(:id => ids).each do |evacuee|
       # 入力元システムを判定する
       if evacuee.lgdpf_person_id.blank?
         # LGDPF上に存在しない場合

@@ -73,6 +73,7 @@
     <p class="set_right">
       <%= f.submit '取込', :kind => "import" %>
       <%= f.submit '承認', :kind => "approval", :id => "approval_button" %>
+      <%= f.submit '一括承認', :kind => "bulk_approval" %>
     </p>
     <p class="set_right">
       <%= will_paginate @local_people, :previous_label => "前 &lt;&lt; ",

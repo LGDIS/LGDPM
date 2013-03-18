@@ -108,6 +108,30 @@ class LocalPerson < ActiveRecord::Base
   APPROVED_FLAG_ON  = "1" # 済
   APPROVED_FLAG_OFF = "0" # 未済
   
+  # 避難者承認処理
+  # 引数のID配列を元に避難者情報（LocalPerson）を避難者情報（Evacuee）へ登録する
+  # ==== Args
+  # _ids_ :: LocalPersonID配列
+  # _user_ :: ユーザオブジェクト
+  # ==== Return
+  # ==== Raise
+  def self.exec_approval(ids, user)
+    LocalPerson.where(:id => ids).each do |local_person|
+      # 承認済みの場合、Evacueeに取り込まない
+      next if Evacuee.where(:local_person_id => local_person.id).present?
+      # LGDPF上に存在する避難者の場合、Evacueeに取り込まない
+      # LGDPMまたはLGDPM-Androidから入力し連携した避難者の場合は重複するため
+      next if Evacuee.where(:lgdpf_person_id => local_person.lgdpf_person_id).present?
+      evacuee = Evacuee.new
+      evacuee = evacuee.exec_insert(local_person)
+      evacuee.save!
+      local_person.approved_by   = user.login
+      local_person.approved_at   = Time.now
+      local_person.approved_flag = LocalPerson::APPROVED_FLAG_ON
+      local_person.save!
+    end
+  end
+  
   # 避難者編集処理
   # 引数のLGDPF.personオブジェクトを基に各項目を編集する
   # ==== Args
