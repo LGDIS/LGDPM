@@ -215,6 +215,7 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワードの確認
+        confirmation_token: 本人確認キー
       evacuee:
         local_person_id: LocalPersonのid
         lgdpf_person_id: LGDPFのperson_id
