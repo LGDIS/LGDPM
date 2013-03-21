@@ -8,57 +8,74 @@ class EvacueesController < ApplicationController
   # 避難者一覧画面
   # 初期表示処理
   # ==== Args
+  # _search_ :: 画面入力された検索条件
   # _page_ :: ページ番号
   # ==== Return
   # ==== Raise
   def index
-    respond_to do |format|
-      format.html {
-        @search = Evacuee.search
-        @evacuees = @search.paginate(:page => params[:page])
-        render :index
-      }
-      # 災害トラッキング管理機能(LGDIS)との連携のため
-      format.json{
-        @evacuees = Evacuee.find_for_count
-        render :json => @evacuees.to_json
-      }
-    end
+    @search   = Evacuee.search(params[:search])
+    @evacuees = @search.paginate(:page => params[:page])
+    render :action => :index
   end
 
   # 避難者一覧画面
   # 検索処理
   # 押下されたボタンにより、処理を分岐する
   # * 検索ボタンが押下された場合、検索を行い自画面に遷移する
-  # * 新規登録ボタンが押下された場合、避難者登録画面に遷移する
-  # * 画面印刷ボタンが押下された場合、検索を行いPDFに出力する
+  # * 石巻PFから取込ボタンが押下された場合、PFから避難者情報を取り込む
+  # * 住基マッチング処理ボタンが押下された場合、避難者情報を住基情報とマッチングする
+  # * 石巻PFへ出力ボタンが押下された場合、PFへ避難者情報を出力する
+  # * 避難者名簿印刷ボタンが押下された場合、検索を行い避難所単位に避難者情報をPDF出力する
+  # * 避難所一覧に出力ボタンが押下された場合、避難者情報を集計しLGDISへ出力する
   # * その他の場合、例外を発生させる
   # ==== Args
   # _commit_kind_ :: ボタン種別
-  # _search_ :: 画面入力された検索条件
-  # _page_ :: ページ番号
   # ==== Return
   # ==== Raise
   def search
     case params[:commit_kind]
-    # 検索ボタン
-    when "search"
-      @search = Evacuee.search(params[:search])
-      @evacuees = @search.paginate(:page => params[:page])
-      render :action => :index
-    # 新規登録ボタン
-    when "new"
-      redirect_to :action => :new
-    # 画面印刷ボタン
-    when "print"
+    when "search" # 検索ボタン
+      index
+    when "pf_import" # 石巻PFから取込ボタン
+      pf_import
+    when "juki_match" # 住基マッチング処理ボタン
+      juki_match
+    when "pf_export" # 石巻PFへ出力ボタン
+      pf_export
+    when "print" # 避難者名簿印刷ボタン
       print
-    # 集計ボタン
-    when "total"
+    when "total" # 避難所一覧に出力ボタン
       total
-    # その他  
-    else
+    else # その他
       raise
     end
+  end
+  
+  # 避難者一覧画面
+  # PF避難者情報取込処理
+  # ==== Args
+  # ==== Return
+  # ==== Raise
+  def pf_import
+    index
+  end
+  
+  # 避難者一覧画面
+  # 住基情報マッチング処理
+  # ==== Args
+  # ==== Return
+  # ==== Raise
+  def juki_match
+    index
+  end
+  
+  # 避難者一覧画面
+  # PF避難者情報出力処理
+  # ==== Args
+  # ==== Return
+  # ==== Raise
+  def pf_export
+    index
   end
   
   # 避難者一覧画面
@@ -75,7 +92,7 @@ class EvacueesController < ApplicationController
     @evacuees = @search.paginate(:page => params[:page])
     # 避難者情報が存在しない場合、出力しない
     if @evacuees.blank?
-      flash.now[:alert] = I18n.t("errors.messages.evacuees_not_exists")
+      flash.now[:alert] = t("errors.messages.evacuees_not_exists")
       render :action => :index
       return
     end
@@ -131,8 +148,6 @@ class EvacueesController < ApplicationController
   # 集計処理
   # 避難者情報を集計しLGDISに連携する
   # ==== Args
-  # _search_ :: 画面入力された検索条件
-  # _page_ :: ページ番号
   # ==== Return
   # ==== Raise
   def total
@@ -169,17 +184,15 @@ class EvacueesController < ApplicationController
       shelter.physical_disability_certificate_count = result["physical_disability_certificate_count"]
       shelter.save
     end
-    flash.now[:notice] = I18n.t("notice_successful_total")
+    flash.now[:notice] = t("notice_successful_total")
   rescue ParameterException
-    flash.now[:alert] = I18n.t("errors.messages.projects_not_exists")
+    flash.now[:alert] = t("errors.messages.projects_not_exists")
   rescue ActiveResource::ServerError, ActiveResource::UnauthorizedAccess => e
     flash.now[:alert] = "#{e}"
   rescue Errno::ECONNREFUSED
-    flash.now[:alert] = I18n.t("errors.messages.connection_refused")
+    flash.now[:alert] = t("errors.messages.connection_refused")
   ensure
-    @search = Evacuee.search(params[:search])
-    @evacuees = @search.paginate(:page => params[:page])
-    render :action => :index
+    index
   end
 
   # 避難者登録画面
@@ -205,7 +218,7 @@ class EvacueesController < ApplicationController
       @evacuee = Evacuee.new(params[:evacuee])
       if @evacuee.save
         respond_to do |format|
-          flash[:notice] = I18n.t("notice_successful_create")
+          flash[:notice] = t("notice_successful_create")
           format.html { redirect_to :action => :edit, :id => @evacuee.id }
           format.json { render :json => @evacuee.to_json } # LGDPM-Android
         end
@@ -244,7 +257,7 @@ class EvacueesController < ApplicationController
     if params[:commit_kind] == "save"
       @evacuee = Evacuee.find(params[:id])
       if @evacuee.update_attributes(params[:evacuee])
-        flash[:notice] = I18n.t("notice_successful_update")
+        flash[:notice] = t("notice_successful_update")
         redirect_to :action => :edit, :id => @evacuee.id
       else
         render :action => :edit, :id => @evacuee.id
@@ -272,7 +285,7 @@ class EvacueesController < ApplicationController
     when "delete"
       @evacuee = Evacuee.find(params[:id])
       @evacuee.destroy
-      flash[:notice] = I18n.t("notice_successful_delete")
+      flash[:notice] = t("notice_successful_delete")
       redirect_to :action => :index
     when "match"
       @evacuee = Evacuee.find(params[:id])
@@ -280,7 +293,7 @@ class EvacueesController < ApplicationController
         redirect_to :action => :list, :id => @evacuee.id, :pattern => params[:pattern]
       else
         @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_CHK_NA)
-        flash.now[:alert] = I18n.t("error_candidate_not_found")
+        flash.now[:alert] = t("error_candidate_not_found")
         render :action => :edit, :id => @evacuee.id
       end
     when "back"
@@ -322,7 +335,7 @@ class EvacueesController < ApplicationController
       juki = Juki.find(params[:juki_id])
       # 住基ステータスを照合済に更新する
       @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_COMPLETE, :juki_number => juki.id_number, :household_number => juki.household_number)
-      flash[:notice] = I18n.t("notice_successful_matching")
+      flash[:notice] = t("notice_successful_matching")
       redirect_to :action => :edit, :id => @evacuee.id
     when "na"
       # 住基ステータスを照合済対象者なしに更新する
