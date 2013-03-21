@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   attr_accessible :provider, :uid
 
+  validates :login, :presence => true, :uniqueness => true
+
   # 認可プロバイダ識別子
   LDAP_IDENTIFIER = 'ldap'
   GOOGLE_IDENTIFIER = 'google'
