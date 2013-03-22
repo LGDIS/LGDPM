@@ -23,7 +23,6 @@ class EvacueesController < ApplicationController
   # 押下されたボタンにより、処理を分岐する
   # * 検索ボタンが押下された場合、検索を行い自画面に遷移する
   # * 石巻PFから取込ボタンが押下された場合、PFから避難者情報を取り込む
-  # * 住基マッチング処理ボタンが押下された場合、避難者情報を住基情報とマッチングする
   # * 石巻PFへ出力ボタンが押下された場合、PFへ避難者情報を出力する
   # * 避難者名簿印刷ボタンが押下された場合、検索を行い避難所単位に避難者情報をPDF出力する
   # * 避難所一覧に出力ボタンが押下された場合、避難者情報を集計しLGDISへ出力する
@@ -38,8 +37,6 @@ class EvacueesController < ApplicationController
       index
     when "pf_import" # 石巻PFから取込ボタン
       pf_import
-    when "juki_match" # 住基マッチング処理ボタン
-      juki_match
     when "pf_export" # 石巻PFへ出力ボタン
       pf_export
     when "print" # 避難者名簿印刷ボタン
@@ -57,15 +54,8 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def pf_import
-    index
-  end
-  
-  # 避難者一覧画面
-  # 住基情報マッチング処理
-  # ==== Args
-  # ==== Return
-  # ==== Raise
-  def juki_match
+    # 非同期でインポート処理を実行する
+    Resque.enqueue(PfImportJob)
     index
   end
   
@@ -75,6 +65,13 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def pf_export
+    Evacuee.exec_pf_export(Evacuee.scoped, current_user)
+    
+  rescue ActiveResource::ServerError => e
+    flash.now[:alert] = "#{e}"
+  rescue Errno::ECONNREFUSED
+    flash.now[:alert] = t("errors.messages.connection_refused")
+  ensure
     index
   end
   
@@ -271,13 +268,11 @@ class EvacueesController < ApplicationController
   # 分岐処理
   # 保存ボタン以外の処理を記述
   # * 削除ボタンが押下された場合、削除を行い避難者一覧画面に遷移する
-  # * 住基マッチングボタンが押下された場合、住基マッチングを行い該当者が存在する場合、避難者住基マッチング候補者画面に遷移する
   # * 戻るボタンが押下された場合、避難者一覧画面に遷移する
   # * その他の場合、例外を発生させる
   # ==== Args
   # _commit_kind_ :: ボタン種別
   # _id_ :: 避難者ID
-  # _pattern_ :: 検索対象項目の配列
   # ==== Return
   # ==== Raise
   def selector
@@ -287,63 +282,8 @@ class EvacueesController < ApplicationController
       @evacuee.destroy
       flash[:notice] = t("notice_successful_delete")
       redirect_to :action => :index
-    when "match"
-      @evacuee = Evacuee.find(params[:id])
-      if @evacuee.matching(params[:pattern]).present?
-        redirect_to :action => :list, :id => @evacuee.id, :pattern => params[:pattern]
-      else
-        @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_CHK_NA)
-        flash.now[:alert] = t("error_candidate_not_found")
-        render :action => :edit, :id => @evacuee.id
-      end
     when "back"
       redirect_to :action => :index
-    else
-      raise
-    end
-  end
-  
-  # 避難者住基マッチング候補者画面
-  # 初期表示処理
-  # 氏名カナ、生年月日が一致する住基情報一覧を表示する
-  # ==== Args
-  # _id_ :: EvacueeID
-  # _pattern_ :: 検索対象項目の配列
-  # ==== Return
-  # ==== Raise
-  def list
-    @evacuee = Evacuee.find(params[:id])
-    @jukis   = @evacuee.matching(params[:pattern])
-  end
-  
-  # 避難者住基マッチング候補者画面
-  # マッチング処理
-  # 押下されたボタンにより処理を分岐
-  # * 保存ボタンが押下された場合、住基ステータスを照合済で更新し、避難者登録・更新画面に遷移する
-  # * 突合実施後戻るボタンが押下された場合、住基ステータスを照合済対象者なしで更新し、避難者登録・更新画面に遷移する
-  # * 戻るボタンが押下された場合、避難者登録・更新画面に遷移する
-  # ==== Args
-  # _commit_kind_ :: ボタン種別
-  # _id_ :: EvacueeID
-  # _juki_id_ :: JukiID
-  # ==== Return
-  # ==== Raise
-  def match
-    @evacuee = Evacuee.find(params[:id])
-    case params[:commit_kind]
-    when "save"
-      juki = Juki.find(params[:juki_id])
-      # 住基ステータスを照合済に更新する
-      @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_COMPLETE, :juki_number => juki.id_number, :household_number => juki.household_number)
-      flash[:notice] = t("notice_successful_matching")
-      redirect_to :action => :edit, :id => @evacuee.id
-    when "na"
-      # 住基ステータスを照合済対象者なしに更新する
-      @evacuee.update_attributes(:juki_status => Evacuee::JUKI_STATUS_CHK_NA)
-      redirect_to :action => :edit, :id => @evacuee.id
-    when "back"
-      # 避難者登録・更新画面に遷移する
-      redirect_to :action => :edit, :id => @evacuee.id
     else
       raise
     end

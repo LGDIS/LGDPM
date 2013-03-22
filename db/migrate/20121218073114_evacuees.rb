@@ -2,7 +2,6 @@
 class Evacuees < ActiveRecord::Migration
   def up
     create_table :evacuees, :force => true do |t|
-      t.column "local_person_id", :integer
       t.column "lgdpf_person_id", :integer
       t.column "person_record_id", :string, :limit => 500
       t.column "family_name", :string, :limit => 500
@@ -44,9 +43,6 @@ class Evacuees < ActiveRecord::Migration
       t.column "juki_number", :string, :limit => 500
       t.column "household_number", :string, :limit => 500
       t.column "area", :string, :limit => 255
-      t.column "linked_by", :string, :limit => 100
-      t.column "linked_at", :datetime
-      t.column "linked_flag", :string, :limit => 1
       t.column "source_name", :string, :limit => 1
       t.column "pf_export_flag", :string, :limit => 1
       t.column "public_flag", :integer
@@ -56,7 +52,6 @@ class Evacuees < ActiveRecord::Migration
       t.timestamps
     end
 
-    set_column_comment(:evacuees, :local_person_id, "LocalPersonのid")
     set_column_comment(:evacuees, :lgdpf_person_id, "LGDPFのperson_id")
     set_column_comment(:evacuees, :person_record_id, "GooglePersonFinderのperson_id")
     set_column_comment(:evacuees, :family_name, "氏名（姓）")
@@ -98,9 +93,6 @@ class Evacuees < ActiveRecord::Migration
     set_column_comment(:evacuees, :juki_number, "住基番号")
     set_column_comment(:evacuees, :household_number, "世帯番号")
     set_column_comment(:evacuees, :area, "地区")
-    set_column_comment(:evacuees, :linked_by, "連携者")
-    set_column_comment(:evacuees, :linked_at, "連携日時")
-    set_column_comment(:evacuees, :linked_flag, "連携状況")
     set_column_comment(:evacuees, :source_name, "情報ソース")
     set_column_comment(:evacuees, :pf_export_flag, "PF出力")
     set_column_comment(:evacuees, :public_flag, "公開フラグ")

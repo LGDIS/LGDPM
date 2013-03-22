@@ -201,6 +201,13 @@
           @evacuee.physical_disability_certificate),
           { :include_blank => true }, :tabindex => 30) %>
         </p>
+        <p>
+          <label>外部に公開</label>
+          <%= radio_button_tag "evacuee":, :public_flag, Evacuee::PUBLIC_FLAG_ON %>
+          <%= label :evacuee, "public_flag_#{Evacuee::PUBLIC_FLAG_ON}", "はい", :style => "float:none;margin:0;font-weight:normal;" %>
+          <%= radio_button_tag :evacuee, :public_flag, Evacuee::PUBLIC_FLAG_OFF %>
+          <%= label :evacuee, "public_flag_#{Evacuee::PUBLIC_FLAG_OFF}", "いいえ", :style => "float:none;margin:0;font-weight:normal;" %>
+        </p>
       </div>
       
       <div class="splitcontentright">

@@ -68,7 +68,7 @@ class Person < ActiveResource::Base
     # 出身国
     # self.home_country
     # 公開フラグ
-    self.public_flag = PUBLIC_FLAG_ON
+    self.public_flag = evacuee.public_flag
     # 市内・市外区分
     self.in_city_flag = evacuee.in_city_flag
     # 避難所

@@ -1,5 +1,5 @@
 <h2>避難者一覧</h2>
-<%= form_for @search, :url => evacuees_search_path, :html => {:method => :get} do |f| %>
+<%= form_for @search, :url => evacuees_search_path, :html => {:method => :post} do |f| %>
   <%= hidden_field_tag "commit_kind" %>
   <fieldset class="collapsible tabular">
     <legend id="evacuees_search_conditions" onclick="toggleFieldset(this);">検索条件</legend>

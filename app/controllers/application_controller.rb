@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
     # セレクトボックスの表示に使用するコンスタントテーブルの取得
     @evacuee_const      = Constant.hash_for_table(Evacuee.table_name)
     @juki_history_const = Constant.hash_for_table(JukiHistory.table_name)
-    @local_person_const = Constant.hash_for_table(LocalPerson.table_name)
     # DBからマスタを取得
     @area    = Area.hash_for_table
     @shelter = LocalShelter.hash_for_table
