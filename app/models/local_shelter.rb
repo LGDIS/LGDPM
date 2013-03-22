@@ -13,6 +13,8 @@ class LocalShelter < ActiveRecord::Base
    :rehabilitation_certificate_count, :physical_disability_certificate_count, 
    :note, :deleted_at, :created_by, :updated_by
 
+  attr_accessible :id, :created_at, :updated_at
+
   # 開設状況
   SHELTER_SORT_MIKAISETSU = "1"  # 未開設
   SHELTER_SORT_KAISETSU   = "2"  # 開設

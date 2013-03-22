@@ -16,6 +16,10 @@ development:
     enable: false
   external_auth:
     enable: true
+  # sheltersテーブルの同期元情報
+  shelter_source:
+    uri: http://localhost:3000/exportdata/
+    timeout: 60
     
 test:
   activeresource:
@@ -34,6 +38,10 @@ test:
     enable: false
   external_auth:
     enable: true
+  # sheltersテーブルの同期元情報
+  shelter_source:
+    uri: http://localhost:3000/exportdata/
+    timeout: 60
     
 production:
   activeresource:
@@ -52,3 +60,7 @@ production:
     enable: false
   external_auth:
     enable: true
+  # sheltersテーブルの同期元情報
+  shelter_source:
+    uri: https://redmine.example.com/exportdata/
+    timeout: 60
