@@ -3,134 +3,101 @@
   <%= hidden_field_tag "commit_kind" %>
   <fieldset class="collapsible tabular">
     <legend id="evacuees_search_conditions" onclick="toggleFieldset(this);">検索条件</legend>
-    <div style="">
+    <div class="splitcontent">
       <div class="splitcontentleft">
         <p>
           <label style="font-weight: normal">氏名カナ</label>
-          <%= f.text_field :alternate_family_name_or_alternate_given_name_like,
-          :size => 55 %>
+          <%= f.text_field :alternate_family_name_or_alternate_given_name_like, :size => 55 %>
         </p>
         <p>
           <label style="font-weight: normal">地区名</label>
-          <%= f.select(:area_eq,
-          options_for_select(@area.invert,
-          @search.area_eq),
-          { :include_blank => true }) %>
+          <%= f.select(:area_eq, options_for_select(@area.invert, @search.area_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">情報ソース</label>
+          <%= f.select(:source_name_eq, options_for_select(@evacuee_const["source_name"].invert, @search.source_name_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">住基マッチング</label>
+          <%= f.select(:juki_status_eq, options_for_select(@evacuee_const["juki_status"].invert, @search.juki_status_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">アレルギー</label>
+          <%= f.select(:allergy_flag_eq, options_for_select(@evacuee_const["allergy_flag"].invert, @search.allergy_flag_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">乳幼児</label>
+          <%= f.select(:baby_eq, options_for_select(@evacuee_const["baby"].invert, @search.baby_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">一人暮らし高齢者（65歳以上）</label>
+          <%= f.select(:elderly_alone_eq, options_for_select(@evacuee_const["elderly_alone"].invert, @search.elderly_alone_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">寝たきり高齢者</label>
+          <%= f.select(:bedridden_elderly_eq, options_for_select(@evacuee_const["bedridden_elderly"].invert, @search.bedridden_elderly_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">療育手帳所持者</label>
+          <%= f.select(:rehabilitation_certificate_eq, options_for_select(@evacuee_const["rehabilitation_certificate"].invert, @search.rehabilitation_certificate_eq), { :include_blank => true }) %>
         </p>
       </div>
+      
       <div class="splitcontentright">
         <p>
           <label style="font-weight: normal">生年月日</label>
-          <%= f.text_field :date_of_birth_gte, :size => 20 %> ～
-          <%= f.text_field :date_of_birth_lte, :size => 20 %>
+          <%= f.text_field :date_of_birth_gte, :size => 15 %> ～ <%= f.text_field :date_of_birth_lte, :size => 15 %>
         </p>
         <p>
           <label style="font-weight: normal">避難所名</label>
-          <%= f.select(:shelter_name_eq,
-          options_for_select(@shelter.invert,
-          @search.shelter_name_eq),
-          { :include_blank => true }) %>
+          <%= f.select(:shelter_name_eq, options_for_select(@shelter.invert, @search.shelter_name_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">PF出力</label>
+          <%= f.select(:pf_export_flag_eq, options_for_select(@evacuee_const["pf_export_flag"].invert, @search.pf_export_flag_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">負傷</label>
+          <%= f.select(:injury_flag_eq, options_for_select(@evacuee_const["injury_flag"].invert, @search.injury_flag_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">妊婦</label>
+          <%= f.select(:pregnancy_eq, options_for_select(@evacuee_const["pregnancy"].invert, @search.pregnancy_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">要介護度3以上</label>
+          <%= f.select(:upper_care_level_three_eq, options_for_select(@evacuee_const["upper_care_level_three"].invert, @search.upper_care_level_three_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">高齢者世帯（夫婦共に65歳以上）</label>
+          <%= f.select(:elderly_couple_eq, options_for_select(@evacuee_const["elderly_couple"].invert, @search.elderly_couple_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">認知症高齢者</label>
+          <%= f.select(:elderly_dementia_eq, options_for_select(@evacuee_const["elderly_dementia"].invert, @search.elderly_dementia_eq), { :include_blank => true }) %>
+        </p>
+        <p>
+          <label style="font-weight: normal">身体障害者手帳所持者</label>
+          <%= f.select(:physical_disability_certificate_eq, options_for_select(@evacuee_const["physical_disability_certificate"].invert, @search.physical_disability_certificate_eq), { :include_blank => true }) %>
         </p>
       </div>
-  
-      <p style="clear: left; margin-left: -28px;">
-        <label class="floating">負傷
-          <%= f.select(:injury_flag_eq,
-          options_for_select(@evacuee_const["injury_flag"].invert,
-          @search.injury_flag_eq),
-          { :include_blank => true }) %>
-        </label>
-        <label class="floating">アレルギー
-          <%= f.select(:allergy_flag_eq,
-          options_for_select(@evacuee_const["allergy_flag"].invert,
-          @search.allergy_flag_eq),
-          { :include_blank => true }) %>
-        </label>
-        <label class="floating">住基マッチング
-          <%= f.select(:juki_status_eq,
-          options_for_select(@evacuee_const["juki_status"].invert,
-          @search.juki_status_eq),
-          { :include_blank => true }) %>
-        </label>
-      </p>
-  
-      <p style="margin-left: -28px;">
-        <label class="floating">妊婦
-          <%= f.select(:pregnancy_eq,
-          options_for_select(@evacuee_const["pregnancy"].invert,
-          @search.pregnancy_eq),
-          { :include_blank => true }) %>
-        </label>
-        <label class="floating">乳幼児
-          <%= f.select(:baby_eq,
-          options_for_select(@evacuee_const["baby"].invert,
-          @search.baby_eq),
-          { :include_blank => true }) %>
-        </label>
-        <label class="floating">要介護度3以上
-          <%= f.select(:upper_care_level_three_eq,
-          options_for_select(@evacuee_const["upper_care_level_three"].invert,
-          @search.upper_care_level_three_eq),
-          { :include_blank => true }) %>
-        </label>
-      </p>
-  
-      <p style="margin-left: -146px;">
-        <label class="floating">一人暮らし高齢者（65歳以上）
-          <%= f.select(:elderly_alone_eq,
-          options_for_select(@evacuee_const["elderly_alone"].invert,
-          @search.elderly_alone_eq),
-          { :include_blank => true }) %>
-        </label>
-        <label class="floating">高齢者世帯（夫婦共に65歳以上）
-          <%= f.select(:elderly_couple_eq,
-          options_for_select(@evacuee_const["elderly_couple"].invert,
-          @search.elderly_couple_eq),
-          { :include_blank => true }) %>
-        </label>
-        <label class="floating">寝たきり高齢者
-          <%= f.select(:bedridden_elderly_eq,
-          options_for_select(@evacuee_const["bedridden_elderly"].invert,
-          @search.bedridden_elderly_eq),
-          { :include_blank => true }) %>
-        </label>
-      </p>
-  
-      <p style="margin-left: -71px;">
-        <label class="floating">認知症高齢者
-          <%= f.select(:elderly_dementia_eq,
-          options_for_select(@evacuee_const["elderly_dementia"].invert,
-          @search.elderly_dementia_eq),
-          { :include_blank => true }) %>
-        </label>
-        <label class="floating">療育手帳所持者
-          <%= f.select(:rehabilitation_certificate_eq,
-          options_for_select(@evacuee_const["rehabilitation_certificate"].invert,
-          @search.rehabilitation_certificate_eq),
-          { :include_blank => true }) %>
-        </label>
-        <label class="floating">身体障害者手帳所持者
-          <%= f.select(:physical_disability_certificate_eq,
-          options_for_select(@evacuee_const["physical_disability_certificate"].invert,
-          @search.physical_disability_certificate_eq),
-          { :include_blank => true }) %>
-        </label>
-      </p>
-  
+      
       <p>
         <label style="font-weight: normal">備考</label>
         <%= f.text_field :note_like, :size => 120 %>
       </p>
   
-    <%= f.submit I18n.t("button_search"), :kind => "search" %>
-    <input type="button" value="クリア" id="clear_button">
+      <%= f.submit t("button_search"), :kind => "search" %>
+      <input type="button" value=<%= t("button_clear") %> id="clear_button">
     </div>
   </fieldset>
   
-  <div class="splitcontentright">
+  <div class="splitcontent">
     <p class="set_right">
-      <td><%= f.submit I18n.t("button_print"), :kind => "print" %></td>
-      <td><%= f.submit I18n.t("button_total"), :kind => "total" %></td>
+      <td><%= f.submit t("button_pf_import"), :kind => "pf_import" %></td>
+      <td><%= f.submit t("button_pf_export"), :kind => "pf_export" %></td>
+      <td><%= f.submit t("button_print"), :kind => "print" %></td>
+      <td><%= f.submit t("button_total"), :kind => "total" %></td>
     </p>
     <p class="set_right">
       <%= will_paginate @evacuees, :previous_label => "前 &lt;&lt; ",
@@ -150,9 +117,8 @@
       <th class="set_center">市内・市外区分</th>
       <th class="set_center">生年月日</th>
       <th class="set_center">避難所名</th>
-      <th class="set_center">備考</th>
       <th class="set_center">住基マッチング</th>
-      <th class="set_center">登録者名</th>
+      <th class="set_center">情報ソース</th>
       <th class="set_center">登録日</th>
     </tr>
   </thead>
@@ -178,13 +144,10 @@
           <%= @shelter[evacuee.shelter_name] %>
         </td>
         <td class="set_center">
-          <%= evacuee.note %>
-        </td>
-        <td class="set_center">
           <%= @evacuee_const["juki_status"]["#{evacuee.juki_status}"] %>
         </td>
         <td class="set_center">
-          <%= evacuee.created_by %>
+          <%= @evacuee_const["source_name"]["#{evacuee.source_name}"] %>
         </td>
         <td class="set_center">
           <%= l(evacuee.created_at.to_date) if evacuee.created_at.present? %>

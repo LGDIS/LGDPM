@@ -17,14 +17,6 @@ Lgdpm::Application.routes.draw do
   match "jukis/index"          => "jukis#index",          :via => :get
   match "jukis/import"         => "jukis#import",         :via => :post
   
-  match "local_people/index"   => "local_people#index",   :via => :get
-  match "local_people/search"  => "local_people#search",  :via => :get
-  match "local_people/search"  => "local_people#search",  :via => :post
-  
-  match "linkages/index"       => "linkages#index",       :via => :get
-  match "linkages/search"      => "linkages#search",      :via => :get
-  match "linkages/search"      => "linkages#search",      :via => :post
-  
   match "autocomplete/city"   => "application#autocomplete_city",   :via => :get
   match "autocomplete/street" => "application#autocomplete_street", :via => :get
   

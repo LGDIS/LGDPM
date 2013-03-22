@@ -47,6 +47,9 @@ class Evacuees < ActiveRecord::Migration
       t.column "linked_by", :string, :limit => 100
       t.column "linked_at", :datetime
       t.column "linked_flag", :string, :limit => 1
+      t.column "source_name", :string, :limit => 1
+      t.column "pf_export_flag", :string, :limit => 1
+      t.column "public_flag", :integer
       t.column "created_by", :string, :limit => 100
       t.column "updated_by", :string, :limit => 100
       t.column "deleted_at", :timestamp
@@ -98,6 +101,9 @@ class Evacuees < ActiveRecord::Migration
     set_column_comment(:evacuees, :linked_by, "連携者")
     set_column_comment(:evacuees, :linked_at, "連携日時")
     set_column_comment(:evacuees, :linked_flag, "連携状況")
+    set_column_comment(:evacuees, :source_name, "情報ソース")
+    set_column_comment(:evacuees, :pf_export_flag, "PF出力")
+    set_column_comment(:evacuees, :public_flag, "公開フラグ")
     set_column_comment(:evacuees, :created_by, "登録者")
     set_column_comment(:evacuees, :updated_by, "更新者")
     set_column_comment(:evacuees, :deleted_at, "削除日時")

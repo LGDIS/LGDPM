@@ -77,6 +77,12 @@ Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'juki_status', text: '照
 # 連携状況
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'linked_flag', text: '未済',  value: '0', _order: '1')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'linked_flag', text: '済',  value: '1', _order: '2')
+# 情報ソース
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'source_name', text: 'PF',  value: '1', _order: '1')
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'source_name', text: 'PM',  value: '2', _order: '2')
+# PF出力
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'pf_export_flag', text: '未出力',  value: '0', _order: '1')
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'pf_export_flag', text: '出力済',  value: '1', _order: '2')
 # 住基取込履歴ステータス
 Constant.create(kind1: 'TD', kind2: 'juki_histories', kind3: 'status', text: '正常終了',  value: '1', _order: '1')
 Constant.create(kind1: 'TD', kind2: 'juki_histories', kind3: 'status', text: '異常終了',  value: '2', _order: '2')
