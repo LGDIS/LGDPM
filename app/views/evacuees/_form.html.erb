@@ -203,9 +203,9 @@
         </p>
         <p>
           <label>外部に公開</label>
-          <%= radio_button_tag "evacuee":, :public_flag, Evacuee::PUBLIC_FLAG_ON %>
+          <%= radio_button_tag "evacuee[public_flag]", Evacuee::PUBLIC_FLAG_ON, (@evacuee.public_flag == Evacuee::PUBLIC_FLAG_ON ? true : false) %>
           <%= label :evacuee, "public_flag_#{Evacuee::PUBLIC_FLAG_ON}", "はい", :style => "float:none;margin:0;font-weight:normal;" %>
-          <%= radio_button_tag :evacuee, :public_flag, Evacuee::PUBLIC_FLAG_OFF %>
+          <%= radio_button_tag "evacuee[public_flag]", Evacuee::PUBLIC_FLAG_OFF, (@evacuee.public_flag == Evacuee::PUBLIC_FLAG_OFF ? true : false) %>
           <%= label :evacuee, "public_flag_#{Evacuee::PUBLIC_FLAG_OFF}", "いいえ", :style => "float:none;margin:0;font-weight:normal;" %>
         </p>
       </div>

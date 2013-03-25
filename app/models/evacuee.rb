@@ -58,10 +58,11 @@ class Evacuee < ActiveRecord::Base
   validates :created_by, :length => {:maximum => 100}
   validates :updated_by, :length => {:maximum => 100}
   
+  after_initialize :init
   before_validation :convert_to_kana
-  before_create :set_attr_for_create
+  before_create :set_attr_for_create, :exec_matching
   before_save :set_attr_for_save
-    
+  
   # 住基ステータス
   JUKI_STATUS_INCOMPLETE = 1 # 未照合
   JUKI_STATUS_COMPLETE   = 2 # 照合済
@@ -97,6 +98,11 @@ class Evacuee < ActiveRecord::Base
   HIRAGANA = "ぁ-ん"
   # 変換用カタカナ文字列
   KATAKANA = "ァ-ン"
+  
+  # 初期化処理
+  def init
+    self.public_flag = PUBLIC_FLAG_ON
+  end
   
   # ひらがな、半角カタカナを全角カタカナに変換する
   def convert_to_kana
@@ -140,6 +146,22 @@ class Evacuee < ActiveRecord::Base
       self.area = LocalShelter.where(:shelter_code => self.shelter_name).first.try(:area)
     else
       self.area = nil
+    end
+  end
+  
+  # 住基データとのマッチング処理を行う
+  def exec_matching
+    result = self.matching([])
+    if result.present? && result.size == 1
+      # 住基ステータス
+      self.juki_status = JUKI_STATUS_COMPLETE
+      # 住基識別番号
+      self.juki_number = juki.id_number
+      # 世帯番号
+      self.household_number = juki.household_number
+    else
+      # 住基ステータス
+      self.juki_status = JUKI_STATUS_CHK_NA
     end
   end
   
@@ -303,25 +325,12 @@ class Evacuee < ActiveRecord::Base
   # ==== Return
   # ==== Raise
   def automatic_matching
-    # 検索パターン[氏名カナ（姓）,氏名カナ（名）]
-    result = manual_matching([:alternate_family_name, :alternate_given_name])
-    # マッチング対象無し又は複数存在する場合、次の検索パターンを試行する
-    return result unless result.blank? || result.size > 1
-    
-    # 検索パターン[生年月日,性別,町名]
-    result = manual_matching([:date_of_birth, :sex, :home_street])
-    # マッチング対象無し又は複数存在する場合、次の検索パターンを試行する
-    return result unless result.blank? || result.size > 1
-    
-    # 検索パターン[氏名カナ（姓）,氏名カナ（名）,生年月日]
-    result = manual_matching([:alternate_family_name, :alternate_given_name, :date_of_birth])
-    # マッチング対象無し又は複数存在する場合、次の検索パターンを試行する
-    return result unless result.blank? || result.size > 1
-    
-    # 検索パターン[氏名カナ（姓）,氏名カナ（名）,町名]
-    result = manual_matching([:alternate_family_name, :alternate_given_name, :home_street])
-    
-    return result
+    # 設定ファイルを元にマッチングを行う
+    JUKI_MATCH_CONDITIONS.each do |condition|
+      result = manual_matching(condition)
+      return result if result.present? && result.size == 1
+    end
+    return []
   end
   
   # patternで指定した条件でマッチングを行う

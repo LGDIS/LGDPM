@@ -8,7 +8,7 @@ class PfImportJob
   # ==== Raise
   def self.perform
     @people = Person.find_for_import
-    raise I18n.t("errors.messages.evacuees_not_exists") if @people.blank?
+    return if @people.blank?
     
     @people.each do |person|
       evacuee = Evacuee.new

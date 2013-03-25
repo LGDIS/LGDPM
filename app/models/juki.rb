@@ -48,7 +48,7 @@ class Juki < ActiveRecord::Base
   # ==== Raise
   def self.find_for_match(evacuee, pattern)
     juki_table = Juki.arel_table
-    result = Juki.select("*")
+    result = Juki.scoped
     
     # 氏名（姓）
     if pattern.include?(:family_name)
