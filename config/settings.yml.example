@@ -20,6 +20,9 @@ development:
   shelter_source:
     uri: http://localhost:3000/exportdata/
     timeout: 60
+    basic_auth:
+      username: 
+      password: 
     
 test:
   activeresource:
@@ -42,6 +45,9 @@ test:
   shelter_source:
     uri: http://localhost:3000/exportdata/
     timeout: 60
+    basic_auth:
+      username: 
+      password: 
     
 production:
   activeresource:
@@ -64,3 +70,6 @@ production:
   shelter_source:
     uri: https://redmine.example.com/exportdata/
     timeout: 60
+    basic_auth:
+      username: 
+      password: 
