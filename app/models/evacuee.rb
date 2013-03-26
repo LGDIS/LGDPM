@@ -151,14 +151,14 @@ class Evacuee < ActiveRecord::Base
   
   # 住基データとのマッチング処理を行う
   def exec_matching
-    result = self.matching([])
-    if result.present? && result.size == 1
+    jukis = self.matching([])
+    if jukis.present? && jukis.size == 1
       # 住基ステータス
       self.juki_status = JUKI_STATUS_COMPLETE
       # 住基識別番号
-      self.juki_number = juki.id_number
+      self.juki_number = jukis.first.id_number
       # 世帯番号
-      self.household_number = juki.household_number
+      self.household_number = jukis.first.household_number
     else
       # 住基ステータス
       self.juki_status = JUKI_STATUS_CHK_NA
@@ -195,17 +195,27 @@ class Evacuee < ActiveRecord::Base
   # ==== Return
   # ==== Raise
   def self.exec_pf_export(evacuees, user)
-    evacuees = evacuees.where(:pf_export_flag => PF_EXPORT_FLAG_OFF, :public_flag => PUBLIC_FLAG_ON)
-    evacuees.each do |evacuee|
-      # PM、Androidから入力されたデータの場合、避難者情報も連携する
-      if evacuee.source_name == SOURCE_NAME_PM
-        # 避難者情報登録
-        person = Person.new
-        person = person.exec_insert(evacuee)
-        person.save
-        # PF_IDの更新
-        evacuee.lgdpf_person_id = person.id
-      end
+    evacuees = evacuees.where(:pf_export_flag => PF_EXPORT_FLAG_OFF)
+    created_by_pf = evacuees.where(:source_name => SOURCE_NAME_PF, :juki_status => JUKI_STATUS_COMPLETE)
+    created_by_pm = evacuees.where(:source_name => SOURCE_NAME_PM, :public_flag => PUBLIC_FLAG_ON)
+    
+    created_by_pf.each do |evacuee|
+      # 安否情報登録
+      note = Note.new
+      note = note.exec_insert(evacuee)
+      note.save
+      # PF出力フラグの更新
+      evacuee.pf_export_flag = PF_EXPORT_FLAG_ON
+      evacuee.save
+    end
+    
+    created_by_pm.each do |evacuee|
+      # 避難者情報登録
+      person = Person.new
+      person = person.exec_insert(evacuee)
+      person.save
+      # PF_IDの更新
+      evacuee.lgdpf_person_id = person.id
       # 安否情報登録
       note = Note.new
       note = note.exec_insert(evacuee)
