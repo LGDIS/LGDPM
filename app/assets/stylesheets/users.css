@@ -1,3 +1,9 @@
 h1.login {
   font-size: 4em;
 }
+
+.footer {
+  padding: 1em;
+  text-align: right;
+  color: #666;
+}

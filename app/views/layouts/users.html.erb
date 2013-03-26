@@ -25,6 +25,9 @@
               <div class="flash notice"><%= notice %></div>
             <% end %>
             <%= yield %>
+            <div class="footer">
+              <%= SETTINGS["version"] %>
+            </div>
           </div>
         </div>
       </div>
