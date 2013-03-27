@@ -7,6 +7,6 @@ class Shelter < ActiveResource::Base
   self.password = SETTINGS["activeresource"]["lgdis"]["password"]
   self.proxy    = SETTINGS["activeresource"]["lgdis"]["proxy"]
   self.api_key  = SETTINGS["activeresource"]["lgdis"]["api_key"]
-  self.prefix   = "/projects/:project_id/"
+  self.prefix   = "#{SETTINGS["activeresource"]["lgdis"]["prefix"]}/projects/:project_id/"
   self.format   = :xml
 end

@@ -13,6 +13,7 @@ development:
       password: 
       proxy: 
       api_key: 
+      prefix: 
   ldap_auth:
     enable: false
   external_auth:
@@ -39,6 +40,7 @@ test:
       password: 
       proxy:
       api_key: 
+      prefix: 
   ldap_auth:
     enable: false
   external_auth:
@@ -65,6 +67,7 @@ production:
       password: 
       proxy: 
       api_key: 
+      prefix: "/LGDIS"
   ldap_auth:
     enable: false
   external_auth:
