@@ -25,7 +25,17 @@ development:
     basic_auth:
       username: 
       password: 
-    
+  # SMTPサーバの設定
+  mail:
+    address: smtp.example.com
+    port: 587
+    domain: smtp.example.com
+    user_name: username
+    password: password
+    host: localhost:3000
+    enable_starttls_auto: true
+    authentication: :plain
+
 test:
   version: "Ver1.0.0.a"
   activeresource:
@@ -52,6 +62,16 @@ test:
     basic_auth:
       username: 
       password: 
+  # SMTPサーバの設定
+  mail:
+    address: smtp.example.com
+    port: 587
+    domain: smtp.example.com
+    user_name: username
+    password: password
+    host: localhost:3000
+    enable_starttls_auto: true
+    authentication: :plain
     
 production:
   version: "Ver1.0.0.a"
@@ -79,3 +99,13 @@ production:
     basic_auth:
       username: 
       password: 
+  # SMTPサーバの設定
+  mail:
+    address: smtp.example.com
+    port: 587
+    domain: smtp.example.com
+    user_name: username
+    password: password
+    host: localhost:3000
+    enable_starttls_auto: true
+    authentication: :plain

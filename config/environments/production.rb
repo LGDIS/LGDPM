@@ -9,13 +9,13 @@ Lgdpm::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -68,4 +68,16 @@ Lgdpm::Application.configure do
   # Dalli memcache client library settings
   # config.cache_store = :dalli_store, 'cache-1.example.com', 'cache-2.example.com',
   #   { :namespace => LGDPM, :expires_in => 1.day, :compress => true }
+  config.action_mailer.default_url_options = { :host => SETTINGS["mail"]["host"] }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  :address              => SETTINGS["mail"]["address"],
+  :port                 => SETTINGS["mail"]["port"],
+  :authentication       => SETTINGS["mail"]["authentication"],
+  :user_name            => SETTINGS["mail"]["user_name"],
+  :password             => SETTINGS["mail"]["password"],
+  :enable_starttls_auto => SETTINGS["mail"]["enable_starttls_auto"],
+  :domain               => SETTINGS["mail"]["domain"]
+  }
 end
