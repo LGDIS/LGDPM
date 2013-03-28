@@ -85,7 +85,8 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def print
     require 'nkf'
-    @search   = Evacuee.search(params[:search])
+    # 外部へ公開に同意している避難者のみ出力する
+    @search   = Evacuee.where(:public_flag => Evacuee::PUBLIC_FLAG_ON).search(params[:search])
     @evacuees = @search.paginate(:page => params[:page])
     # 避難者情報が存在しない場合、出力しない
     if @evacuees.blank?
