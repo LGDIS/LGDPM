@@ -120,25 +120,25 @@ class Evacuee < ActiveRecord::Base
   # 初期化処理
   def init
     # 外部に公開
-    self.public_flag = PUBLIC_FLAG_ON
+    self.public_flag ||= PUBLIC_FLAG_ON
     # 妊婦
-    self.pregnancy = PREGNANCY_NA
+    self.pregnancy ||= PREGNANCY_NA
     # 乳幼児
-    self.baby = BABY_NA
+    self.baby ||= BABY_NA
     # 要介護度
-    self.upper_care_level_three = UPPER_CARE_LEVEL_THREE_NA
+    self.upper_care_level_three ||= UPPER_CARE_LEVEL_THREE_NA
     # 一人暮らし高齢者（65歳以上）
-    self.elderly_alone = ELDERLY_ALONE_NA
+    self.elderly_alone ||= ELDERLY_ALONE_NA
     # 高齢者世帯（夫婦共に65歳以上）
-    self.elderly_couple = ELDERLY_COUPLE_NA
+    self.elderly_couple ||= ELDERLY_COUPLE_NA
     # 寝たきり高齢者
-    self.bedridden_elderly = BEDRIDDEN_ELDERLY_NA
+    self.bedridden_elderly ||= BEDRIDDEN_ELDERLY_NA
     # 認知症高齢者
-    self.elderly_dementia = ELDERLY_DEMENTIA_NA
+    self.elderly_dementia ||= ELDERLY_DEMENTIA_NA
     # 療育手帳所持者
-    self.rehabilitation_certificate = REHABILITATION_CERTIFICATE_NA
+    self.rehabilitation_certificate ||= REHABILITATION_CERTIFICATE_NA
     # 身体障害者手帳所持者
-    self.physical_disability_certificate = PHYSICAL_DISABILITY_CERTIFICATE_NA
+    self.physical_disability_certificate ||= PHYSICAL_DISABILITY_CERTIFICATE_NA
   end
   
   # ひらがな、半角カタカナを全角カタカナに変換する
