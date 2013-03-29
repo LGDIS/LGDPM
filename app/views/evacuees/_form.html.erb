@@ -171,35 +171,35 @@
           <label>妊婦</label>
           <%= select(:evacuee, :pregnancy,
           options_for_select(@evacuee_const["pregnancy"].invert, @evacuee.pregnancy),
-          { :include_blank => true }, :tabindex => 22) %>
+          :tabindex => 22) %>
         </p>
         <p>
           <label>要介護度</label>
           <%= select(:evacuee, :upper_care_level_three,
           options_for_select(@evacuee_const["upper_care_level_three"].invert,
           @evacuee.upper_care_level_three),
-          { :include_blank => true }, :tabindex => 24) %>
+          :tabindex => 24) %>
         </p>
         <p>
           <label>高齢者世帯（夫婦共に65歳以上）</label>
           <%= select(:evacuee, :elderly_couple,
           options_for_select(@evacuee_const["elderly_couple"].invert,
           @evacuee.elderly_couple),
-          { :include_blank => true }, :tabindex => 26) %>
+          :tabindex => 26) %>
         </p>
         <p>
           <label>認知症高齢者</label>
           <%= select(:evacuee, :elderly_dementia,
           options_for_select(@evacuee_const["elderly_dementia"].invert,
           @evacuee.elderly_dementia),
-          { :include_blank => true }, :tabindex => 28) %>
+          :tabindex => 28) %>
         </p>
         <p>
           <label>身体障害者手帳所持者</label>
           <%= select(:evacuee, :physical_disability_certificate,
           options_for_select(@evacuee_const["physical_disability_certificate"].invert,
           @evacuee.physical_disability_certificate),
-          { :include_blank => true }, :tabindex => 30) %>
+          :tabindex => 30) %>
         </p>
         <p>
           <label>外部に公開</label>
@@ -215,28 +215,28 @@
           <label>乳幼児</label>
           <%= select(:evacuee, :baby,
           options_for_select(@evacuee_const["baby"].invert, @evacuee.baby),
-          { :include_blank => true }, :tabindex => 23) %>
+          :tabindex => 23) %>
         </p>
         <p>
           <label>一人暮らし高齢者（65歳以上）</label>
           <%= select(:evacuee, :elderly_alone,
           options_for_select(@evacuee_const["elderly_alone"].invert,
           @evacuee.elderly_alone),
-          { :include_blank => true }, :tabindex => 25) %>
+          :tabindex => 25) %>
         </p>
         <p>
           <label>寝たきり高齢者</label>
           <%= select(:evacuee, :bedridden_elderly,
           options_for_select(@evacuee_const["bedridden_elderly"].invert,
           @evacuee.bedridden_elderly),
-          { :include_blank => true }, :tabindex => 27) %>
+          :tabindex => 27) %>
         </p>
         <p>
           <label>療育手帳所持者</label>
           <%= select(:evacuee, :rehabilitation_certificate,
           options_for_select(@evacuee_const["rehabilitation_certificate"].invert,
           @evacuee.rehabilitation_certificate),
-          { :include_blank => true }, :tabindex => 29) %>
+          :tabindex => 29) %>
         </p>
         <p>
           <label>家族も無事</label>
