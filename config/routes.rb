@@ -5,6 +5,7 @@ Lgdpm::Application.routes.draw do
   root :to => 'evacuees#index'
   
   match "evacuees/index"       => "evacuees#index",       :via => :get
+  match "evacuees/search"      => "evacuees#search",      :via => :get
   match "evacuees/search"      => "evacuees#search",      :via => :post
   match "evacuees/new"         => "evacuees#new",         :via => :get
   match "evacuees"             => "evacuees#create",      :via => :post
