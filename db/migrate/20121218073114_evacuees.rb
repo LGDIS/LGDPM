@@ -80,7 +80,7 @@ class Evacuees < ActiveRecord::Migration
     set_column_comment(:evacuees, :allergy_cause, "アレルギー物質")
     set_column_comment(:evacuees, :pregnancy, "妊婦")
     set_column_comment(:evacuees, :baby, "乳幼児")
-    set_column_comment(:evacuees, :upper_care_level_three, "要介護度3以上")
+    set_column_comment(:evacuees, :upper_care_level_three, "要介護度")
     set_column_comment(:evacuees, :elderly_alone, "一人暮らし高齢者（65歳以上）")
     set_column_comment(:evacuees, :elderly_couple, "高齢者世帯（夫婦共に65歳以上）")
     set_column_comment(:evacuees, :bedridden_elderly, "寝たきり高齢者")

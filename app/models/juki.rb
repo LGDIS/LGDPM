@@ -212,7 +212,7 @@ class Juki < ActiveRecord::Base
     self.pregnancy = row[21]
     # 乳幼児
     self.baby = row[22]
-    # 要介護度3以上
+    # 要介護度
     self.upper_care_level_three = row[23]
     # 一人暮らし高齢者（65歳以上）
     self.elderly_alone = row[24]

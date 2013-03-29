@@ -97,7 +97,7 @@ class Person < ActiveResource::Base
     self.pregnancy = evacuee.pregnancy
     # 乳幼児
     self.baby = evacuee.baby
-    # 要介護度３以上
+    # 要介護度
     self.upper_care_level_three = evacuee.upper_care_level_three
     # １人暮らしの高齢者
     self.elderly_alone = evacuee.elderly_alone

@@ -166,7 +166,7 @@ class EvacueesController < ApplicationController
       # shelter.households = result["households_count"]
       # 負傷_計
       shelter.injury_count = result["injury_flag_count"]
-      # 要介護度3以上_計
+      # 要介護度_計
       shelter.upper_care_level_three_count = result["upper_care_level_three_count"]
       # 一人暮らし高齢者（65歳以上）_計
       shelter.elderly_alone_count = result["elderly_alone_count"]

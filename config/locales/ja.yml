@@ -246,7 +246,7 @@ ja:
         allergy_cause: アレルギー物質
         pregnancy: 妊婦
         baby: 乳幼児
-        upper_care_level_three: 要介護度3以上
+        upper_care_level_three: 要介護度
         elderly_alone: 一人暮らし高齢者（65歳以上）
         elderly_couple: 高齢者世帯（夫婦共に65歳以上）
         bedridden_elderly: 寝たきり高齢者
@@ -287,7 +287,7 @@ ja:
         allergy_cause: アレルギー物質
         pregnancy: 妊婦
         baby: 乳幼児
-        upper_care_level_three: 要介護度3以上
+        upper_care_level_three: 要介護度
         elderly_alone: 一人暮らし高齢者（65歳以上）
         elderly_couple: 高齢者世帯（夫婦共に65歳以上）
         bedridden_elderly: 寝たきり高齢者

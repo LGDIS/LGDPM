@@ -292,7 +292,7 @@ class Evacuee < ActiveRecord::Base
     self.pregnancy = person.pregnancy
     # 乳幼児
     self.baby = person.baby
-    # 要介護度3以上
+    # 要介護度
     self.upper_care_level_three = person.upper_care_level_three
     # 一人暮らし高齢者（65歳以上）
     self.elderly_alone = person.elderly_alone

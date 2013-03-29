@@ -84,7 +84,7 @@ class Shelters < ActiveRecord::Migration
     set_column_comment(:shelters, :usable_flag, "使用可否")
     set_column_comment(:shelters, :openable_flag, "開設の可否")
     set_column_comment(:shelters, :injury_count, "負傷_計")
-    set_column_comment(:shelters, :upper_care_level_three_count, "要介護度3以上_計")
+    set_column_comment(:shelters, :upper_care_level_three_count, "要介護度_計")
     set_column_comment(:shelters, :elderly_alone_count, "一人暮らし高齢者（65歳以上）_計")
     set_column_comment(:shelters, :elderly_couple_count, "高齢者世帯（夫婦共に65歳以上）_計")
     set_column_comment(:shelters, :bedridden_elderly_count, "寝たきり高齢者_計")

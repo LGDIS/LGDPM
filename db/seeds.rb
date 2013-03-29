@@ -25,7 +25,7 @@ Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'pregnancy', text: '該�
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'baby', text: '乳児',  value: '1', _order: '1')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'baby', text: '幼児',  value: '2', _order: '2')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'baby', text: '該当しない',  value: '0', _order: '3')
-# 要介護度3以上
+# 要介護度
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'upper_care_level_three', text: '非該当',  value: '00', _order: '1')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'upper_care_level_three', text: '要支援',  value: '01', _order: '2')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'upper_care_level_three', text: '要介護1',  value: '02', _order: '3')

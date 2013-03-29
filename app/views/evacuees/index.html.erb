@@ -65,7 +65,7 @@
           <%= f.select(:pregnancy_eq, options_for_select(@evacuee_const["pregnancy"].invert, @search.pregnancy_eq), { :include_blank => true }) %>
         </p>
         <p>
-          <label style="font-weight: normal">要介護度3以上</label>
+          <label style="font-weight: normal">要介護度</label>
           <%= f.select(:upper_care_level_three_eq, options_for_select(@evacuee_const["upper_care_level_three"].invert, @search.upper_care_level_three_eq), { :include_blank => true }) %>
         </p>
         <p>

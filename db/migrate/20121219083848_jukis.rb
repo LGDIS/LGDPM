@@ -48,7 +48,7 @@ class Jukis < ActiveRecord::Migration
       t.column "pregnancy", :string, :limit => 1
       # 乳幼児
       t.column "baby", :string, :limit => 1
-      # 要介護度3以上
+      # 要介護度
       t.column "upper_care_level_three", :string, :limit => 2
       # 一人暮らし高齢者（65歳以上）
       t.column "elderly_alone", :string, :limit => 1
@@ -97,7 +97,7 @@ class Jukis < ActiveRecord::Migration
     set_column_comment(:jukis, :allergy_cause, "アレルギー物質")
     set_column_comment(:jukis, :pregnancy, "妊婦")
     set_column_comment(:jukis, :baby, "乳幼児")
-    set_column_comment(:jukis, :upper_care_level_three, "要介護度3以上")
+    set_column_comment(:jukis, :upper_care_level_three, "要介護度")
     set_column_comment(:jukis, :elderly_alone, "一人暮らし高齢者（65歳以上）")
     set_column_comment(:jukis, :elderly_couple, "高齢者世帯（夫婦共に65歳以上）")
     set_column_comment(:jukis, :bedridden_elderly, "寝たきり高齢者")

@@ -174,7 +174,7 @@
           { :include_blank => true }, :tabindex => 22) %>
         </p>
         <p>
-          <label>要介護度3以上</label>
+          <label>要介護度</label>
           <%= select(:evacuee, :upper_care_level_three,
           options_for_select(@evacuee_const["upper_care_level_three"].invert,
           @evacuee.upper_care_level_three),
