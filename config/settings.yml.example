@@ -29,12 +29,13 @@ development:
   mail:
     address: smtp.example.com
     port: 587
-    domain: smtp.example.com
+    authentication: :plain
     user_name: username
     password: password
-    host: localhost:3000
+    domain: smtp.example.com
     enable_starttls_auto: true
-    authentication: :plain
+    sender: saitai@example.com
+    host: localhost:3000
 
 test:
   version: "Ver1.0.0.a"
@@ -66,12 +67,13 @@ test:
   mail:
     address: smtp.example.com
     port: 587
-    domain: smtp.example.com
+    authentication: :plain
     user_name: username
     password: password
-    host: localhost:3000
+    domain: smtp.example.com
     enable_starttls_auto: true
-    authentication: :plain
+    sender: saitai@example.com
+    host: localhost:3000
     
 production:
   version: "Ver1.0.0.a"
@@ -103,9 +105,10 @@ production:
   mail:
     address: smtp.example.com
     port: 587
-    domain: smtp.example.com
+    authentication: :plain
     user_name: username
     password: password
-    host: localhost:3000
+    domain: smtp.example.com
     enable_starttls_auto: true
-    authentication: :plain
+    sender: saitai@example.com
+    host: localhost:3000
