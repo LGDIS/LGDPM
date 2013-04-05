@@ -26,7 +26,7 @@ Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'baby', text: '乳児',  
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'baby', text: '幼児',  value: '2', _order: '2')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'baby', text: '該当しない',  value: '0', _order: '3')
 # 要介護度
-Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'upper_care_level_three', text: '非該当',  value: '00', _order: '1')
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'upper_care_level_three', text: '該当しない',  value: '00', _order: '1')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'upper_care_level_three', text: '要支援',  value: '01', _order: '2')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'upper_care_level_three', text: '要介護1',  value: '02', _order: '3')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'upper_care_level_three', text: '要介護2',  value: '03', _order: '4')
@@ -65,7 +65,7 @@ Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'rehabilitation_certifica
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'rehabilitation_certificate', text: 'C',  value: '14', _order: '14')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'rehabilitation_certificate', text: 'B2',  value: '15', _order: '15')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'rehabilitation_certificate', text: '4度',  value: '16', _order: '16')
-Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'rehabilitation_certificate', text: 'なし',  value: '99', _order: '17')
+Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'rehabilitation_certificate', text: '所持なし',  value: '99', _order: '17')
 # 身体障害者手帳所持者
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'physical_disability_certificate', text: '1級',  value: '1', _order: '1')
 Constant.create(kind1: 'TD', kind2: 'evacuees', kind3: 'physical_disability_certificate', text: '2級',  value: '2', _order: '2')
