@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 development:
-  version: "Ver1.0.0.a"
+  version: "v1.0.0.b"
   activeresource:
     lgdpf:
       site: "http://localhost:3000"
@@ -38,7 +38,7 @@ development:
     host: localhost:3000
 
 test:
-  version: "Ver1.0.0.a"
+  version: "v1.0.0.b"
   activeresource:
     lgdpf:
       site: "http://localhost:3000"
@@ -76,7 +76,7 @@ test:
     host: localhost:3000
     
 production:
-  version: "Ver1.0.0.a"
+  version: "v1.0.0.b"
   activeresource:
     lgdpf:
       site: "http://localhost:3000/LGDPF"
