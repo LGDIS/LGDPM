@@ -253,7 +253,7 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def update
     if params[:commit_kind] == "save"
-      @evacuee = Evacuee.find(params[:id]).order(:alternate_family_name, :alternate_given_name)
+      @evacuee = Evacuee.find(params[:id])
       if @evacuee.update_attributes(params[:evacuee])
         flash[:notice] = t("notice_successful_update")
         redirect_to :action => :edit, :id => @evacuee.id
@@ -279,7 +279,7 @@ class EvacueesController < ApplicationController
   def selector
     case params[:commit_kind]
     when "delete"
-      @evacuee = Evacuee.find(params[:id]).order(:alternate_family_name, :alternate_given_name)
+      @evacuee = Evacuee.find(params[:id])
       @evacuee.destroy
       flash[:notice] = t("notice_successful_delete")
       redirect_to :action => :index
