@@ -63,7 +63,8 @@
     <div class="splitcontent">
       <div class="splitcontentleft">
         <p>
-          <label>氏名</label>
+         <label id="nameid">氏名</label>
+         <label style="color:red">*</label>
           <%= text_field :evacuee, :family_name, :size => 15, :tabindex => 1 %>
           <%= text_field :evacuee, :given_name, :size => 15, :tabindex => 2 %>
         </p>
