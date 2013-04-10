@@ -14,7 +14,7 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def index
     @search   = Evacuee.search(params[:search])
-    @evacuees = @search.paginate(:page => params[:page])
+    @evacuees = @search.order(:alternate_family_name, :alternate_given_name).paginate(:page => params[:page])
     render :action => :index
   end
 
@@ -44,7 +44,7 @@ class EvacueesController < ApplicationController
     when "total" # 避難所一覧に出力ボタン
       total
     else # その他
-      raise
+      index
     end
   end
   
@@ -253,7 +253,7 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def update
     if params[:commit_kind] == "save"
-      @evacuee = Evacuee.find(params[:id])
+      @evacuee = Evacuee.find(params[:id]).order(:alternate_family_name, :alternate_given_name)
       if @evacuee.update_attributes(params[:evacuee])
         flash[:notice] = t("notice_successful_update")
         redirect_to :action => :edit, :id => @evacuee.id
@@ -279,7 +279,7 @@ class EvacueesController < ApplicationController
   def selector
     case params[:commit_kind]
     when "delete"
-      @evacuee = Evacuee.find(params[:id])
+      @evacuee = Evacuee.find(params[:id]).order(:alternate_family_name, :alternate_given_name)
       @evacuee.destroy
       flash[:notice] = t("notice_successful_delete")
       redirect_to :action => :index
