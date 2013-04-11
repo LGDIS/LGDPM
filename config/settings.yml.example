@@ -1,6 +1,8 @@
 # -*- coding:utf-8 -*-
 development:
   version: "Ver1.0.0.a"
+  # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
+  run_mode: 0
   activeresource:
     lgdpf:
       site: "http://localhost:3000"
@@ -14,6 +16,8 @@ development:
       proxy: 
       api_key: 
       prefix: 
+      # run_mode(動作種別)で設定・稼動している災害番号
+      project_identifier: "I04202000000000000001"
   ldap_auth:
     enable: false
   external_auth:
@@ -39,6 +43,8 @@ development:
 
 test:
   version: "Ver1.0.0.a"
+  # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
+  run_mode: 0
   activeresource:
     lgdpf:
       site: "http://localhost:3000"
@@ -52,6 +58,8 @@ test:
       proxy:
       api_key: 
       prefix: 
+      # run_mode(動作種別)で設定・稼動している災害番号
+      project_identifier: "I04202000000000000001"
   ldap_auth:
     enable: false
   external_auth:
@@ -77,6 +85,8 @@ test:
     
 production:
   version: "Ver1.0.0.a"
+  # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
+  run_mode: 0
   activeresource:
     lgdpf:
       site: "http://localhost:3000/LGDPF"
@@ -90,6 +100,8 @@ production:
       proxy: 
       api_key: 
       prefix: "/LGDIS"
+      # run_mode(動作種別)で設定・稼動している災害番号
+      project_identifier: "I04202000000000000001"
   ldap_auth:
     enable: false
   external_auth:

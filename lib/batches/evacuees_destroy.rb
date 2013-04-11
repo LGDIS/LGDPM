@@ -9,7 +9,7 @@ class Batches::EvacueesDestroy
   def self.execute
     Rails.logger.info(" #{Time.now.to_s} ===== #{self.name} START ===== ")
     
-    Evacuee.destroy_all(["updated_at < ?", 1.year.ago])
+    Evacuee.mode_in().destroy_all(["updated_at < ?", 1.year.ago])
     LocalPerson.destroy_all(["updated_at < ?", 1.year.ago])
     
     Rails.logger.info(" #{Time.now.to_s} ===== #{self.name} END  ===== ")

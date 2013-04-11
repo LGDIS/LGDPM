@@ -13,7 +13,7 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def index
-    @search   = Evacuee.search(params[:search])
+    @search   = Evacuee.mode_in().search(params[:search])
     @evacuees = @search.paginate(:page => params[:page])
     render :action => :index
   end
@@ -65,7 +65,7 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def pf_export
-    Evacuee.exec_pf_export(Evacuee.scoped, current_user)
+    Evacuee.exec_pf_export(Evacuee.mode_in(), current_user)
     
   rescue ActiveResource::ServerError => e
     flash.now[:alert] = "#{e}"
@@ -86,7 +86,7 @@ class EvacueesController < ApplicationController
   def print
     require 'nkf'
     # 外部へ公開に同意している避難者のみ出力する
-    @search   = Evacuee.where(:public_flag => Evacuee::PUBLIC_FLAG_ON).search(params[:search])
+    @search   = Evacuee.mode_in().where(:public_flag => Evacuee::PUBLIC_FLAG_ON).search(params[:search])
     @evacuees = @search.paginate(:page => params[:page])
     # 避難者情報が存在しない場合、出力しない
     if @evacuees.blank?
@@ -150,12 +150,10 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def total
     # ルーティング上プロジェクト識別子が必要
-    project = Project.find(:first)
-    raise ParameterException if project.blank?
+    project_identifier = SETTINGS["activeresource"]["lgdis"]["project_identifier"]
+    shelters = Shelter.find(:all, :params => { project_id: project_identifier })
     
-    shelters = Shelter.find(:all, :params => { project_id: project.identifier })
-    
-    Evacuee.find_for_count.each do |result|
+    Evacuee.mode_in().find_for_count.each do |result|
       # 避難所識別番号が一致する避難所を取得
       index = shelters.rindex{|s| s.shelter_code == result.shelter_name }
       next if index.blank?
@@ -180,6 +178,12 @@ class EvacueesController < ApplicationController
       shelter.rehabilitation_certificate_count = result["rehabilitation_certificate_count"]
       # 身体障害者手帳所持者_計
       shelter.physical_disability_certificate_count = result["physical_disability_certificate_count"]
+      # 不要データを削除
+      shelter.attributes.delete(:created_at)
+      shelter.attributes.delete(:updated_at)
+      shelter.attributes.delete(:deleted_at)
+      shelter.attributes.delete(:record_mode)
+
       shelter.save
     end
     flash.now[:notice] = t("notice_successful_total")
@@ -238,7 +242,7 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def edit
-    @evacuee = Evacuee.find(params[:id])
+    @evacuee = Evacuee.mode_in().find(params[:id])
     @jukis   = Juki.find_for_family(@evacuee) if @evacuee.family_well == Evacuee::FAMILY_WELL_ON
   end
 
@@ -253,7 +257,7 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def update
     if params[:commit_kind] == "save"
-      @evacuee = Evacuee.find(params[:id])
+      @evacuee = Evacuee.mode_in().find(params[:id])
       if @evacuee.update_attributes(params[:evacuee])
         flash[:notice] = t("notice_successful_update")
         redirect_to :action => :edit, :id => @evacuee.id
@@ -279,7 +283,7 @@ class EvacueesController < ApplicationController
   def selector
     case params[:commit_kind]
     when "delete"
-      @evacuee = Evacuee.find(params[:id])
+      @evacuee = Evacuee.mode_in().find(params[:id])
       @evacuee.destroy
       flash[:notice] = t("notice_successful_delete")
       redirect_to :action => :index

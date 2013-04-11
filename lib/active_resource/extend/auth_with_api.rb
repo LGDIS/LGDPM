@@ -4,13 +4,19 @@ module ActiveResource #:nodoc:
     module AuthWithApi
       module ClassMethods
         def element_path_with_auth(*args)
-          element_path_without_auth(*args).concat("?key=#{self.api_key}")
+          build_uri(element_path_without_auth(*args))
         end
         def new_element_path_with_auth(*args)
-          new_element_path_without_auth(*args).concat("?key=#{self.api_key}")
+          build_uri(new_element_path_without_auth(*args))
         end
         def collection_path_with_auth(*args)
-          collection_path_without_auth(*args).concat("?key=#{self.api_key}")
+          build_uri(collection_path_without_auth(*args))
+        end
+
+        private
+
+        def build_uri(request)
+          [request, "key=#{self.api_key}"].join(request.include?("?") ? "&" : "?")
         end
       end
 
@@ -24,7 +30,7 @@ module ActiveResource #:nodoc:
             attr_accessor :api_key
           end
         end
-      end  
+      end
     end
-  end  
+  end
 end
