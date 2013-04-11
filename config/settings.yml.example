@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 development:
-  version: "Ver1.0.0.a"
+  version: "v1.0.0.b"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
   run_mode: 0
   activeresource:
@@ -42,7 +42,7 @@ development:
     host: localhost:3000
 
 test:
-  version: "Ver1.0.0.a"
+  version: "v1.0.0.b"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
   run_mode: 0
   activeresource:
@@ -82,9 +82,9 @@ test:
     enable_starttls_auto: true
     sender: saitai@example.com
     host: localhost:3000
-    
+
 production:
-  version: "Ver1.0.0.a"
+  version: "v1.0.0.b"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
   run_mode: 0
   activeresource:

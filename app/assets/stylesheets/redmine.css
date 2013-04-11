@@ -476,6 +476,16 @@ html>body .tabular p {overflow:hidden;}
   width: 175px;
 }
 
+#nameid {
+  font-weight: bold;
+  float: left;
+  text-align: right;
+  /* width of left column */
+  margin-left: -190px;
+  /* width of labels. Should be smaller than left column to create some right margin */
+  width: 175px;
+}
+
 .tabular label.floating{
   font-weight: normal;
   margin-left: 0px;

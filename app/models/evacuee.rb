@@ -4,8 +4,6 @@ class Evacuee < ActiveRecord::Base
   acts_as_paranoid # 論理削除機能の有効化
   acts_as_mode_switchable # 動作種別の有効化
   
-  default_scope order(:alternate_family_name, :alternate_given_name)
-  
   attr_accessible :lgdpf_person_id, :person_record_id, :family_name, :given_name, :alternate_family_name,
     :alternate_given_name, :date_of_birth, :sex, :age, :home_postal_code, :in_city_flag, :home_state, :home_city,
     :home_street, :house_number, :shelter_name, :refuge_status, :refuge_reason, :shelter_entry_date,

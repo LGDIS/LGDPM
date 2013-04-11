@@ -14,7 +14,7 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def index
     @search   = Evacuee.mode_in().search(params[:search])
-    @evacuees = @search.paginate(:page => params[:page])
+    @evacuees = @search.order(:alternate_family_name, :alternate_given_name).paginate(:page => params[:page])
     render :action => :index
   end
 
@@ -44,7 +44,7 @@ class EvacueesController < ApplicationController
     when "total" # 避難所一覧に出力ボタン
       total
     else # その他
-      raise
+      index
     end
   end
   
