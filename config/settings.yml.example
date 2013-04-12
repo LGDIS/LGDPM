@@ -22,6 +22,9 @@ development:
     enable: false
   external_auth:
     enable: true
+    google_enable: true
+    twitter_enable: true
+    facebook_enable: true
   # sheltersテーブルの同期元情報
   shelter_source:
     uri: http://localhost:3000/exportdata/
@@ -64,6 +67,9 @@ test:
     enable: false
   external_auth:
     enable: true
+    google_enable: true
+    twitter_enable: true
+    facebook_enable: true
   # sheltersテーブルの同期元情報
   shelter_source:
     uri: http://localhost:3000/exportdata/
@@ -106,6 +112,9 @@ production:
     enable: false
   external_auth:
     enable: true
+    google_enable: true
+    twitter_enable: true
+    facebook_enable: true
   # sheltersテーブルの同期元情報
   shelter_source:
     uri: https://redmine.example.com/exportdata/
