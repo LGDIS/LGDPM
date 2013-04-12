@@ -148,3 +148,9 @@ hash = {"01"=>"北海道","02"=>"青森県","03"=>"岩手県","04"=>"宮城県",
 hash.each_pair do |key,value|
   State.create(:code => key, :name => value)
 end
+
+# 住基マッチングボタンステータス
+JukiStat.delete_all
+JukiStat.create [
+  {:id => 1, :status => false}
+]

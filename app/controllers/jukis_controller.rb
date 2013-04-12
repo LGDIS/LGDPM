@@ -14,6 +14,7 @@ class JukisController < ApplicationController
   def index
     @search = JukiHistory.search.order("created_at DESC")
     @juki_histories = @search.paginate(:page => params[:page])
+           
   end
   
   # 住基情報取込画面
@@ -25,6 +26,12 @@ class JukisController < ApplicationController
   # ==== Return
   # ==== Raise
   def import
+    #住基マッチング処理
+    if params[:commit_kind] == "matching"
+      matching
+      return
+    end
+    
     # ファイル存在チェック
     if params[:document].blank?
       flash[:alert] = I18n.t("errors.messages.file_not_exists")
@@ -45,6 +52,20 @@ class JukisController < ApplicationController
     # 非同期でインポート処理を実行する
     Resque.enqueue(JukiImportJob, file, current_user.login)
     # 自画面に遷移する
+    redirect_to(:action => :index)
+  end
+  
+  #住基マッチング処理
+  def matching
+    #ボタン非活性
+    @jk = JukiStat.first
+    @jk.status = true 
+    @jk.save
+    
+     # 非同期でマッチング処理を実行する
+    Resque.enqueue(JukiMatchingJob, 1)
+
+     # 自画面に遷移する
     redirect_to(:action => :index)
   end
 end

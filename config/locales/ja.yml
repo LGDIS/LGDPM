@@ -312,7 +312,12 @@ ja:
   notice_successful_link: 連携しました。
   notice_successful_matching: マッチングしました。
   error_candidate_not_found: 候補者が存在しません。
-  text_destroy_confirmation: 本当に削除しますか？
+  text_destroy_confirmation: 削除してもよろしいですか？
+  text_save_confirm: 保存してもよろしいですか？
+  text_evacuee_output_confirm: 避難所一覧に出力してもよろしいですか？
+  
+  text_get_address: 住基情報を取り込んでもよろしいですか？
+  text_address_matching: 現在の住基情報で、全避難者情報のマッチング処理を行います。処理を行ってもよろしいですか？
 
   label_title: 石巻市PersonManager
   label_tab_register: 新規登録
@@ -325,7 +330,7 @@ ja:
   button_pf_export: 石巻PFへ出力
   button_print: 避難者名簿印刷
   button_total: 避難所一覧に出力
-  
+    
   will_paginate:
     page_entries_info:
       single_page:
