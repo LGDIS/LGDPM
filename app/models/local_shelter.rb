@@ -1,6 +1,9 @@
 # -*- coding:utf-8 -*-
 class LocalShelter < ActiveRecord::Base
   self.table_name = "shelters"
+
+  acts_as_mode_switchable # 動作種別の有効化
+
   attr_accessible :name, :name_kana, :area, :address, :phone, :fax, 
    :e_mail, :person_responsible, :shelter_type, :shelter_type_detail, 
    :shelter_sort, :opened_at, :closed_at, :capacity, :status, :head_count, 
@@ -12,8 +15,8 @@ class LocalShelter < ActiveRecord::Base
    :elderly_couple_count, :bedridden_elderly_count, :elderly_dementia_count, 
    :rehabilitation_certificate_count, :physical_disability_certificate_count, 
    :note, :deleted_at, :created_by, :updated_by
-
   attr_accessible :id, :created_at, :updated_at
+  attr_accessible :record_mode
 
   # 開設状況
   SHELTER_SORT_MIKAISETSU = "1"  # 未開設
@@ -29,7 +32,7 @@ class LocalShelter < ActiveRecord::Base
   # ==== Raise
   def self.hash_for_table
     shelters_list = {}
-    shelters = LocalShelter.select([:shelter_code, :name]).where(:shelter_sort => [SHELTER_SORT_KAISETSU, SHELTER_SORT_JOSETSU]).order(:shelter_code)
+    shelters = LocalShelter.mode_in().select([:shelter_code, :name]).where(:shelter_sort => [SHELTER_SORT_KAISETSU, SHELTER_SORT_JOSETSU]).order(:shelter_code)
     shelters.each do |shelter|
       shelters_list[shelter.shelter_code] = {} unless shelters_list[shelter.shelter_code]
       shelters_list[shelter.shelter_code] = shelter.name

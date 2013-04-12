@@ -1,9 +1,8 @@
 # -*- coding:utf-8 -*-
 class Evacuee < ActiveRecord::Base
-  # 論理削除機能の有効化
-  acts_as_paranoid
   
-  default_scope order(:alternate_family_name, :alternate_given_name)
+  acts_as_paranoid # 論理削除機能の有効化
+  acts_as_mode_switchable # 動作種別の有効化
   
   attr_accessible :lgdpf_person_id, :person_record_id, :family_name, :given_name, :alternate_family_name,
     :alternate_given_name, :date_of_birth, :sex, :age, :home_postal_code, :in_city_flag, :home_state, :home_city,
@@ -139,6 +138,8 @@ class Evacuee < ActiveRecord::Base
     self.rehabilitation_certificate ||= REHABILITATION_CERTIFICATE_NA
     # 身体障害者手帳所持者
     self.physical_disability_certificate ||= PHYSICAL_DISABILITY_CERTIFICATE_NA
+  rescue ActiveModel::MissingAttributeError
+    nil
   end
   
   # ひらがな、半角カタカナを全角カタカナに変換する
@@ -180,7 +181,7 @@ class Evacuee < ActiveRecord::Base
     end
     # 地区
     if self.shelter_name.present?
-      self.area = LocalShelter.where(:shelter_code => self.shelter_name).first.try(:area)
+      self.area = LocalShelter.mode_in().where(:shelter_code => self.shelter_name).first.try(:area)
     else
       self.area = nil
     end
@@ -208,7 +209,7 @@ class Evacuee < ActiveRecord::Base
   # Evacueeオブジェクト配列
   # ==== Raise
   def self.find_for_count
-    unscoped.select("shelter_name,
+    unscoped.mode_in().select("shelter_name,
             COUNT(*) as head_count,
             COUNT(CASE WHEN injury_flag  IN ('1') THEN 1 ELSE NULL END) AS injury_flag_count,
             COUNT(CASE WHEN allergy_flag IN ('1') THEN 1 ELSE NULL END) AS allergy_flag_count,

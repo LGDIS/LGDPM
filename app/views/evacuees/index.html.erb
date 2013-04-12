@@ -111,45 +111,45 @@
 <table class="list">
   <thead>
     <tr>
-      <th class="set_center">氏名</th>
-      <th class="set_center">氏名カナ</th>
-      <th class="set_center">住所</th>
-      <th class="set_center">市内・市外区分</th>
-      <th class="set_center">生年月日</th>
-      <th class="set_center">避難所名</th>
-      <th class="set_center">住基マッチング</th>
-      <th class="set_center">情報ソース</th>
-      <th class="set_center">登録日</th>
+      <th class="set_center"><%= sort_link @search, :family_name_and_given_name, "氏名", {page: params[:page]} %></th>
+      <th class="set_center"><%= sort_link @search, :alternate_family_name_and_alternate_given_name, "氏名カナ", {page: params[:page]} %></th>
+      <th class="set_center"><%= sort_link @search, :home_state_and_home_city_and_home_street_and_house_number, "住所", {page: params[:page]} %></th>
+      <th class="set_center"><%= sort_link @search, :in_city_flag, "市内・市外区分", {page: params[:page]} %></th>
+      <th class="set_center"><%= sort_link @search, :date_of_birth, "生年月日", {page: params[:page]} %></th>
+      <th class="set_center"><%= sort_link @search, :shelter_name, "避難所名", {page: params[:page]} %></th>
+      <th class="set_center"><%= sort_link @search, :juki_status, "住基マッチング", {page: params[:page]} %></th>
+      <th class="set_center"><%= sort_link @search, :source_name, "情報ソース", {page: params[:page]} %></th>
+      <th class="set_center"><%= sort_link @search, :created_at, "登録日", {page: params[:page]} %></th>
     </tr>
   </thead>
   <tbody>
     <% @evacuees.each do |evacuee| %>
       <tr class="<%= cycle("even", "odd") -%>" data-href="<%= evacuees_edit_path(evacuee) %>">
-        <td class="set_center">
+        <td class="set_left">
           <%= "#{evacuee.family_name} #{evacuee.given_name}" %>
         </td>
-        <td class="set_center">
+        <td class="set_left">
           <%= "#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}" %>
         </td>
-        <td class="set_center">
+        <td class="set_left">
           <%= "#{@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}" %>
         </td>
-        <td class="set_center">
+        <td class="set_left">
           <%= @evacuee_const["in_city_flag"]["#{evacuee.in_city_flag}"] %>
         </td>
-        <td class="set_center">
+        <td class="set_left">
           <%= l(evacuee.date_of_birth) if evacuee.date_of_birth.present? %>
         </td>
-        <td class="set_center">
+        <td class="set_left">
           <%= @shelter[evacuee.shelter_name] %>
         </td>
-        <td class="set_center">
+        <td class="set_left">
           <%= @evacuee_const["juki_status"]["#{evacuee.juki_status}"] %>
         </td>
-        <td class="set_center">
+        <td class="set_left">
           <%= @evacuee_const["source_name"]["#{evacuee.source_name}"] %>
         </td>
-        <td class="set_center">
+        <td class="set_left">
           <%= l(evacuee.created_at.to_date) if evacuee.created_at.present? %>
         </td>
       </tr>
