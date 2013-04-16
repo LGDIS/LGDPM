@@ -1,59 +1,63 @@
 # -*- coding:utf-8 -*-
 class JukiMatchingJob
   @queue = :juki_matching
-  
   # 住基情報マッチング非同期処理
   # ==== Args
+  # _id_ :: JOB番号
   # ==== Return
   # ==== Raise
   def self.perform(id)
-    puts "perform start"
-    @jk = JukiStat.first
-    
     # マッチング処理開始 
-    ActiveRecord::Base.transaction do
-      #避難者報取得
-      evacue =  Evacuee.scoped #全データ取得
-      unless evacue.blank?
+    if JukiStat.get_stat == JukiStat::MATCHING_READY
+      JukiStat.set_stat(JukiStat::MATCHING_RUN) # ステータスを処理中にする
+      ActiveRecord::Base.transaction do
+        evacue =  Evacuee.mode_in() #避難者データ取得
         evacue.each do |e|
-          jukis = e.matching([])
-          if jukis.present? && jukis.size == 1
-             # 住基ステータス
-            e.juki_status = Evacuee::JUKI_STATUS_COMPLETE
-             # 住基識別番号
-            e.juki_number = jukis.first.id_number
-             # 世帯番号
-            e.household_number = jukis.first.household_number
-          else
-             # 住基ステータス
-            e.juki_status = Evacuee::JUKI_STATUS_CHK_NA
-          end
+          e.exec_matching
           e.save!
         end
-      end 
-    end 
+      end
+    end
+  ensure
+    JukiStat.set_stat(JukiStat::MATCHING_READY)
   end
 
+  # JOBマッチングQUE処理前
+  # ==== Args
+  # _id_ :: JOB番号
+  # ==== Return
+  # ==== Raise
   def self.before_enqueue(id)
     Resque.redis.setnx(lock_key(id), DateTime.now.to_i)
   end
 
+  # JOBマッチング処理前
+  # ==== Args
+  # _id_ :: JOB番号
+  # ==== Return
+  # ==== Raise
   def self.before_perform(id)
-    puts "---- before performe ----"
+    Rails.logger.debug "---- before performe ----"
     Resque.redis.del(lock_key(id))
     true
   end
   
-  # マッチング処理終了 
+  # JOBマッチング処理後
+  # ==== Args
+  # _id_ :: JOB番号
+  # ==== Return
+  # ==== Raise
   def self.after_perform(id)
-    puts "---- after performe ----"
-    #Resque.dequeue(JukiMatchingJob)
-    @jk.status = false #ボタン非活性
-    @jk.save  
-    
+    Rails.logger.debug "---- after performe ----"
+    JukiStat.set_stat(JukiStat::MATCHING_READY) # ステータスを準備中にする
   end
 
+  #lock key作成処理
+  # ==== Args
+  # _id_ :: JOB番号
+  # ==== Return
+  # ==== Raise
   def self.lock_key(id)
-    'mylock:' + name + '_' + id.to_s
+    'juki_matching_lock:' + name + '_' + id.to_s
   end
 end

@@ -151,6 +151,4 @@ end
 
 # 住基マッチングボタンステータス
 JukiStat.delete_all
-JukiStat.create [
-  {:id => 1, :status => false}
-]
+ActiveRecord::Base.connection.execute(%{INSERT INTO juki_stats (id, status,created_at,updated_at) VALUES (1, 0, now(), now())})

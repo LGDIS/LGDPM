@@ -14,7 +14,6 @@ class JukisController < ApplicationController
   def index
     @search = JukiHistory.search.order("created_at DESC")
     @juki_histories = @search.paginate(:page => params[:page])
-           
   end
   
   # 住基情報取込画面
@@ -56,15 +55,13 @@ class JukisController < ApplicationController
   end
   
   #住基マッチング処理
+  # 非同期でマッチング処理を実行する(非同期処理にはResqueを使用)
+  # ==== Args
+  # ==== Return
+  # ==== Raise
   def matching
-    #ボタン非活性
-    @jk = JukiStat.first
-    @jk.status = true 
-    @jk.save
-    
-     # 非同期でマッチング処理を実行する
     Resque.enqueue(JukiMatchingJob, 1)
-
+    
      # 自画面に遷移する
     redirect_to(:action => :index)
   end

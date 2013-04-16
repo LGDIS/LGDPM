@@ -14,9 +14,8 @@
   <div class="splitcontentright">
     <p>
       <%#= submit_tag "取込" %>
-      <%= submit_tag "取込", :kind => "import", :confirm => t(:text_get_address) %>
-      <%#= submit_tag "住基マッチング", :kind => "matching", :confirm => t(:text_address_matching) %>
-      <%= submit_tag "住基マッチング", :kind => "matching", :confirm => t(:text_address_matching) ,disabled: JukiStat.get_state %>
+      <%= submit_tag "取込", :kind => "import", :confirm => t(:text_get_address_confirmation) %>
+      <%= submit_tag "住基マッチング", :kind => "matching", :confirm => t(:text_address_matching_confirmation) %>
     </p>
     <p>
       <%= will_paginate @juki_histories, :previous_label => "前 &lt;&lt; ",
