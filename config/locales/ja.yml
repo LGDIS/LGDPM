@@ -100,8 +100,8 @@ ja:
       author_name: "LGDPM"
     note:
       author_name: "LGDPM"
-      complete_text: "石巻市民であることが確認されました。"
-      incomplete_text: "石巻市民であることが確認されていません。"
+      complete_text: "××市民であることが確認されました。"
+      incomplete_text: "××市民であることが確認されていません。"
   errors: &errors
     format: ! '%{attribute}%{message}'
     messages:
@@ -318,15 +318,15 @@ ja:
   text_get_address_confirmation: 住基情報を取り込んでもよろしいですか？
   text_address_matching_confirmation: 現在の住基情報で、全避難者情報のマッチング処理を行います。処理を行ってもよろしいですか？
 
-  label_title: 石巻市PersonManager
+  label_title: ××市PersonManager
   label_tab_register: 新規登録
   label_tab_evacuee: 避難者一覧
   label_tab_juki: 住基情報取込
   
   button_search: 検索
   button_clear: クリア
-  button_pf_import: 石巻PFから取込
-  button_pf_export: 石巻PFへ出力
+  button_pf_import: ××PFから取込
+  button_pf_export: ××PFへ出力
   button_print: 避難者名簿印刷
   button_total: 避難所一覧に出力
     
@@ -349,3 +349,5 @@ ja:
   google: Google
   openam: OpenAM
   ldap: LDAP
+  
+  target_municipality: ××市
