@@ -26,8 +26,8 @@
           <div id="quick-search"></div>
           <div id="main-menu">
             <%= tabs_tag(:builder => MenuTabBuilder) do |tab| %>
-              <%= tab.register t("label_tab_register"), evacuees_new_path %>
               <%= tab.evacuee t("label_tab_evacuee"), evacuees_index_path %>
+              <%= tab.register t("label_tab_register"), evacuees_new_path %>
               <%= tab.juki t("label_tab_juki"), jukis_index_path %>
             <% end %>
           </div>
