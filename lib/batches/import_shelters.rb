@@ -31,11 +31,11 @@ class Batches::ImportShelters
       else
         LocalShelter.transaction do
           before_rows_count = LocalShelter.mode_in().count
-          LocalShelter.mode_in().delete_all
+          LocalShelter.unscoped.delete_all
           CSV.parse(input_data, csv_option) do |csv_reader|
             record_data = Hash[csv_reader]
             if record_data["record_mode"].to_i == CURRENT_RUN_MODE.to_i
-              LocalShelter.new(Hash[csv_reader]).save!(:validate => false)
+              LocalShelter.new(Hash[csv_reader]).save!
             end
           end
           after_rows_count = LocalShelter.mode_in().count
