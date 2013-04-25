@@ -35,7 +35,7 @@ describe Evacuee do
     it_should_behave_like :max_length, :physical_disability_certificate
     it_should_behave_like :max_length, :family_well
     it_should_behave_like :max_length, :juki_number
-    it_should_behave_like :max_length, :linked_by
+    it_should_behave_like :max_length, :household_number
     it_should_behave_like :max_length, :created_by
     it_should_behave_like :max_length, :updated_by
     
@@ -46,10 +46,8 @@ describe Evacuee do
     it_should_behave_like :date, :shelter_entry_date
     it_should_behave_like :date, :shelter_leave_date
     
-    it_should_behave_like :datetime, :linked_at
     it_should_behave_like :datetime, :deleted_at
     
-    it_should_behave_like :integer, :local_person_id
     it_should_behave_like :integer, :lgdpf_person_id
     it_should_behave_like :integer, :juki_status
     
@@ -101,7 +99,7 @@ describe Evacuee do
   
   describe "#set_attr_for_create" do
     let(:model) { FactoryGirl.create(:evacuee) }
-    it { model.juki_status.should == Evacuee::JUKI_STATUS_INCOMPLETE }
+    it { model.source_name.should == Evacuee::SOURCE_NAME_PM }
   end
   
   describe "#set_attr_for_save" do
@@ -280,24 +278,42 @@ describe Evacuee do
       it { subject.first.physical_disability_certificate_count.should == "0" }
     end
     describe "upper_care_level_three_count" do
-      let(:value) { "01" }
       before(:each) do
         @evacuee = FactoryGirl.create(:evacuee)
         @evacuee.update_attributes(:upper_care_level_three => value)
       end
-      it { subject.first.shelter_name.should == nil }
-      it { subject.first.head_count.should == "1" }
-      it { subject.first.injury_flag_count.should == "0" }
-      it { subject.first.allergy_flag_count.should == "0" }
-      it { subject.first.pregnancy_count.should == "0" }
-      it { subject.first.baby_count.should == "0" }
-      it { subject.first.upper_care_level_three_count.should == "1" }
-      it { subject.first.elderly_alone_count.should == "0" }
-      it { subject.first.elderly_couple_count.should == "0" }
-      it { subject.first.bedridden_elderly_count.should == "0" }
-      it { subject.first.elderly_dementia_count.should == "0" }
-      it { subject.first.rehabilitation_certificate_count.should == "0" }
-      it { subject.first.physical_disability_certificate_count.should == "0" }
+      context "in aggregate" do
+        let(:value) { "04" }
+        it { subject.first.shelter_name.should == nil }
+        it { subject.first.head_count.should == "1" }
+        it { subject.first.injury_flag_count.should == "0" }
+        it { subject.first.allergy_flag_count.should == "0" }
+        it { subject.first.pregnancy_count.should == "0" }
+        it { subject.first.baby_count.should == "0" }
+        it { subject.first.upper_care_level_three_count.should == "1" }
+        it { subject.first.elderly_alone_count.should == "0" }
+        it { subject.first.elderly_couple_count.should == "0" }
+        it { subject.first.bedridden_elderly_count.should == "0" }
+        it { subject.first.elderly_dementia_count.should == "0" }
+        it { subject.first.rehabilitation_certificate_count.should == "0" }
+        it { subject.first.physical_disability_certificate_count.should == "0" }
+      end
+      context "in aggregate" do
+        let(:value) { "03" }
+        it { subject.first.shelter_name.should == nil }
+        it { subject.first.head_count.should == "1" }
+        it { subject.first.injury_flag_count.should == "0" }
+        it { subject.first.allergy_flag_count.should == "0" }
+        it { subject.first.pregnancy_count.should == "0" }
+        it { subject.first.baby_count.should == "0" }
+        it { subject.first.upper_care_level_three_count.should == "0" }
+        it { subject.first.elderly_alone_count.should == "0" }
+        it { subject.first.elderly_couple_count.should == "0" }
+        it { subject.first.bedridden_elderly_count.should == "0" }
+        it { subject.first.elderly_dementia_count.should == "0" }
+        it { subject.first.rehabilitation_certificate_count.should == "0" }
+        it { subject.first.physical_disability_certificate_count.should == "0" }
+      end
     end
     describe "elderly_alone_count" do
       let(:value) { "1" }
@@ -460,10 +476,6 @@ describe Evacuee do
     it_should_behave_like :check_value_for_date, :date_of_birth
     it_should_behave_like :check_value_for_date, :shelter_entry_date
     it_should_behave_like :check_value_for_date, :shelter_leave_date
-    
-    describe "local_person_id" do
-      it { subject; model.local_person_id.should == param.id }
-    end
     
     describe "alternate_family_name" do
       describe do

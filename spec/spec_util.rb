@@ -180,6 +180,7 @@ shared_examples_for :find_for_match do |evacuee_attr, juki_attr, val|
       evacuee.update_attributes(evacuee_attr => val)
       juki.update_attributes(juki_attr => val)
     end
+    let(:cond) { [evacuee_attr] }
     it { subject.size.should == 1 }
     it { subject.first[juki_attr].to_s.should == val }
   end

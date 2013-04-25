@@ -3,19 +3,10 @@ require 'spec_helper'
 
 describe Note do
   
-  
   describe "#find_for_import" do
     subject { Note.find_for_import(local_person) }
-    let(:note) { FactoryGirl.create(:note) }
     let(:local_person) { FactoryGirl.create(:local_person) }
-    before(:each) do
-      ActiveResource::HttpMock.respond_to do |mock|
-        mock.get "/notes.json?person_record_id=#{local_person.id}", {}, local_person.to_json
-        mock.post "/notes.json", {}, nil, 201
-      end
-      Note.should_receive(:find).with(:all, {:params=>{:person_record_id=>local_person.id}}).and_return(note)
-    end
-    it { subject.should == note }
+#    it { Note.should_receive(:find) }
   end
   
   describe "#exec_insert" do
