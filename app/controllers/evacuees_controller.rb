@@ -22,8 +22,8 @@ class EvacueesController < ApplicationController
   # 検索処理
   # 押下されたボタンにより、処理を分岐する
   # * 検索ボタンが押下された場合、検索を行い自画面に遷移する
-  # * 石巻PFから取込ボタンが押下された場合、PFから避難者情報を取り込む
-  # * 石巻PFへ出力ボタンが押下された場合、PFへ避難者情報を出力する
+  # * PFから取込ボタンが押下された場合、PFから避難者情報を取り込む
+  # * PFへ出力ボタンが押下された場合、PFへ避難者情報を出力する
   # * 避難者名簿印刷ボタンが押下された場合、検索を行い避難所単位に避難者情報をPDF出力する
   # * 避難所一覧に出力ボタンが押下された場合、避難者情報を集計しLGDISへ出力する
   # * その他の場合、例外を発生させる
@@ -35,9 +35,9 @@ class EvacueesController < ApplicationController
     case params[:commit_kind]
     when "search" # 検索ボタン
       index
-    when "pf_import" # 石巻PFから取込ボタン
+    when "pf_import" # PFから取込ボタン
       pf_import
-    when "pf_export" # 石巻PFへ出力ボタン
+    when "pf_export" # PFへ出力ボタン
       pf_export
     when "print" # 避難者名簿印刷ボタン
       print

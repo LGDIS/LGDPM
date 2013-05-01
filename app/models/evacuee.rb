@@ -108,8 +108,6 @@ class Evacuee < ActiveRecord::Base
   
   # 宮城県コード
   STATE_MIYAGI = "04"
-  # 石巻市正規表現
-  CITY_ISHINOMAKI = /^(石巻)市?$/
   
   # 変換用ひらがな文字列
   HIRAGANA = "ぁ-ん"
@@ -173,7 +171,10 @@ class Evacuee < ActiveRecord::Base
     self.allergy_flag = (self.allergy_cause.present? ? ALLERGY_FLAG_ON : ALLERGY_FLAG_OFF)
     # 市内・市外区分
     if self.home_state.present? && self.home_city.present?
-      if self.home_state == STATE_MIYAGI && self.home_city =~ CITY_ISHINOMAKI
+      split_city = I18n.t("target_municipality").split(//n)[0..-2].join
+      split_municipality = I18n.t("target_municipality").split(//n).pop      
+      regexp_city = /^(#{split_city})#{split_municipality}?$/
+      if self.home_state == STATE_MIYAGI && self.home_city =~ regexp_city
         self.in_city_flag = IN_CITY_FLAG_INSIDE
       else
         self.in_city_flag = IN_CITY_FLAG_OUTSIDE
