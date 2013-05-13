@@ -21,6 +21,11 @@
             ログイン中： <%= link_to current_user.login, "#" %>
           </div>
         </div>
+        <% if @run_mode_announce.present? %>
+          <div style="background: red; padding: 3px;">
+            <%= @run_mode_announce %>
+          </div>
+        <% end %>
         <div id="header">
           <h1><%= t("label_title") %></h1>
           <div id="quick-search"></div>

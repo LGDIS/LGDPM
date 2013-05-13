@@ -16,6 +16,11 @@
           <div id="main-menu"></div>
         </div>
         <div id="main" class="nosidebar">
+        <% if @run_mode_announce.present? %>
+          <div style="background: red; padding: 3px;">
+            <%= @run_mode_announce %>
+          </div>
+        <% end %>
           <div id="sidebar"></div>
           <div id="content">
             <% if alert %>

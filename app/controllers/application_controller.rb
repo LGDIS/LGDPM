@@ -25,6 +25,10 @@ class ApplicationController < ActionController::Base
     @area    = Area.hash_for_table
     @shelter = LocalShelter.hash_for_table
     @state   = State.hash_for_table
+    # 通常/訓練/試験モードごとの通知文(全画面)
+    unless CURRENT_IS_NORMAL_MODE
+      @run_mode_announce = I18n.t("announce.header.run_mode_#{CURRENT_RUN_MODE}")
+    end
   end
   
   # オートコンプリート市区町村取得処理
