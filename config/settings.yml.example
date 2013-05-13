@@ -43,6 +43,9 @@ development:
     enable_starttls_auto: true
     sender: saitai@example.com
     host: localhost:3000
+  # adminユーザ設定
+  admin_user:
+    username: username
 
 test:
   version: "v1.0.0.b"
@@ -88,6 +91,9 @@ test:
     enable_starttls_auto: true
     sender: saitai@example.com
     host: localhost:3000
+  # adminユーザ設定
+  admin_user:
+    username: username
 
 production:
   version: "v1.0.0.b"
@@ -133,3 +139,6 @@ production:
     enable_starttls_auto: true
     sender: saitai@example.com
     host: localhost:3000
+  # adminユーザ設定
+  admin_user:
+    username: username
