@@ -314,6 +314,9 @@ ja:
   error_candidate_not_found: 候補者が存在しません。
   text_destroy_confirmation: 削除してもよろしいですか？
   text_save_confirmation: 保存してもよろしいですか？
+  text_pf_import_confirmation: ××PFを取り込んでもよろしいですか？
+  text_pf_output_confirmation: ××PFに出力してもよろしいですか？
+  text_evacuee_print_confirmation: 避難者名簿印刷をしてもよろしいですか？
   text_evacuee_output_confirmation: 避難所一覧に出力してもよろしいですか？
   text_get_address_confirmation: 住基情報を取り込んでもよろしいですか？
   text_address_matching_confirmation: 現在の住基情報で、全避難者情報のマッチング処理を行います。処理を行ってもよろしいですか？
