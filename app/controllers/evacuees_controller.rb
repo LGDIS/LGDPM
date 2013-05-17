@@ -137,8 +137,11 @@ class EvacueesController < ApplicationController
         archive.add_buffer(NKF.nkf('-sxm0', filename), filestream)
       end
     end
+    # IEでのファイルダウンロードの際の文字化け対策
+    ie_download_name = "避難者一覧"
+    ie_download_name = ERB::Util.url_encode(ie_download_name) if /MSIE/ =~ request.user_agent
     # zipを出力する
-    send_data(buf, filename: "避難者一覧_#{Time.now.instance_eval {'%s%06d' % [strftime('%Y%m%d%H%M%S'),usec]}}.zip",
+    send_data(buf, filename: ie_download_name + "_#{Time.now.instance_eval {'%s%06d' % [strftime('%Y%m%d%H%M%S'),usec]}}.zip",
       type: "application/zip", disposition: "attached")
   end
   
