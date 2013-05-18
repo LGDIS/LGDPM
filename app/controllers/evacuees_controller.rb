@@ -4,7 +4,7 @@ class EvacueesController < ApplicationController
   # タブリンクのカレントタブ制御に使用
   set_tab :evacuee
   set_tab :register, :only => [:new, :create]
-  
+
   # 避難者一覧画面
   # 初期表示処理
   # ==== Args
@@ -13,8 +13,35 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def index
+
+if !params.nil? and !params[:search].nil? and !params[:search][:meta_sort].nil? then
+
+     meta_sort = params[:search][:meta_sort]
+     meta_sort_array = meta_sort.split(".")
+
+    if meta_sort_array[0] == "shelter_name" then
+      convert_null_value = "''"
+
+      params[:search].delete('meta_sort')
+      @search   = Evacuee.mode_in().search(params[:search])
+      @evacuees = @search.order(:alternate_family_name, :alternate_given_name).order("CASE WHEN #{meta_sort_array[0]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_array[0]} END #{meta_sort_array[1]}").paginate(:page => params[:page])
+
+      #退避させておいた状態を元に戻す
+      params[:search]['meta_sort'] = meta_sort
+      @search   = Evacuee.mode_in().search(params[:search])
+    else
+      @search   = Evacuee.mode_in().search(params[:search])
+      @evacuees = @search.order(:alternate_family_name, :alternate_given_name).paginate(:page => params[:page])
+    end
+
+else
     @search   = Evacuee.mode_in().search(params[:search])
     @evacuees = @search.order(:alternate_family_name, :alternate_given_name).paginate(:page => params[:page])
+end
+
+
+
+
     render :action => :index
   end
 
@@ -47,7 +74,7 @@ class EvacueesController < ApplicationController
       index
     end
   end
-  
+
   # 避難者一覧画面
   # PF避難者情報取込処理
   # ==== Args
@@ -58,7 +85,7 @@ class EvacueesController < ApplicationController
     Resque.enqueue(PfImportJob)
     index
   end
-  
+
   # 避難者一覧画面
   # PF避難者情報出力処理
   # ==== Args
@@ -66,7 +93,7 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def pf_export
     Evacuee.exec_pf_export(Evacuee.mode_in(), current_user)
-    
+
   rescue ActiveResource::ServerError => e
     flash.now[:alert] = "#{e}"
   rescue Errno::ECONNREFUSED
@@ -74,7 +101,7 @@ class EvacueesController < ApplicationController
   ensure
     index
   end
-  
+
   # 避難者一覧画面
   # 印刷処理
   # 検索条件に合致する避難者情報を全件PDFに出力する
@@ -144,7 +171,7 @@ class EvacueesController < ApplicationController
     send_data(buf, filename: ie_download_name + "_#{Time.now.instance_eval {'%s%06d' % [strftime('%Y%m%d%H%M%S'),usec]}}.zip",
       type: "application/zip", disposition: "attached")
   end
-  
+
   # 避難者一覧画面
   # 集計処理
   # 避難者情報を集計しLGDISに連携する
@@ -155,7 +182,7 @@ class EvacueesController < ApplicationController
     # ルーティング上プロジェクト識別子が必要
     project_identifier = SETTINGS["activeresource"]["lgdis"]["project_identifier"]
     shelters = Shelter.find(:all, :params => { project_id: project_identifier })
-    
+
     Evacuee.mode_in().find_for_count.each do |result|
       # 避難所識別番号が一致する避難所を取得
       index = shelters.rindex{|s| s.shelter_code == result.shelter_name }
@@ -271,7 +298,7 @@ class EvacueesController < ApplicationController
       selector
     end
   end
-  
+
   # 避難者登録・更新画面
   # 分岐処理
   # 保存ボタン以外の処理を記述
