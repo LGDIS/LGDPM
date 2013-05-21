@@ -14,33 +14,30 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def index
 
-if !params.nil? and !params[:search].nil? and !params[:search][:meta_sort].nil? then
+    if !params.nil? and !params[:search].nil? and !params[:search][:meta_sort].nil? then
 
-     meta_sort = params[:search][:meta_sort]
-     meta_sort_array = meta_sort.split(".")
+        meta_sort = params[:search][:meta_sort]
+        meta_sort_array = meta_sort.split(".")
 
-    if meta_sort_array[0] == "shelter_name" then
-      convert_null_value = "''"
+        if meta_sort_array[0] == "shelter_name" or meta_sort_array[0] == "in_city_flag" then
+          convert_null_value = "''"
 
-      params[:search].delete('meta_sort')
-      @search   = Evacuee.mode_in().search(params[:search])
-      @evacuees = @search.order(:alternate_family_name, :alternate_given_name).order("CASE WHEN #{meta_sort_array[0]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_array[0]} END #{meta_sort_array[1]}").paginate(:page => params[:page])
+          params[:search].delete('meta_sort')
+          @search   = Evacuee.mode_in().search(params[:search])
+          @evacuees = @search.order(:alternate_family_name, :alternate_given_name).order("CASE WHEN #{meta_sort_array[0]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_array[0]} END #{meta_sort_array[1]}").paginate(:page => params[:page])
 
-      #退避させておいた状態を元に戻す
-      params[:search]['meta_sort'] = meta_sort
-      @search   = Evacuee.mode_in().search(params[:search])
+          #退避させておいた状態を元に戻す
+          params[:search]['meta_sort'] = meta_sort
+          @search   = Evacuee.mode_in().search(params[:search])
+        else
+          @search   = Evacuee.mode_in().search(params[:search])
+          @evacuees = @search.order(:alternate_family_name, :alternate_given_name).paginate(:page => params[:page])
+        end
+
     else
-      @search   = Evacuee.mode_in().search(params[:search])
-      @evacuees = @search.order(:alternate_family_name, :alternate_given_name).paginate(:page => params[:page])
+        @search   = Evacuee.mode_in().search(params[:search])
+        @evacuees = @search.order(:alternate_family_name, :alternate_given_name).paginate(:page => params[:page])
     end
-
-else
-    @search   = Evacuee.mode_in().search(params[:search])
-    @evacuees = @search.order(:alternate_family_name, :alternate_given_name).paginate(:page => params[:page])
-end
-
-
-
 
     render :action => :index
   end
