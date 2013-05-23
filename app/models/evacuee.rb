@@ -21,8 +21,8 @@ class Evacuee < ActiveRecord::Base
   validates :alternate_given_name, :length => {:maximum => 500}
   validates :date_of_birth, :date => true
   validates :sex, :length => {:maximum => 1}
-  validates :age, :allow_blank => true, :format => { :with => /^\d+(-\d+)?$/ }, :length => {:maximum => 500}
-  validates :home_postal_code, :length => {:maximum => 500}
+  validates :age, :allow_blank => true, :format => { :with => /^\d+(-\d+)?$/ }, :length => {:maximum => 3}
+  validates :home_postal_code, :allow_blank => true, :format => { :with => /^\d+(-\d+)?$/ }, :length => {:maximum => 7}
   validates :in_city_flag, :length => {:maximum => 1}
   validates :home_state, :length => {:maximum => 500}
   validates :home_city, :length => {:maximum => 500}
@@ -33,7 +33,7 @@ class Evacuee < ActiveRecord::Base
   validates :shelter_entry_date, :date => true
   validates :shelter_leave_date, :date => true
   validates :next_place, :length => {:maximum => 100}
-  validates :next_place_phone, :length => {:maximum => 20}
+  validates :next_place_phone, :allow_blank => true, :format => { :with => /^\d+(-\d+)?$/ }, :length => {:maximum => 11}
   validates :injury_flag, :length => {:maximum => 1}
   validates :allergy_flag, :length => {:maximum => 1}
   validates :pregnancy, :length => {:maximum => 1}
