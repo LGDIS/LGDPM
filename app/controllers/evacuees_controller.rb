@@ -19,12 +19,34 @@ class EvacueesController < ApplicationController
         meta_sort = params[:search][:meta_sort]
         meta_sort_array = meta_sort.split(".")
 
-        if meta_sort_array[0] == "shelter_name" or meta_sort_array[0] == "in_city_flag" then
+        if meta_sort_array[0] == "shelter_name" then
           convert_null_value = "''"
 
           params[:search].delete('meta_sort')
           @search   = Evacuee.mode_in().search(params[:search])
-          @evacuees = @search.order(:alternate_family_name, :alternate_given_name).order("CASE WHEN #{meta_sort_array[0]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_array[0]} END #{meta_sort_array[1]}").paginate(:page => params[:page])
+          @evacuees = @search.order("CASE WHEN #{meta_sort_array[0]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_array[0]} END #{meta_sort_array[1]}").order(:alternate_family_name, :alternate_given_name).paginate(:page => params[:page])
+
+          #退避させておいた状態を元に戻す
+          params[:search]['meta_sort'] = meta_sort
+          @search   = Evacuee.mode_in().search(params[:search])
+        elsif meta_sort_array[0] == "alternate_family_name_and_alternate_given_name" then
+          convert_null_value = "''"
+          meta_sort_title_array = meta_sort_array[0].split("_and_")
+
+          params[:search].delete('meta_sort')
+          @search   = Evacuee.mode_in().search(params[:search])
+          @evacuees = @search.order("CASE WHEN #{meta_sort_title_array[0]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[0]} END #{meta_sort_array[1]}").order("CASE WHEN #{meta_sort_title_array[1]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[1]} END #{meta_sort_array[1]}").order(:alternate_family_name, :alternate_given_name).paginate(:page => params[:page])
+
+          #退避させておいた状態を元に戻す
+          params[:search]['meta_sort'] = meta_sort
+          @search   = Evacuee.mode_in().search(params[:search])
+        elsif meta_sort_array[0] == "home_state_and_home_city_and_home_street_and_house_number" then
+          convert_null_value = "''"
+          meta_sort_title_array = meta_sort_array[0].split("_and_")
+
+          params[:search].delete('meta_sort')
+          @search   = Evacuee.mode_in().search(params[:search])
+          @evacuees = @search.order("CASE WHEN #{meta_sort_title_array[0]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[0]} END #{meta_sort_array[1]}").order("CASE WHEN #{meta_sort_title_array[1]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[1]} END #{meta_sort_array[1]}").order("CASE WHEN #{meta_sort_title_array[2]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[2]} END #{meta_sort_array[1]}").order("CASE WHEN #{meta_sort_title_array[3]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[3]} END #{meta_sort_array[1]}").order(:alternate_family_name, :alternate_given_name).paginate(:page => params[:page])
 
           #退避させておいた状態を元に戻す
           params[:search]['meta_sort'] = meta_sort
