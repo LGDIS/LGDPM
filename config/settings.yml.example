@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 development:
-  version: "v1.0.0.b"
+  version: "v1.0.0"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
   run_mode: 0
   activeresource:
@@ -48,7 +48,7 @@ development:
     username: username
 
 test:
-  version: "v1.0.0.b"
+  version: "v1.0.0"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
   run_mode: 0
   activeresource:
@@ -96,7 +96,7 @@ test:
     username: username
 
 production:
-  version: "v1.0.0.b"
+  version: "v1.0.0"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
   run_mode: 0
   activeresource:
