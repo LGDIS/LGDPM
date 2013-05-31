@@ -50,6 +50,10 @@ development:
   # * true : 有効
   # * false: 無効
   juki_validates_enable: true
+  # ログイン画面のアカウント新規登録項目の表示・非表示
+  # * true : 表示
+  # * false: 非表示
+  account_display_enable: true
 test:
   version: "v1.0.0"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
@@ -101,6 +105,10 @@ test:
   # * true : 有効
   # * false: 無効
   juki_validates_enable: true
+  # ログイン画面のアカウント新規登録項目の表示・非表示
+  # * true : 表示
+  # * false: 非表示
+  account_display_enable: true
 production:
   version: "v1.0.0"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
@@ -152,3 +160,7 @@ production:
   # * true : 有効
   # * false: 無効
   juki_validates_enable: true
+  # ログイン画面のアカウント新規登録項目の表示・非表示
+  # * true : 表示
+  # * false: 非表示
+  account_display_enable: true
