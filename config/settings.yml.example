@@ -46,7 +46,10 @@ development:
   # adminユーザ設定
   admin_user:
     username: username
-
+  # 住基バリデーション機能有効化設定
+  # * true : 有効
+  # * false: 無効
+  juki_validates_enable: true
 test:
   version: "v1.0.0"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
@@ -94,7 +97,10 @@ test:
   # adminユーザ設定
   admin_user:
     username: username
-
+  # 住基バリデーション機能有効化設定
+  # * true : 有効
+  # * false: 無効
+  juki_validates_enable: true
 production:
   version: "v1.0.0"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
@@ -142,3 +148,7 @@ production:
   # adminユーザ設定
   admin_user:
     username: username
+  # 住基バリデーション機能有効化設定
+  # * true : 有効
+  # * false: 無効
+  juki_validates_enable: true

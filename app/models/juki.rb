@@ -130,7 +130,7 @@ class Juki < ActiveRecord::Base
           juki = Juki.new
           juki = juki.exec_insert(row, user)
           # バリデーションエラーの場合メッセージを出力
-          unless juki.save
+          unless juki.save(:validate => SETTINGS["juki_validates_enable"])
             juki.errors.full_messages.each do |msg|
               error_msgs << I18n.t("activerecord.errors.messages.import_error", :count => number, :message => msg)
             end
