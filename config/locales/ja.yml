@@ -311,6 +311,8 @@ ja:
   notice_successful_approval: 承認しました。
   notice_successful_link: 連携しました。
   notice_successful_matching: マッチングしました。
+  notice_successful_pf_import: 処理を開始しました。しばらくたってから、避難者一覧画面を参照し、取込状況について、ご確認ください。
+  notice_successful_pf_export: 処理を開始しました。しばらくたってから、LGDPFを参照し、出力状況について、ご確認ください。
   error_candidate_not_found: 候補者が存在しません。
   text_destroy_confirmation: 削除してもよろしいですか？
   text_save_confirmation: 保存してもよろしいですか？
