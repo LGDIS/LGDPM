@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+<title>class Note - Rails Application Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/models/note.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveResource::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-find_for_import">::find_for_import</a>
+    
+    <li><a href="#method-i-exec_insert">#exec_insert</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./doc/README_FOR_APP.html">README_FOR_APP</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ActiveResource.html">ActiveResource</a>
+  
+    <li><a href="./ActiveResource/Extend.html">ActiveResource::Extend</a>
+  
+    <li><a href="./ActiveResource/Extend/AuthWithApi.html">ActiveResource::Extend::AuthWithApi</a>
+  
+    <li><a href="./ActiveResource/Extend/AuthWithApi/ClassMethods.html">ActiveResource::Extend::AuthWithApi::ClassMethods</a>
+  
+    <li><a href="./Batches.html">Batches</a>
+  
+    <li><a href="./Batches/EvacueesDestroy.html">Batches::EvacueesDestroy</a>
+  
+    <li><a href="./Batches/ImportShelters.html">Batches::ImportShelters</a>
+  
+    <li><a href="./Batches/MemcacheStore.html">Batches::MemcacheStore</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./User/ExternalAuthDisabled.html">User::ExternalAuthDisabled</a>
+  
+    <li><a href="./User/InvalidAuthProvider.html">User::InvalidAuthProvider</a>
+  
+    <li><a href="./ApplicationController.html">ApplicationController</a>
+  
+    <li><a href="./ApplicationController/ParameterException.html">ApplicationController::ParameterException</a>
+  
+    <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Area.html">Area</a>
+  
+    <li><a href="./City.html">City</a>
+  
+    <li><a href="./Constant.html">Constant</a>
+  
+    <li><a href="./DateValidator.html">DateValidator</a>
+  
+    <li><a href="./Evacuee.html">Evacuee</a>
+  
+    <li><a href="./EvacueesController.html">EvacueesController</a>
+  
+    <li><a href="./EvacueesHelper.html">EvacueesHelper</a>
+  
+    <li><a href="./Juki.html">Juki</a>
+  
+    <li><a href="./JukiHistory.html">JukiHistory</a>
+  
+    <li><a href="./JukiImportJob.html">JukiImportJob</a>
+  
+    <li><a href="./JukiMatchingJob.html">JukiMatchingJob</a>
+  
+    <li><a href="./JukiStat.html">JukiStat</a>
+  
+    <li><a href="./JukisController.html">JukisController</a>
+  
+    <li><a href="./JukisHelper.html">JukisHelper</a>
+  
+    <li><a href="./LocalShelter.html">LocalShelter</a>
+  
+    <li><a href="./MenuTabBuilder.html">MenuTabBuilder</a>
+  
+    <li><a href="./Note.html">Note</a>
+  
+    <li><a href="./OmniauthCallbacksController.html">OmniauthCallbacksController</a>
+  
+    <li><a href="./Person.html">Person</a>
+  
+    <li><a href="./PfImportJob.html">PfImportJob</a>
+  
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Shelter.html">Shelter</a>
+  
+    <li><a href="./State.html">State</a>
+  
+    <li><a href="./Street.html">Street</a>
+  
+    <li><a href="./TimeValidator.html">TimeValidator</a>
+  
+    <li><a href="./UsersController.html">UsersController</a>
+  
+    <li><a href="./UsersHelper.html">UsersHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Note</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="STATUS_BELIEVED_ALIVE">STATUS_BELIEVED_ALIVE
+        
+        <dd class="description">
+        
+      
+        <dt id="STATUS_BELIEVED_DEAD">STATUS_BELIEVED_DEAD
+        
+        <dd class="description">
+        
+      
+        <dt id="STATUS_BELIEVED_MISSING">STATUS_BELIEVED_MISSING
+        
+        <dd class="description">
+        
+      
+        <dt id="STATUS_INFORMATION_SOUGHT">STATUS_INFORMATION_SOUGHT
+        
+        <dd class="description">
+        
+      
+        <dt id="STATUS_IS_NOTE_AUTHOR">STATUS_IS_NOTE_AUTHOR
+        
+        <dd class="description">
+        
+      
+        <dt id="STATUS_UNSPECIFIED">STATUS_UNSPECIFIED
+        
+        <dd class="description"><p>状況</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-find_for_import" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_for_import</span><span
+            class="method-args">(local_person)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="ActiveResource.html">ActiveResource</a> LGDPF Note取得処理</p>
+
+<h4 id="method-c-find_for_import-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>local_person</em> 
+<dd>
+<p>LocalPersonオブジェクト</p>
+</dd></dl>
+
+<h4 id="method-c-find_for_import-label-Return">Return</h4>
+
+<p>LGDPF Noteオブジェクト配列</p>
+
+<h4 id="method-c-find_for_import-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="find_for_import-source">
+            <pre><span class="ruby-comment"># File app/models/note.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_import</span>(<span class="ruby-identifier">local_person</span>)
+  <span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-value">:params</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">person_record_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">local_person</span>.<span class="ruby-identifier">id</span> })
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_for_import-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_for_import-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-exec_insert" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">exec_insert</span><span
+            class="method-args">(evacuee)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="ActiveResource.html">ActiveResource</a> LGDPF Note編集処理</p>
+
+<h4 id="method-i-exec_insert-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>evacuee</em> 
+<dd>
+<p>Evacueeオブジェクト</p>
+</dd></dl>
+
+<h4 id="method-i-exec_insert-label-Return">Return</h4>
+
+<p>LGDPF Noteオブジェクト</p>
+
+<h4 id="method-i-exec_insert-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="exec_insert-source">
+            <pre><span class="ruby-comment"># File app/models/note.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">exec_insert</span>(<span class="ruby-identifier">evacuee</span>)
+  <span class="ruby-comment"># 避難者情報との外部キー</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">person_record_id</span> = <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">lgdpf_person_id</span>
+  <span class="ruby-comment"># 登録日</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">entry_date</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+  <span class="ruby-comment"># 投稿者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">author_name</span> = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;messages.note.author_name&quot;</span>)
+  <span class="ruby-comment"># 作成日時</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">source_date</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+  <span class="ruby-comment"># 状況</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">status</span> = <span class="ruby-constant">STATUS_UNSPECIFIED</span>
+  <span class="ruby-comment"># 最後に見かけた場所</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">last_known_location</span> = <span class="ruby-constant">LocalShelter</span>.<span class="ruby-identifier">hash_for_table</span>[<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">shelter_name</span>]
+  <span class="ruby-comment"># メッセージ</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">juki_status</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Evacuee</span><span class="ruby-operator">::</span><span class="ruby-constant">JUKI_STATUS_COMPLETE</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">text</span> = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;messages.note.complete_text&quot;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">text</span> = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;messages.note.incomplete_text&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 連携フラグ</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">link_flag</span> = <span class="ruby-keyword">true</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- exec_insert-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- exec_insert-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
