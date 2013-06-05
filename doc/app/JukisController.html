@@ -74,6 +74,8 @@
     
     <li><a href="#method-i-index">#index</a>
     
+    <li><a href="#method-i-matching">#matching</a>
+    
   </ul>
 </nav>
 
@@ -95,17 +97,37 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActiveResource.html">ActiveResource</a>
+  
+    <li><a href="./ActiveResource/Extend.html">ActiveResource::Extend</a>
+  
+    <li><a href="./ActiveResource/Extend/AuthWithApi.html">ActiveResource::Extend::AuthWithApi</a>
+  
+    <li><a href="./ActiveResource/Extend/AuthWithApi/ClassMethods.html">ActiveResource::Extend::AuthWithApi::ClassMethods</a>
+  
     <li><a href="./Batches.html">Batches</a>
   
     <li><a href="./Batches/EvacueesDestroy.html">Batches::EvacueesDestroy</a>
   
+    <li><a href="./Batches/ImportShelters.html">Batches::ImportShelters</a>
+  
     <li><a href="./Batches/MemcacheStore.html">Batches::MemcacheStore</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./User/ExternalAuthDisabled.html">User::ExternalAuthDisabled</a>
+  
+    <li><a href="./User/InvalidAuthProvider.html">User::InvalidAuthProvider</a>
   
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationController/ParameterException.html">ApplicationController::ParameterException</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Area.html">Area</a>
+  
+    <li><a href="./City.html">City</a>
   
     <li><a href="./Constant.html">Constant</a>
   
@@ -123,29 +145,37 @@
   
     <li><a href="./JukiImportJob.html">JukiImportJob</a>
   
+    <li><a href="./JukiMatchingJob.html">JukiMatchingJob</a>
+  
+    <li><a href="./JukiStat.html">JukiStat</a>
+  
     <li><a href="./JukisController.html">JukisController</a>
   
     <li><a href="./JukisHelper.html">JukisHelper</a>
   
-    <li><a href="./LinkagesController.html">LinkagesController</a>
-  
-    <li><a href="./LinkagesHelper.html">LinkagesHelper</a>
-  
-    <li><a href="./LocalPeopleController.html">LocalPeopleController</a>
-  
-    <li><a href="./LocalPeopleHelper.html">LocalPeopleHelper</a>
-  
-    <li><a href="./LocalPerson.html">LocalPerson</a>
+    <li><a href="./LocalShelter.html">LocalShelter</a>
   
     <li><a href="./MenuTabBuilder.html">MenuTabBuilder</a>
+  
+    <li><a href="./Note.html">Note</a>
   
     <li><a href="./OmniauthCallbacksController.html">OmniauthCallbacksController</a>
   
     <li><a href="./Person.html">Person</a>
   
-    <li><a href="./TimeValidator.html">TimeValidator</a>
+    <li><a href="./PfImportJob.html">PfImportJob</a>
   
-    <li><a href="./User.html">User</a>
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Shelter.html">Shelter</a>
+  
+    <li><a href="./State.html">State</a>
+  
+    <li><a href="./Street.html">Street</a>
+  
+    <li><a href="./TimeValidator.html">TimeValidator</a>
   
     <li><a href="./UsersController.html">UsersController</a>
   
@@ -213,6 +243,12 @@
           <div class="method-source-code" id="import-source">
             <pre><span class="ruby-comment"># File app/controllers/jukis_controller.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">import</span>
+  <span class="ruby-comment">#住基マッチング処理</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit_kind</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;matching&quot;</span>
+    <span class="ruby-identifier">matching</span>
+    <span class="ruby-keyword">return</span>
+  <span class="ruby-keyword">end</span>
+  
   <span class="ruby-comment"># ファイル存在チェック</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:document</span>].<span class="ruby-identifier">blank?</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;errors.messages.file_not_exists&quot;</span>)
@@ -220,7 +256,7 @@
     <span class="ruby-keyword">return</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-comment"># ファイル形式チェック</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:document</span>][<span class="ruby-value">:file</span>].<span class="ruby-identifier">original_filename</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp">%r\.csv$/</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:document</span>][<span class="ruby-value">:file</span>].<span class="ruby-identifier">original_filename</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp">/\.csv$/</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;errors.messages.invalid_extension&quot;</span>)
     <span class="ruby-identifier">redirect_to</span>(<span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:index</span>)
     <span class="ruby-keyword">return</span>
@@ -274,7 +310,7 @@
             <pre><span class="ruby-comment"># File app/controllers/jukis_controller.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@search</span> = <span class="ruby-constant">JukiHistory</span>.<span class="ruby-identifier">search</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;created_at DESC&quot;</span>)
-  <span class="ruby-ivar">@juki_histories</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>], <span class="ruby-value">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">30</span>)
+  <span class="ruby-ivar">@juki_histories</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -286,6 +322,44 @@
       </div><!-- index-method -->
 
     
+      <div id="method-i-matching" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">matching</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>住基マッチング処理</p>
+
+<pre>非同期でマッチング処理を実行する(非同期処理にはResqueを使用)
+==== Args
+==== Return
+==== Raise</pre>
+          
+
+          
+          <div class="method-source-code" id="matching-source">
+            <pre><span class="ruby-comment"># File app/controllers/jukis_controller.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">matching</span>
+  <span class="ruby-constant">Resque</span>.<span class="ruby-identifier">enqueue</span>(<span class="ruby-constant">JukiMatchingJob</span>, <span class="ruby-value">1</span>)
+  
+   <span class="ruby-comment"># 自画面に遷移する</span>
+  <span class="ruby-identifier">redirect_to</span>(<span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:index</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- matching-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- matching-method -->
+
+    
     </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
@@ -295,7 +369,7 @@
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.1.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

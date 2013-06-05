@@ -76,17 +76,19 @@
     
     <li><a href="#method-i-index">#index</a>
     
-    <li><a href="#method-i-list">#list</a>
-    
-    <li><a href="#method-i-match">#match</a>
-    
     <li><a href="#method-i-new">#new</a>
+    
+    <li><a href="#method-i-pf_export">#pf_export</a>
+    
+    <li><a href="#method-i-pf_import">#pf_import</a>
     
     <li><a href="#method-i-print">#print</a>
     
     <li><a href="#method-i-search">#search</a>
     
     <li><a href="#method-i-selector">#selector</a>
+    
+    <li><a href="#method-i-total">#total</a>
     
     <li><a href="#method-i-update">#update</a>
     
@@ -111,17 +113,37 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActiveResource.html">ActiveResource</a>
+  
+    <li><a href="./ActiveResource/Extend.html">ActiveResource::Extend</a>
+  
+    <li><a href="./ActiveResource/Extend/AuthWithApi.html">ActiveResource::Extend::AuthWithApi</a>
+  
+    <li><a href="./ActiveResource/Extend/AuthWithApi/ClassMethods.html">ActiveResource::Extend::AuthWithApi::ClassMethods</a>
+  
     <li><a href="./Batches.html">Batches</a>
   
     <li><a href="./Batches/EvacueesDestroy.html">Batches::EvacueesDestroy</a>
   
+    <li><a href="./Batches/ImportShelters.html">Batches::ImportShelters</a>
+  
     <li><a href="./Batches/MemcacheStore.html">Batches::MemcacheStore</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./User/ExternalAuthDisabled.html">User::ExternalAuthDisabled</a>
+  
+    <li><a href="./User/InvalidAuthProvider.html">User::InvalidAuthProvider</a>
   
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationController/ParameterException.html">ApplicationController::ParameterException</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Area.html">Area</a>
+  
+    <li><a href="./City.html">City</a>
   
     <li><a href="./Constant.html">Constant</a>
   
@@ -139,29 +161,37 @@
   
     <li><a href="./JukiImportJob.html">JukiImportJob</a>
   
+    <li><a href="./JukiMatchingJob.html">JukiMatchingJob</a>
+  
+    <li><a href="./JukiStat.html">JukiStat</a>
+  
     <li><a href="./JukisController.html">JukisController</a>
   
     <li><a href="./JukisHelper.html">JukisHelper</a>
   
-    <li><a href="./LinkagesController.html">LinkagesController</a>
-  
-    <li><a href="./LinkagesHelper.html">LinkagesHelper</a>
-  
-    <li><a href="./LocalPeopleController.html">LocalPeopleController</a>
-  
-    <li><a href="./LocalPeopleHelper.html">LocalPeopleHelper</a>
-  
-    <li><a href="./LocalPerson.html">LocalPerson</a>
+    <li><a href="./LocalShelter.html">LocalShelter</a>
   
     <li><a href="./MenuTabBuilder.html">MenuTabBuilder</a>
+  
+    <li><a href="./Note.html">Note</a>
   
     <li><a href="./OmniauthCallbacksController.html">OmniauthCallbacksController</a>
   
     <li><a href="./Person.html">Person</a>
   
-    <li><a href="./TimeValidator.html">TimeValidator</a>
+    <li><a href="./PfImportJob.html">PfImportJob</a>
   
-    <li><a href="./User.html">User</a>
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Shelter.html">Shelter</a>
+  
+    <li><a href="./State.html">State</a>
+  
+    <li><a href="./Street.html">Street</a>
+  
+    <li><a href="./TimeValidator.html">TimeValidator</a>
   
     <li><a href="./UsersController.html">UsersController</a>
   
@@ -229,12 +259,13 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 119</span>
+            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 330</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit_kind</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;save&quot;</span>
     <span class="ruby-ivar">@evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:evacuee</span>])
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">save</span>
       <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;notice_successful_create&quot;</span>)
         <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:edit</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">id</span> }
         <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">to_json</span> } <span class="ruby-comment"># LGDPM-Android</span>
       <span class="ruby-keyword">end</span>
@@ -284,10 +315,10 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 144</span>
+            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 356</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
-  <span class="ruby-ivar">@evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-  <span class="ruby-ivar">@jukis</span> = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">find_for_family</span>(<span class="ruby-ivar">@evacuee</span>)
+  <span class="ruby-ivar">@evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@jukis</span>   = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">find_for_family</span>(<span class="ruby-ivar">@evacuee</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">family_well</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Evacuee</span><span class="ruby-operator">::</span><span class="ruby-constant">FAMILY_WELL_ON</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
           
@@ -310,10 +341,13 @@
 
         <div class="method-description">
           
-          <p>避難者一覧画面 初期表示処理 検索結果が0件の状態で画面を表示させる</p>
+          <p>避難者一覧画面 初期表示処理</p>
 
 <h4 id="method-i-index-label-Args">Args</h4>
-<dl class="rdoc-list note-list"><dt><em>page</em> 
+<dl class="rdoc-list note-list"><dt><em>search</em> 
+<dd>
+<p>画面入力された検索条件</p>
+</dd><dt><em>page</em> 
 <dd>
 <p>ページ番号</p>
 </dd></dl>
@@ -325,20 +359,57 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 13</span>
+            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> {
-      <span class="ruby-ivar">@search</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">search</span>(<span class="ruby-value">:id_eq</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>) <span class="ruby-comment"># 取得件数0件で初期表示させるため</span>
-      <span class="ruby-ivar">@evacuees</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>], <span class="ruby-value">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">30</span>)
-      <span class="ruby-identifier">render</span> <span class="ruby-value">:index</span>
-    }
-    <span class="ruby-comment"># 災害トラッキング管理機能(LGDIS)との連携のため</span>
-    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span>{
-      <span class="ruby-ivar">@evacuees</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">find_for_count</span>
-      <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@evacuees</span>.<span class="ruby-identifier">to_json</span>
-    }
+
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>][<span class="ruby-value">:meta_sort</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
+
+      <span class="ruby-identifier">meta_sort</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>][<span class="ruby-value">:meta_sort</span>]
+      <span class="ruby-identifier">meta_sort_array</span> = <span class="ruby-identifier">meta_sort</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;.&quot;</span>)
+
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">meta_sort_array</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;shelter_name&quot;</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">convert_null_value</span> = <span class="ruby-string">&quot;''&quot;</span>
+
+        <span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-string">'meta_sort'</span>)
+        <span class="ruby-ivar">@search</span>   = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
+        <span class="ruby-ivar">@evacuees</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">order</span>(<span class="ruby-node">&quot;CASE WHEN #{meta_sort_array[0]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_array[0]} END #{meta_sort_array[1]}&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-value">:alternate_family_name</span>, <span class="ruby-value">:alternate_given_name</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+
+        <span class="ruby-comment">#退避させておいた状態を元に戻す</span>
+        <span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>][<span class="ruby-string">'meta_sort'</span>] = <span class="ruby-identifier">meta_sort</span>
+        <span class="ruby-ivar">@search</span>   = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">meta_sort_array</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;alternate_family_name_and_alternate_given_name&quot;</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">convert_null_value</span> = <span class="ruby-string">&quot;''&quot;</span>
+        <span class="ruby-identifier">meta_sort_title_array</span> = <span class="ruby-identifier">meta_sort_array</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;_and_&quot;</span>)
+
+        <span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-string">'meta_sort'</span>)
+        <span class="ruby-ivar">@search</span>   = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
+        <span class="ruby-ivar">@evacuees</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">order</span>(<span class="ruby-node">&quot;CASE WHEN #{meta_sort_title_array[0]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[0]} END #{meta_sort_array[1]}&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-node">&quot;CASE WHEN #{meta_sort_title_array[1]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[1]} END #{meta_sort_array[1]}&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-value">:alternate_family_name</span>, <span class="ruby-value">:alternate_given_name</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+
+        <span class="ruby-comment">#退避させておいた状態を元に戻す</span>
+        <span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>][<span class="ruby-string">'meta_sort'</span>] = <span class="ruby-identifier">meta_sort</span>
+        <span class="ruby-ivar">@search</span>   = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">meta_sort_array</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;home_state_and_home_city_and_home_street_and_house_number&quot;</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">convert_null_value</span> = <span class="ruby-string">&quot;''&quot;</span>
+        <span class="ruby-identifier">meta_sort_title_array</span> = <span class="ruby-identifier">meta_sort_array</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;_and_&quot;</span>)
+
+        <span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-string">'meta_sort'</span>)
+        <span class="ruby-ivar">@search</span>   = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
+        <span class="ruby-ivar">@evacuees</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">order</span>(<span class="ruby-node">&quot;CASE WHEN #{meta_sort_title_array[0]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[0]} END #{meta_sort_array[1]}&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-node">&quot;CASE WHEN #{meta_sort_title_array[1]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[1]} END #{meta_sort_array[1]}&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-node">&quot;CASE WHEN #{meta_sort_title_array[2]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[2]} END #{meta_sort_array[1]}&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-node">&quot;CASE WHEN #{meta_sort_title_array[3]} IS NULL THEN #{convert_null_value} ELSE #{meta_sort_title_array[3]} END #{meta_sort_array[1]}&quot;</span>).<span class="ruby-identifier">order</span>(<span class="ruby-value">:alternate_family_name</span>, <span class="ruby-value">:alternate_given_name</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+
+        <span class="ruby-comment">#退避させておいた状態を元に戻す</span>
+        <span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>][<span class="ruby-string">'meta_sort'</span>] = <span class="ruby-identifier">meta_sort</span>
+        <span class="ruby-ivar">@search</span>   = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-ivar">@search</span>   = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
+        <span class="ruby-ivar">@evacuees</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">order</span>(<span class="ruby-value">:alternate_family_name</span>, <span class="ruby-value">:alternate_given_name</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
+      <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">else</span>
+      <span class="ruby-ivar">@search</span>   = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
+      <span class="ruby-ivar">@evacuees</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">order</span>(<span class="ruby-value">:alternate_family_name</span>, <span class="ruby-value">:alternate_given_name</span>).<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
   <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:index</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -348,122 +419,6 @@
 
         
       </div><!-- index-method -->
-
-    
-      <div id="method-i-list" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">list</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>避難者住基マッチング候補者画面 初期表示処理 氏名カナ、生年月日が一致する住基情報一覧を表示する</p>
-
-<h4 id="method-i-list-label-Args">Args</h4>
-<dl class="rdoc-list note-list"><dt><em>id</em> 
-<dd>
-<p>EvacueeID</p>
-</dd><dt><em>pattern</em> 
-<dd>
-<p>検索対象項目の配列</p>
-</dd></dl>
-
-<h4 id="method-i-list-label-Return">Return</h4>
-
-<h4 id="method-i-list-label-Raise">Raise</h4>
-          
-
-          
-          <div class="method-source-code" id="list-source">
-            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 213</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">list</span>
-  <span class="ruby-ivar">@evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-  <span class="ruby-ivar">@jukis</span>   = <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">matching</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:pattern</span>])
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- list-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- list-method -->
-
-    
-      <div id="method-i-match" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">match</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>避難者住基マッチング候補者画面 マッチング処理 押下されたボタンにより処理を分岐</p>
-<ul><li>
-<p>保存ボタンが押下された場合、住基ステータスを照合済で更新し、避難者登録・更新画面に遷移する</p>
-</li><li>
-<p>突合実施後戻るボタンが押下された場合、住基ステータスを照合済対象者なしで更新し、避難者登録・更新画面に遷移する</p>
-</li><li>
-<p>戻るボタンが押下された場合、避難者登録・更新画面に遷移する</p>
-</li></ul>
-
-<h4 id="method-i-match-label-Args">Args</h4>
-<dl class="rdoc-list note-list"><dt><em>commit_kind</em> 
-<dd>
-<p>ボタン種別</p>
-</dd><dt><em>id</em> 
-<dd>
-<p>EvacueeID</p>
-</dd><dt><em>juki_id</em> 
-<dd>
-<p>JukiID</p>
-</dd></dl>
-
-<h4 id="method-i-match-label-Return">Return</h4>
-
-<h4 id="method-i-match-label-Raise">Raise</h4>
-          
-
-          
-          <div class="method-source-code" id="match-source">
-            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 230</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">match</span>
-  <span class="ruby-comment"># TODO</span>
-  <span class="ruby-comment"># 家族も無事</span>
-  <span class="ruby-comment"># 住基情報とのマージ</span>
-  <span class="ruby-ivar">@evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit_kind</span>]
-  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;save&quot;</span>
-    <span class="ruby-identifier">juki</span> = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:juki_id</span>])
-    <span class="ruby-comment"># 住基ステータスを照合済に更新する</span>
-    <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:juki_status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Evacuee</span><span class="ruby-operator">::</span><span class="ruby-constant">JUKI_STATUS_COMPLETE</span>, <span class="ruby-value">:juki_number</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">juki</span>.<span class="ruby-identifier">id_number</span>)
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:edit</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">id</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;na&quot;</span>
-    <span class="ruby-comment"># 住基ステータスを照合済対象者なしに更新する</span>
-    <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:juki_status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Evacuee</span><span class="ruby-operator">::</span><span class="ruby-constant">JUKI_STATUS_CHK_NA</span>)
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:edit</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">id</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;back&quot;</span>
-    <span class="ruby-comment"># 避難者登録・更新画面に遷移する</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:edit</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">id</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- match-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- match-method -->
 
     
       <div id="method-i-new" class="method-detail ">
@@ -488,7 +443,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 106</span>
+            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 317</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">new</span>
 <span class="ruby-keyword">end</span></pre>
@@ -500,6 +455,89 @@
 
         
       </div><!-- new-method -->
+
+    
+      <div id="method-i-pf_export" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">pf_export</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>避難者一覧画面 PF避難者情報出力処理</p>
+
+<h4 id="method-i-pf_export-label-Args">Args</h4>
+
+<h4 id="method-i-pf_export-label-Return">Return</h4>
+
+<h4 id="method-i-pf_export-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="pf_export-source">
+            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 113</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">pf_export</span>
+  <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;notice_successful_pf_export&quot;</span>)
+  <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">exec_pf_export</span>(<span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>(), <span class="ruby-identifier">current_user</span>)
+
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">ServerError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-node">&quot;#{e}&quot;</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNREFUSED</span>
+  <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;errors.messages.connection_refused&quot;</span>)
+<span class="ruby-keyword">ensure</span>
+  <span class="ruby-identifier">index</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- pf_export-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- pf_export-method -->
+
+    
+      <div id="method-i-pf_import" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">pf_import</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>避難者一覧画面 PF避難者情報取込処理</p>
+
+<h4 id="method-i-pf_import-label-Args">Args</h4>
+
+<h4 id="method-i-pf_import-label-Return">Return</h4>
+
+<h4 id="method-i-pf_import-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="pf_import-source">
+            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">pf_import</span>
+  <span class="ruby-comment"># 非同期でインポート処理を実行する</span>
+  <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;notice_successful_pf_import&quot;</span>) 
+  <span class="ruby-constant">Resque</span>.<span class="ruby-identifier">enqueue</span>(<span class="ruby-constant">PfImportJob</span>)
+  <span class="ruby-identifier">index</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- pf_import-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- pf_import-method -->
 
     
       <div id="method-i-print" class="method-detail ">
@@ -531,37 +569,67 @@
 
           
           <div class="method-source-code" id="print-source">
-            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 69</span>
+            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 133</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">print</span>
-  <span class="ruby-ivar">@search</span>   = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
-  <span class="ruby-ivar">@evacuees</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>],
-    <span class="ruby-value">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">30</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;alternate_family_name ASC, alternate_given_name ASC&quot;</span>)
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'nkf'</span>
+  <span class="ruby-comment"># 外部へ公開に同意している避難者のみ出力する</span>
+  <span class="ruby-ivar">@search</span>   = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">where</span>(<span class="ruby-value">:public_flag</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Evacuee</span><span class="ruby-operator">::</span><span class="ruby-constant">PUBLIC_FLAG_ON</span>).<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
+  <span class="ruby-ivar">@evacuees</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>])
   <span class="ruby-comment"># 避難者情報が存在しない場合、出力しない</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@evacuees</span>.<span class="ruby-identifier">blank?</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;errors.messages.evacuees_not_exists&quot;</span>)
+    <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;errors.messages.evacuees_not_exists&quot;</span>)
     <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:index</span>
     <span class="ruby-keyword">return</span>
   <span class="ruby-keyword">end</span>
-  
-  <span class="ruby-comment"># PDFファイルを生成する</span>
-  <span class="ruby-identifier">report</span> = <span class="ruby-constant">ThinReports</span><span class="ruby-operator">::</span><span class="ruby-constant">Report</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">layout</span><span class="ruby-operator">:</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">'lib'</span>, <span class="ruby-string">'sample.tlf'</span>)
+  <span class="ruby-comment"># 避難者を避難所単位に分ける</span>
+  <span class="ruby-identifier">evacuees_list</span> = {}
   <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">evacuee</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">report</span>.<span class="ruby-identifier">list</span>(<span class="ruby-value">:sample_list</span>).<span class="ruby-identifier">add_row</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">row</span>.<span class="ruby-identifier">values</span> <span class="ruby-identifier">name</span><span class="ruby-operator">:</span>          <span class="ruby-node">&quot;#{evacuee.family_name} #{evacuee.given_name}&quot;</span>,
-                 <span class="ruby-identifier">name_kana</span><span class="ruby-operator">:</span>     <span class="ruby-node">&quot;#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}&quot;</span>,
-                 <span class="ruby-identifier">address</span><span class="ruby-operator">:</span>       <span class="ruby-node">&quot;#{@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}&quot;</span>,
-                 <span class="ruby-identifier">city</span><span class="ruby-operator">:</span>          <span class="ruby-ivar">@evacuee_const</span>[<span class="ruby-string">&quot;in_city_flag&quot;</span>][<span class="ruby-node">&quot;#{evacuee.in_city_flag}&quot;</span>],
-                 <span class="ruby-identifier">date_of_birth</span><span class="ruby-operator">:</span> (<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">date_of_birth</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">date_of_birth</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%y/%m/%d&quot;</span>) <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>),
-                 <span class="ruby-identifier">shelter</span><span class="ruby-operator">:</span>       <span class="ruby-ivar">@shelter</span>[<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">shelter_name</span>],
-                 <span class="ruby-identifier">note</span><span class="ruby-operator">:</span>          <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">note</span>,
-                 <span class="ruby-identifier">juki</span><span class="ruby-operator">:</span>          <span class="ruby-ivar">@evacuee_const</span>[<span class="ruby-string">&quot;juki_status&quot;</span>][<span class="ruby-node">&quot;#{evacuee.juki_status}&quot;</span>],
-                 <span class="ruby-identifier">created_by</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">created_by</span>,
-                 <span class="ruby-identifier">created_at</span><span class="ruby-operator">:</span>    <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">created_at</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%y/%m/%d&quot;</span>)
+    <span class="ruby-identifier">shelter</span> = <span class="ruby-constant">LocalShelter</span>.<span class="ruby-identifier">hash_for_table</span>[<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">shelter_name</span>]
+    <span class="ruby-identifier">shelter_name</span> = (<span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">?</span> <span class="ruby-string">&quot;避難所なし&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">shelter</span>)
+    <span class="ruby-identifier">evacuees_list</span>[<span class="ruby-identifier">shelter_name</span>] = {} <span class="ruby-keyword">unless</span> <span class="ruby-identifier">evacuees_list</span>[<span class="ruby-identifier">shelter_name</span>]
+    <span class="ruby-identifier">evacuees_list</span>[<span class="ruby-identifier">shelter_name</span>][<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">id</span>] = <span class="ruby-identifier">evacuee</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 避難所単位でpdfを生成する</span>
+  <span class="ruby-identifier">reports</span> = {}
+  <span class="ruby-identifier">evacuees_list</span>.<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">shelter_name</span>, <span class="ruby-identifier">evacuees_hash</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">report</span> = <span class="ruby-constant">ThinReports</span><span class="ruby-operator">::</span><span class="ruby-constant">Report</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">layout</span><span class="ruby-operator">:</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>, <span class="ruby-string">'lib'</span>, <span class="ruby-string">'evacuees_list.tlf'</span>)
+    <span class="ruby-comment"># ヘッダー部の設定</span>
+    <span class="ruby-identifier">report</span>.<span class="ruby-identifier">list</span>(<span class="ruby-value">:evacuees_list</span>).<span class="ruby-identifier">header</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">h</span>.<span class="ruby-identifier">item</span>(<span class="ruby-value">:shelter_name</span>).<span class="ruby-identifier">value</span>(<span class="ruby-identifier">shelter_name</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># 明細部の設定</span>
+    <span class="ruby-identifier">evacuees_hash</span>.<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">id</span>, <span class="ruby-identifier">evacuee</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">report</span>.<span class="ruby-identifier">list</span>(<span class="ruby-value">:evacuees_list</span>).<span class="ruby-identifier">add_row</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">row</span>.<span class="ruby-identifier">values</span> <span class="ruby-identifier">name</span><span class="ruby-operator">:</span>               <span class="ruby-node">&quot;#{evacuee.family_name} #{evacuee.given_name}&quot;</span>,
+                   <span class="ruby-identifier">name_kana</span><span class="ruby-operator">:</span>          <span class="ruby-node">&quot;#{evacuee.alternate_family_name} #{evacuee.alternate_given_name}&quot;</span>,
+                   <span class="ruby-identifier">address</span><span class="ruby-operator">:</span>            <span class="ruby-node">&quot;#{@state[evacuee.home_state]}#{evacuee.home_city}#{evacuee.home_street}#{evacuee.house_number}&quot;</span>,
+                   <span class="ruby-identifier">date_of_birth</span><span class="ruby-operator">:</span>      (<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">date_of_birth</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">date_of_birth</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y/%m/%d&quot;</span>) <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>),
+                   <span class="ruby-identifier">age</span><span class="ruby-operator">:</span>                <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">age</span>,
+                   <span class="ruby-identifier">shelter_entry_date</span><span class="ruby-operator">:</span> (<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">shelter_entry_date</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">shelter_entry_date</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y/%m/%d&quot;</span>) <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>),
+                   <span class="ruby-identifier">shelter_leave_date</span><span class="ruby-operator">:</span> (<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">shelter_leave_date</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">shelter_leave_date</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y/%m/%d&quot;</span>) <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>),
+                   <span class="ruby-identifier">next_place</span><span class="ruby-operator">:</span>         <span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">next_place</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">reports</span>[<span class="ruby-identifier">shelter_name</span>] = <span class="ruby-identifier">report</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># pdfを生成する</span>
+  <span class="ruby-identifier">files</span> = {}
+  <span class="ruby-identifier">reports</span>.<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">shelter_name</span>, <span class="ruby-identifier">report</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">files</span>[<span class="ruby-constant">NKF</span>.<span class="ruby-identifier">nkf</span>(<span class="ruby-string">'-sxm0'</span>, <span class="ruby-node">&quot;#{shelter_name}.pdf&quot;</span>)] = <span class="ruby-identifier">report</span>.<span class="ruby-identifier">generate</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># 生成されたpdfをzipで圧縮する</span>
+  <span class="ruby-identifier">buf</span> = <span class="ruby-string">''</span>
+  <span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Archive</span>.<span class="ruby-identifier">open_buffer</span>(<span class="ruby-identifier">buf</span>, <span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">CREATE</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">archive</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">files</span>.<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filename</span>, <span class="ruby-identifier">filestream</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">archive</span>.<span class="ruby-identifier">add_buffer</span>(<span class="ruby-constant">NKF</span>.<span class="ruby-identifier">nkf</span>(<span class="ruby-string">'-sxm0'</span>, <span class="ruby-identifier">filename</span>), <span class="ruby-identifier">filestream</span>)
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-comment"># PDFファイルを出力する</span>
-  <span class="ruby-identifier">send_data</span>(<span class="ruby-identifier">report</span>.<span class="ruby-identifier">generate</span>, <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-node">&quot;sample_#{Time.now.instance_eval {'%s%06d' % [strftime('%Y%m%d%H%M%S'),usec]}}.pdf&quot;</span>,
-    <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;application/pdf&quot;</span>, <span class="ruby-identifier">disposition</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;attachment&quot;</span>)
+  <span class="ruby-comment"># IEでのファイルダウンロードの際の文字化け対策</span>
+  <span class="ruby-identifier">ie_download_name</span> = <span class="ruby-string">&quot;避難者一覧&quot;</span>
+  <span class="ruby-identifier">ie_download_name</span> = <span class="ruby-constant">ERB</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">url_encode</span>(<span class="ruby-identifier">ie_download_name</span>) <span class="ruby-keyword">if</span> <span class="ruby-regexp">/MSIE/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">user_agent</span>
+  <span class="ruby-comment"># zipを出力する</span>
+  <span class="ruby-identifier">send_data</span>(<span class="ruby-identifier">buf</span>, <span class="ruby-identifier">filename</span><span class="ruby-operator">:</span> <span class="ruby-identifier">ie_download_name</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;_#{Time.now.instance_eval {'%s%06d' % [strftime('%Y%m%d%H%M%S'),usec]}}.zip&quot;</span>,
+    <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;application/zip&quot;</span>, <span class="ruby-identifier">disposition</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;attached&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- print-source -->
           
@@ -588,9 +656,13 @@
 <ul><li>
 <p>検索ボタンが押下された場合、検索を行い自画面に遷移する</p>
 </li><li>
-<p>新規登録ボタンが押下された場合、避難者登録画面に遷移する</p>
+<p>PFから取込ボタンが押下された場合、PFから避難者情報を取り込む</p>
 </li><li>
-<p>画面印刷ボタンが押下された場合、検索を行いPDFに出力する</p>
+<p>PFへ出力ボタンが押下された場合、PFへ避難者情報を出力する</p>
+</li><li>
+<p>避難者名簿印刷ボタンが押下された場合、検索を行い避難所単位に避難者情報をPDF出力する</p>
+</li><li>
+<p>避難所一覧に出力ボタンが押下された場合、避難者情報を集計しLGDISへ出力する</p>
 </li><li>
 <p>その他の場合、例外を発生させる</p>
 </li></ul>
@@ -599,12 +671,6 @@
 <dl class="rdoc-list note-list"><dt><em>commit_kind</em> 
 <dd>
 <p>ボタン種別</p>
-</dd><dt><em>search</em> 
-<dd>
-<p>画面入力された検索条件</p>
-</dd><dt><em>page</em> 
-<dd>
-<p>ページ番号</p>
 </dd></dl>
 
 <h4 id="method-i-search-label-Return">Return</h4>
@@ -614,24 +680,21 @@
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 41</span>
+            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 79</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">search</span>
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit_kind</span>]
-  <span class="ruby-comment"># 検索ボタン</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;search&quot;</span>
-    <span class="ruby-ivar">@search</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:search</span>])
-    <span class="ruby-ivar">@evacuees</span> = <span class="ruby-ivar">@search</span>.<span class="ruby-identifier">paginate</span>(<span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>],
-      <span class="ruby-value">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">30</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;alternate_family_name ASC, alternate_given_name ASC&quot;</span>)
-    <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:index</span>
-  <span class="ruby-comment"># 新規登録ボタン</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;new&quot;</span>
-    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:new</span>
-  <span class="ruby-comment"># 画面印刷ボタン</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;print&quot;</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;search&quot;</span> <span class="ruby-comment"># 検索ボタン</span>
+    <span class="ruby-identifier">index</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;pf_import&quot;</span> <span class="ruby-comment"># PFから取込ボタン</span>
+    <span class="ruby-identifier">pf_import</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;pf_export&quot;</span> <span class="ruby-comment"># PFへ出力ボタン</span>
+    <span class="ruby-identifier">pf_export</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;print&quot;</span> <span class="ruby-comment"># 避難者名簿印刷ボタン</span>
     <span class="ruby-identifier">print</span>
-  <span class="ruby-comment"># その他  </span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;total&quot;</span> <span class="ruby-comment"># 避難所一覧に出力ボタン</span>
+    <span class="ruby-identifier">total</span>
+  <span class="ruby-keyword">else</span> <span class="ruby-comment"># その他</span>
+    <span class="ruby-identifier">index</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- search-source -->
@@ -659,8 +722,6 @@
 <ul><li>
 <p>削除ボタンが押下された場合、削除を行い避難者一覧画面に遷移する</p>
 </li><li>
-<p>住基マッチングボタンが押下された場合、住基マッチングを行い該当者が存在する場合、避難者住基マッチング候補者画面に遷移する</p>
-</li><li>
 <p>戻るボタンが押下された場合、避難者一覧画面に遷移する</p>
 </li><li>
 <p>その他の場合、例外を発生させる</p>
@@ -673,9 +734,6 @@
 </dd><dt><em>id</em> 
 <dd>
 <p>避難者ID</p>
-</dd><dt><em>pattern</em> 
-<dd>
-<p>検索対象項目の配列</p>
 </dd></dl>
 
 <h4 id="method-i-selector-label-Return">Return</h4>
@@ -685,21 +743,14 @@
 
           
           <div class="method-source-code" id="selector-source">
-            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 184</span>
+            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 395</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">selector</span>
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit_kind</span>]
   <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;delete&quot;</span>
-    <span class="ruby-ivar">@evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+    <span class="ruby-ivar">@evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
     <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">destroy</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;notice_successful_delete&quot;</span>)
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:index</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;match&quot;</span>
-    <span class="ruby-ivar">@evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">matching</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:pattern</span>]).<span class="ruby-identifier">present?</span>
-      <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:list</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:pattern</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:pattern</span>]
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-value">:juki_status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Evacuee</span><span class="ruby-operator">::</span><span class="ruby-constant">JUKI_STATUS_CHK_NA</span>)
-      <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:edit</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">id</span>
-    <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;back&quot;</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:index</span>
   <span class="ruby-keyword">else</span>
@@ -714,6 +765,149 @@
 
         
       </div><!-- selector-method -->
+
+    
+      <div id="method-i-total" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">total</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>避難者一覧画面 集計処理 避難者情報を集計しLGDISに連携する</p>
+
+<h4 id="method-i-total-label-Args">Args</h4>
+
+<h4 id="method-i-total-label-Return">Return</h4>
+
+<h4 id="method-i-total-label-Raise">Raise</h4>
+          
+
+          
+          <div class="method-source-code" id="total-source">
+            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 201</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">total</span>
+  <span class="ruby-comment"># ルーティング上プロジェクト識別子が必要</span>
+  <span class="ruby-identifier">project_identifier</span> = <span class="ruby-constant">SETTINGS</span>[<span class="ruby-string">&quot;activeresource&quot;</span>][<span class="ruby-string">&quot;lgdis&quot;</span>][<span class="ruby-string">&quot;project_identifier&quot;</span>]
+  <span class="ruby-identifier">shelters</span> = <span class="ruby-constant">Shelter</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-value">:params</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">project_id</span><span class="ruby-operator">:</span> <span class="ruby-identifier">project_identifier</span> })
+
+  <span class="ruby-identifier">summary</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">find_for_count</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">result</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">summary</span>[<span class="ruby-identifier">result</span>.<span class="ruby-identifier">shelter_name</span>] = <span class="ruby-identifier">result</span>
+    <span class="ruby-comment"># 避難所識別番号が一致する避難所を取得</span>
+    <span class="ruby-comment">#index = shelters.rindex{|s| </span>
+    <span class="ruby-comment">#  p s.shelter_code</span>
+    <span class="ruby-comment">#  s.shelter_code == result.shelter_name </span>
+    <span class="ruby-comment">#}</span>
+    <span class="ruby-comment">#next if index.blank?</span>
+    <span class="ruby-comment">#shelter = shelters[index]</span>
+    <span class="ruby-comment"># 人数（自主避難人数を含む）</span>
+    <span class="ruby-comment">#shelter.head_count = result[&quot;head_count&quot;]</span>
+    <span class="ruby-comment"># 世帯数（自主避難世帯数を含む）</span>
+    <span class="ruby-comment"># shelter.households = result[&quot;households_count&quot;]</span>
+    <span class="ruby-comment"># 負傷_計</span>
+    <span class="ruby-comment">#shelter.injury_count = result[&quot;injury_flag_count&quot;]</span>
+    <span class="ruby-comment"># 要介護度_計</span>
+    <span class="ruby-comment">#shelter.upper_care_level_three_count = result[&quot;upper_care_level_three_count&quot;]</span>
+    <span class="ruby-comment"># 一人暮らし高齢者（65歳以上）_計</span>
+    <span class="ruby-comment">#shelter.elderly_alone_count = result[&quot;elderly_alone_count&quot;]</span>
+    <span class="ruby-comment"># 高齢者世帯（夫婦共に65歳以上）_計</span>
+    <span class="ruby-comment">#shelter.elderly_couple_count = result[&quot;elderly_couple_count&quot;]</span>
+    <span class="ruby-comment"># 寝たきり高齢者_計</span>
+    <span class="ruby-comment">#shelter.bedridden_elderly_count = result[&quot;bedridden_elderly_count&quot;]</span>
+    <span class="ruby-comment"># 認知症高齢者_計</span>
+    <span class="ruby-comment">#shelter.elderly_dementia_count = result[&quot;elderly_dementia_count&quot;]</span>
+    <span class="ruby-comment"># 療育手帳所持者_計</span>
+    <span class="ruby-comment">#shelter.rehabilitation_certificate_count = result[&quot;rehabilitation_certificate_count&quot;]</span>
+    <span class="ruby-comment"># 身体障害者手帳所持者_計</span>
+    <span class="ruby-comment">#shelter.physical_disability_certificate_count = result[&quot;physical_disability_certificate_count&quot;]</span>
+    <span class="ruby-comment"># 不要データを削除</span>
+    <span class="ruby-comment">#shelter.attributes.delete(:created_at)</span>
+    <span class="ruby-comment">#shelter.attributes.delete(:updated_at)</span>
+    <span class="ruby-comment">#shelter.attributes.delete(:deleted_at)</span>
+    <span class="ruby-comment">#shelter.attributes.delete(:record_mode)</span>
+
+    <span class="ruby-comment">#shelter.save</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">shelters</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">shelter</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">summary</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">shelter_code</span>)
+      <span class="ruby-identifier">result</span> = <span class="ruby-identifier">summary</span>[<span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">shelter_code</span>]
+      <span class="ruby-comment"># 人数（自主避難人数を含む）</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">head_count</span> = <span class="ruby-identifier">result</span>[<span class="ruby-string">&quot;head_count&quot;</span>]
+      <span class="ruby-comment"># 世帯数（自主避難世帯数を含む）</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">households</span> = <span class="ruby-identifier">result</span>[<span class="ruby-string">&quot;households_count&quot;</span>]
+      <span class="ruby-comment"># 負傷_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">injury_count</span> = <span class="ruby-identifier">result</span>[<span class="ruby-string">&quot;injury_flag_count&quot;</span>]
+      <span class="ruby-comment"># 要介護度_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">upper_care_level_three_count</span> = <span class="ruby-identifier">result</span>[<span class="ruby-string">&quot;upper_care_level_three_count&quot;</span>]
+      <span class="ruby-comment"># 一人暮らし高齢者（65歳以上）_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">elderly_alone_count</span> = <span class="ruby-identifier">result</span>[<span class="ruby-string">&quot;elderly_alone_count&quot;</span>]
+      <span class="ruby-comment"># 高齢者世帯（夫婦共に65歳以上）_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">elderly_couple_count</span> = <span class="ruby-identifier">result</span>[<span class="ruby-string">&quot;elderly_couple_count&quot;</span>]
+      <span class="ruby-comment"># 寝たきり高齢者_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">bedridden_elderly_count</span> = <span class="ruby-identifier">result</span>[<span class="ruby-string">&quot;bedridden_elderly_count&quot;</span>]
+      <span class="ruby-comment"># 認知症高齢者_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">elderly_dementia_count</span> = <span class="ruby-identifier">result</span>[<span class="ruby-string">&quot;elderly_dementia_count&quot;</span>]
+      <span class="ruby-comment"># 療育手帳所持者_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">rehabilitation_certificate_count</span> = <span class="ruby-identifier">result</span>[<span class="ruby-string">&quot;rehabilitation_certificate_count&quot;</span>]
+      <span class="ruby-comment"># 身体障害者手帳所持者_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">physical_disability_certificate_count</span> = <span class="ruby-identifier">result</span>[<span class="ruby-string">&quot;physical_disability_certificate_count&quot;</span>]
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">result</span> = <span class="ruby-identifier">summary</span>[<span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">shelter_code</span>]
+      <span class="ruby-comment"># 人数（自主避難人数を含む）</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">head_count</span> = <span class="ruby-value">0</span>
+      <span class="ruby-comment"># 世帯数（自主避難世帯数を含む）</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">households</span> = <span class="ruby-value">0</span>
+      <span class="ruby-comment"># 負傷_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">injury_count</span> = <span class="ruby-value">0</span>
+      <span class="ruby-comment"># 要介護度_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">upper_care_level_three_count</span> = <span class="ruby-value">0</span>
+      <span class="ruby-comment"># 一人暮らし高齢者（65歳以上）_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">elderly_alone_count</span> = <span class="ruby-value">0</span>
+      <span class="ruby-comment"># 高齢者世帯（夫婦共に65歳以上）_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">elderly_couple_count</span> = <span class="ruby-value">0</span>
+      <span class="ruby-comment"># 寝たきり高齢者_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">bedridden_elderly_count</span> = <span class="ruby-value">0</span>
+      <span class="ruby-comment"># 認知症高齢者_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">elderly_dementia_count</span> = <span class="ruby-value">0</span>
+      <span class="ruby-comment"># 療育手帳所持者_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">rehabilitation_certificate_count</span> = <span class="ruby-value">0</span>
+      <span class="ruby-comment"># 身体障害者手帳所持者_計</span>
+      <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">physical_disability_certificate_count</span> = <span class="ruby-value">0</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># 不要データを削除</span>
+    <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:created_at</span>)
+    <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:updated_at</span>)
+    <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:deleted_at</span>)
+    <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:record_mode</span>)
+
+    <span class="ruby-identifier">shelter</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;notice_successful_total&quot;</span>)
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">ParameterException</span>
+  <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;errors.messages.projects_not_exists&quot;</span>)
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">ServerError</span>, <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">UnauthorizedAccess</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-node">&quot;#{e}&quot;</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNREFUSED</span>
+  <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">now</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;errors.messages.connection_refused&quot;</span>)
+<span class="ruby-keyword">ensure</span>
+  <span class="ruby-identifier">index</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- total-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- total-method -->
 
     
       <div id="method-i-update" class="method-detail ">
@@ -747,11 +941,12 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 158</span>
+            <pre><span class="ruby-comment"># File app/controllers/evacuees_controller.rb, line 370</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:commit_kind</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;save&quot;</span>
-    <span class="ruby-ivar">@evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+    <span class="ruby-ivar">@evacuee</span> = <span class="ruby-constant">Evacuee</span>.<span class="ruby-identifier">mode_in</span>().<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:evacuee</span>])
+      <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;notice_successful_update&quot;</span>)
       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:edit</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">id</span>
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:edit</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@evacuee</span>.<span class="ruby-identifier">id</span>
@@ -779,7 +974,7 @@
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.1.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

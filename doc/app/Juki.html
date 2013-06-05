@@ -99,17 +99,37 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActiveResource.html">ActiveResource</a>
+  
+    <li><a href="./ActiveResource/Extend.html">ActiveResource::Extend</a>
+  
+    <li><a href="./ActiveResource/Extend/AuthWithApi.html">ActiveResource::Extend::AuthWithApi</a>
+  
+    <li><a href="./ActiveResource/Extend/AuthWithApi/ClassMethods.html">ActiveResource::Extend::AuthWithApi::ClassMethods</a>
+  
     <li><a href="./Batches.html">Batches</a>
   
     <li><a href="./Batches/EvacueesDestroy.html">Batches::EvacueesDestroy</a>
   
+    <li><a href="./Batches/ImportShelters.html">Batches::ImportShelters</a>
+  
     <li><a href="./Batches/MemcacheStore.html">Batches::MemcacheStore</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./User/ExternalAuthDisabled.html">User::ExternalAuthDisabled</a>
+  
+    <li><a href="./User/InvalidAuthProvider.html">User::InvalidAuthProvider</a>
   
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationController/ParameterException.html">ApplicationController::ParameterException</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Area.html">Area</a>
+  
+    <li><a href="./City.html">City</a>
   
     <li><a href="./Constant.html">Constant</a>
   
@@ -127,29 +147,37 @@
   
     <li><a href="./JukiImportJob.html">JukiImportJob</a>
   
+    <li><a href="./JukiMatchingJob.html">JukiMatchingJob</a>
+  
+    <li><a href="./JukiStat.html">JukiStat</a>
+  
     <li><a href="./JukisController.html">JukisController</a>
   
     <li><a href="./JukisHelper.html">JukisHelper</a>
   
-    <li><a href="./LinkagesController.html">LinkagesController</a>
-  
-    <li><a href="./LinkagesHelper.html">LinkagesHelper</a>
-  
-    <li><a href="./LocalPeopleController.html">LocalPeopleController</a>
-  
-    <li><a href="./LocalPeopleHelper.html">LocalPeopleHelper</a>
-  
-    <li><a href="./LocalPerson.html">LocalPerson</a>
+    <li><a href="./LocalShelter.html">LocalShelter</a>
   
     <li><a href="./MenuTabBuilder.html">MenuTabBuilder</a>
+  
+    <li><a href="./Note.html">Note</a>
   
     <li><a href="./OmniauthCallbacksController.html">OmniauthCallbacksController</a>
   
     <li><a href="./Person.html">Person</a>
   
-    <li><a href="./TimeValidator.html">TimeValidator</a>
+    <li><a href="./PfImportJob.html">PfImportJob</a>
   
-    <li><a href="./User.html">User</a>
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Shelter.html">Shelter</a>
+  
+    <li><a href="./State.html">State</a>
+  
+    <li><a href="./Street.html">Street</a>
+  
+    <li><a href="./TimeValidator.html">TimeValidator</a>
   
     <li><a href="./UsersController.html">UsersController</a>
   
@@ -212,7 +240,7 @@
 
           
           <div class="method-source-code" id="find_for_family-source">
-            <pre><span class="ruby-comment"># File app/models/juki.rb, line 166</span>
+            <pre><span class="ruby-comment"># File app/models/juki.rb, line 98</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_family</span>(<span class="ruby-identifier">evacuee</span>)
   <span class="ruby-identifier">t</span> = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">arel_table</span>
   <span class="ruby-identifier">myself</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">t</span>[<span class="ruby-value">:id_number</span>].<span class="ruby-identifier">eq</span>(<span class="ruby-identifier">evacuee</span>.<span class="ruby-identifier">juki_number</span>)).<span class="ruby-identifier">first</span>
@@ -262,10 +290,10 @@
 
           
           <div class="method-source-code" id="find_for_match-source">
-            <pre><span class="ruby-comment"># File app/models/juki.rb, line 117</span>
+            <pre><span class="ruby-comment"># File app/models/juki.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_match</span>(<span class="ruby-identifier">evacuee</span>, <span class="ruby-identifier">pattern</span>)
   <span class="ruby-identifier">juki_table</span> = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">arel_table</span>
-  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">select</span>(<span class="ruby-string">&quot;*&quot;</span>)
+  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">scoped</span>
   
   <span class="ruby-comment"># 氏名（姓）</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:family_name</span>)
@@ -293,15 +321,16 @@
   <span class="ruby-keyword">end</span>
   <span class="ruby-comment"># 都道府県</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:home_state</span>)
-    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:address</span>].<span class="ruby-identifier">matches</span>(<span class="ruby-node">&quot;%#{evacuee.home_state}%&quot;</span>))
+    <span class="ruby-ivar">@state</span> = <span class="ruby-constant">State</span>.<span class="ruby-identifier">hash_for_table</span>
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:home_state</span>].<span class="ruby-identifier">matches</span>(<span class="ruby-node">&quot;%#{@state[evacuee.home_state]}%&quot;</span>))
   <span class="ruby-keyword">end</span>
   <span class="ruby-comment"># 市区町村</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:home_city</span>)
-    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:address</span>].<span class="ruby-identifier">matches</span>(<span class="ruby-node">&quot;%#{evacuee.home_city}%&quot;</span>))
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:home_city</span>].<span class="ruby-identifier">matches</span>(<span class="ruby-node">&quot;%#{evacuee.home_city}%&quot;</span>))
   <span class="ruby-keyword">end</span>
   <span class="ruby-comment"># 町名</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:home_street</span>)
-    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:address</span>].<span class="ruby-identifier">matches</span>(<span class="ruby-node">&quot;%#{evacuee.home_street}%&quot;</span>))
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">juki_table</span>[<span class="ruby-value">:home_street</span>].<span class="ruby-identifier">matches</span>(<span class="ruby-node">&quot;%#{evacuee.home_street}%&quot;</span>))
   <span class="ruby-keyword">end</span>
   
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">result</span>
@@ -345,7 +374,7 @@
 
           
           <div class="method-source-code" id="import-source">
-            <pre><span class="ruby-comment"># File app/models/juki.rb, line 183</span>
+            <pre><span class="ruby-comment"># File app/models/juki.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">import</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">user</span>)
   <span class="ruby-identifier">require</span> <span class="ruby-string">'csv'</span>
   <span class="ruby-identifier">number</span>, <span class="ruby-identifier">error_msgs</span> = <span class="ruby-value">0</span>, []
@@ -359,11 +388,11 @@
         <span class="ruby-comment"># 取込件数</span>
         <span class="ruby-identifier">number</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
         <span class="ruby-comment"># 列数チェック</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;activerecord.errors.messages.invalid_column&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">row</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">64</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;activerecord.errors.messages.invalid_column&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">row</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">32</span>
         <span class="ruby-identifier">juki</span> = <span class="ruby-constant">Juki</span>.<span class="ruby-identifier">new</span>
         <span class="ruby-identifier">juki</span> = <span class="ruby-identifier">juki</span>.<span class="ruby-identifier">exec_insert</span>(<span class="ruby-identifier">row</span>, <span class="ruby-identifier">user</span>)
         <span class="ruby-comment"># バリデーションエラーの場合メッセージを出力</span>
-        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">juki</span>.<span class="ruby-identifier">save</span>
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">juki</span>.<span class="ruby-identifier">save</span>(<span class="ruby-value">:validate</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">SETTINGS</span>[<span class="ruby-string">&quot;juki_validates_enable&quot;</span>])
           <span class="ruby-identifier">juki</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">msg</span><span class="ruby-operator">|</span>
             <span class="ruby-identifier">error_msgs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">t</span>(<span class="ruby-string">&quot;activerecord.errors.messages.import_error&quot;</span>, <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">number</span>, <span class="ruby-value">:message</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>)
           <span class="ruby-keyword">end</span>
@@ -422,6 +451,9 @@
 <dl class="rdoc-list note-list"><dt><em>row</em> 
 <dd>
 <p>住基情報配列</p>
+</dd><dt><em>user</em> 
+<dd>
+<p>ユーザ名</p>
 </dd></dl>
 
 <h4 id="method-i-exec_insert-label-Return">Return</h4>
@@ -433,7 +465,7 @@
 
           
           <div class="method-source-code" id="exec_insert-source">
-            <pre><span class="ruby-comment"># File app/models/juki.rb, line 234</span>
+            <pre><span class="ruby-comment"># File app/models/juki.rb, line 167</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">exec_insert</span>(<span class="ruby-identifier">row</span>, <span class="ruby-identifier">user</span>)
   <span class="ruby-comment"># 識別番号</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">id_number</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">0</span>]
@@ -446,93 +478,59 @@
   <span class="ruby-comment"># 住民票コード</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">residents_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">4</span>]
   <span class="ruby-comment"># 氏名（姓）</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">family_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">0</span>]
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">family_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">5</span>]
   <span class="ruby-comment"># 氏名（名）</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">given_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">1</span>]
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">given_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">6</span>]
   <span class="ruby-comment"># 氏名カナ（姓）</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_family_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">0</span>]
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_family_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">7</span>]
   <span class="ruby-comment"># 氏名カナ（名）</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_given_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">6</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">1</span>]
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">alternate_given_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">8</span>]
   <span class="ruby-comment"># 性別</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sex</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">7</span>]
-  <span class="ruby-comment"># 生年月日：年号</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">year_number</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">8</span>]
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">sex</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">9</span>]
+  <span class="ruby-comment"># 年齢</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">age</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">10</span>]
   <span class="ruby-comment"># 生年月日</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_of_birth</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">9</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">10</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">11</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
-  <span class="ruby-comment"># 続柄1</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">relation1</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">12</span>]
-  <span class="ruby-comment"># 続柄2</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">relation2</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">13</span>]
-  <span class="ruby-comment"># 続柄3</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">relation3</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">14</span>]
-  <span class="ruby-comment"># 続柄4</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">relation4</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">15</span>]
-  <span class="ruby-comment"># 世帯主氏名（姓）</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">household_family_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">16</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">0</span>]
-  <span class="ruby-comment"># 世帯主氏名（名）</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">household_given_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">16</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">1</span>]
-  <span class="ruby-comment"># 世帯主氏名カナ（姓）</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">household_alternate_family_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">17</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">0</span>]
-  <span class="ruby-comment"># 世帯主氏名カナ（名）</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">household_alternate_given_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">17</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;　&quot;</span>)[<span class="ruby-value">1</span>]
-  <span class="ruby-comment"># 現住所：住所コード</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">address_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">18</span>]
-  <span class="ruby-comment"># 現住所：住所</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">address</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">19</span>]
-  <span class="ruby-comment"># 現住所：方書</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">building_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">20</span>]
-  <span class="ruby-comment"># 現住所：郵便番号</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">postal_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">21</span>]
-  <span class="ruby-comment"># 前住所：住所コード</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">former_address_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">22</span>]
-  <span class="ruby-comment"># 前住所：住所</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">former_address</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">23</span>]
-  <span class="ruby-comment"># 前住所：方書</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">former_building_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">24</span>]
-  <span class="ruby-comment"># 前住所：郵便番号</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">former_postal_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">25</span>]
-  <span class="ruby-comment"># 転出先：住所コード</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_address_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">26</span>]
-  <span class="ruby-comment"># 転出先：住所</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_address</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">27</span>]
-  <span class="ruby-comment"># 転出先：方書</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_building_name</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">28</span>]
-  <span class="ruby-comment"># 転出先：郵便番号</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_postal_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">29</span>]
-  <span class="ruby-comment"># 転出先区分</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new_address_division</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">30</span>]
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">date_of_birth</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">11</span>]
+  <span class="ruby-comment"># 都道府県</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_state</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">12</span>]
+  <span class="ruby-comment"># 市区町村</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_city</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">13</span>]
+  <span class="ruby-comment"># 町名</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_street</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">14</span>]
+  <span class="ruby-comment"># 番地</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">house_number</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">15</span>]
+  <span class="ruby-comment"># 郵便番号</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">home_postal_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">16</span>]
+  <span class="ruby-comment"># 負傷</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">injury_flag</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">17</span>]
+  <span class="ruby-comment"># 負傷内容</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">injury_condition</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">18</span>]
+  <span class="ruby-comment"># アレルギー</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">allergy_flag</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">19</span>]
+  <span class="ruby-comment"># アレルギー物質</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">allergy_cause</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">20</span>]
+  <span class="ruby-comment"># 妊婦</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">pregnancy</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">21</span>]
+  <span class="ruby-comment"># 乳幼児</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">baby</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">22</span>]
+  <span class="ruby-comment"># 要介護度</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">upper_care_level_three</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">23</span>]
+  <span class="ruby-comment"># 一人暮らし高齢者（65歳以上）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">elderly_alone</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">24</span>]
+  <span class="ruby-comment"># 高齢者世帯（夫婦共に65歳以上）</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">elderly_couple</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">25</span>]
+  <span class="ruby-comment"># 寝たきり高齢者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">bedridden_elderly</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">26</span>]
+  <span class="ruby-comment"># 認知症高齢者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">elderly_dementia</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">27</span>]
+  <span class="ruby-comment"># 療育手帳所持者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">rehabilitation_certificate</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">28</span>]
+  <span class="ruby-comment"># 身体障害者手帳所持者</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">physical_disability_certificate</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">29</span>]
   <span class="ruby-comment"># 本籍</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">domicile</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">31</span>]
-  <span class="ruby-comment"># 本籍住所コード</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">domicile_code</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">32</span>]
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">domicile</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">30</span>]
   <span class="ruby-comment"># 筆頭者</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">family_head</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">33</span>]
-  <span class="ruby-comment"># 住民となった情報：異動年月日</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">became_change_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">34</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">35</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">36</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
-  <span class="ruby-comment"># 住民となった情報：届出年月日</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">became_report_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">37</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">38</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">39</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
-  <span class="ruby-comment"># 住民となった情報：増異動事由</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">became_change_reason</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">40</span>]
-  <span class="ruby-comment"># 住民を定めた情報：異動年月日</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">decided_change_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">41</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">42</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">43</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
-  <span class="ruby-comment"># 住民を定めた情報：届出年月日</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">decided_report_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">44</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">45</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">46</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
-  <span class="ruby-comment"># 住民を定めた情報：異動事由</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">decided_change_reason</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">47</span>]
-  <span class="ruby-comment"># 住民でなくなった情報：異動年月日</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">lost_change_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">48</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">49</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">50</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
-  <span class="ruby-comment"># 住民でなくなった情報：届出年月日</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">lost_report_date</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">51</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">52</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">53</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">to_s</span>
-  <span class="ruby-comment"># 住民でなくなった情報：減異動事由</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">lost_change_reason</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">54</span>]
-  <span class="ruby-comment"># 異動年月日</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">change_date</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">row</span>[<span class="ruby-value">55</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">56</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">57</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">58</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">59</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">row</span>[<span class="ruby-value">60</span>].<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y/%m/%d %H:%M:%S&quot;</span>)
-  <span class="ruby-comment"># 独自領域</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">original_area</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">61</span>]
-  <span class="ruby-comment"># 異動中区分</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">change_division</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">62</span>]
-  <span class="ruby-comment"># 異動事由</span>
-  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">change_reason</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">63</span>]
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">family_head</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">31</span>]
   <span class="ruby-comment"># 登録者</span>
   <span class="ruby-keyword">self</span>.<span class="ruby-identifier">created_by</span> = <span class="ruby-identifier">user</span>
   <span class="ruby-comment"># 更新者</span>
@@ -559,7 +557,7 @@
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.1.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

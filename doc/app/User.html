@@ -70,9 +70,13 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-c-find_for_ldap">::find_for_ldap</a>
+    
     <li><a href="#method-c-find_for_oauth">::find_for_oauth</a>
     
     <li><a href="#method-c-find_for_open_id">::find_for_open_id</a>
+    
+    <li><a href="#method-c-find_for_saml">::find_for_saml</a>
     
   </ul>
 </nav>
@@ -95,17 +99,37 @@
 
   <ul class="link-list">
   
+    <li><a href="./ActiveResource.html">ActiveResource</a>
+  
+    <li><a href="./ActiveResource/Extend.html">ActiveResource::Extend</a>
+  
+    <li><a href="./ActiveResource/Extend/AuthWithApi.html">ActiveResource::Extend::AuthWithApi</a>
+  
+    <li><a href="./ActiveResource/Extend/AuthWithApi/ClassMethods.html">ActiveResource::Extend::AuthWithApi::ClassMethods</a>
+  
     <li><a href="./Batches.html">Batches</a>
   
     <li><a href="./Batches/EvacueesDestroy.html">Batches::EvacueesDestroy</a>
   
+    <li><a href="./Batches/ImportShelters.html">Batches::ImportShelters</a>
+  
     <li><a href="./Batches/MemcacheStore.html">Batches::MemcacheStore</a>
+  
+    <li><a href="./User.html">User</a>
+  
+    <li><a href="./User/ExternalAuthDisabled.html">User::ExternalAuthDisabled</a>
+  
+    <li><a href="./User/InvalidAuthProvider.html">User::InvalidAuthProvider</a>
   
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationController/ParameterException.html">ApplicationController::ParameterException</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
+  
+    <li><a href="./Area.html">Area</a>
+  
+    <li><a href="./City.html">City</a>
   
     <li><a href="./Constant.html">Constant</a>
   
@@ -123,29 +147,37 @@
   
     <li><a href="./JukiImportJob.html">JukiImportJob</a>
   
+    <li><a href="./JukiMatchingJob.html">JukiMatchingJob</a>
+  
+    <li><a href="./JukiStat.html">JukiStat</a>
+  
     <li><a href="./JukisController.html">JukisController</a>
   
     <li><a href="./JukisHelper.html">JukisHelper</a>
   
-    <li><a href="./LinkagesController.html">LinkagesController</a>
-  
-    <li><a href="./LinkagesHelper.html">LinkagesHelper</a>
-  
-    <li><a href="./LocalPeopleController.html">LocalPeopleController</a>
-  
-    <li><a href="./LocalPeopleHelper.html">LocalPeopleHelper</a>
-  
-    <li><a href="./LocalPerson.html">LocalPerson</a>
+    <li><a href="./LocalShelter.html">LocalShelter</a>
   
     <li><a href="./MenuTabBuilder.html">MenuTabBuilder</a>
+  
+    <li><a href="./Note.html">Note</a>
   
     <li><a href="./OmniauthCallbacksController.html">OmniauthCallbacksController</a>
   
     <li><a href="./Person.html">Person</a>
   
-    <li><a href="./TimeValidator.html">TimeValidator</a>
+    <li><a href="./PfImportJob.html">PfImportJob</a>
   
-    <li><a href="./User.html">User</a>
+    <li><a href="./Project.html">Project</a>
+  
+    <li><a href="./RegistrationsController.html">RegistrationsController</a>
+  
+    <li><a href="./Shelter.html">Shelter</a>
+  
+    <li><a href="./State.html">State</a>
+  
+    <li><a href="./Street.html">Street</a>
+  
+    <li><a href="./TimeValidator.html">TimeValidator</a>
   
     <li><a href="./UsersController.html">UsersController</a>
   
@@ -185,7 +217,17 @@
       
         <dt id="GOOGLE_IDENTIFIER">GOOGLE_IDENTIFIER
         
+        <dd class="description">
+        
+      
+        <dt id="LDAP_IDENTIFIER">LDAP_IDENTIFIER
+        
         <dd class="description"><p>認可プロバイダ識別子</p>
+        
+      
+        <dt id="OPENAM_IDENTIFIER">OPENAM_IDENTIFIER
+        
+        <dd class="description">
         
       
         <dt id="TWITTER_IDENTIFIER">TWITTER_IDENTIFIER
@@ -203,6 +245,63 @@
     
      <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-find_for_ldap" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_for_ldap</span><span
+            class="method-args">(access_token, signed_in_resource=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>return user authenticate with LDAP</p>
+
+<h4 id="method-c-find_for_ldap-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>access_token</em> 
+<dd>
+<p>LDAPアクセストークン</p>
+</dd><dt><em>signed_in_resource</em> 
+<dd>
+<p>RESERVED</p>
+</dd></dl>
+
+<h4 id="method-c-find_for_ldap-label-Return">Return</h4>
+
+<p>Userオブジェクト</p>
+
+<h4 id="method-c-find_for_ldap-label-Raise">Raise</h4>
+<dl class="rdoc-list note-list"><dt><a href="User/InvalidAuthProvider.html">InvalidAuthProvider</a> 
+<dd>
+<p>想定しないプロバイダによる認可のとき</p>
+</dd><dt><a href="User/ExternalAuthDisabled.html">ExternalAuthDisabled</a> 
+<dd>
+<p>設定で機能が無効化されているとき</p>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="find_for_ldap-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_ldap</span>(<span class="ruby-identifier">access_token</span>, <span class="ruby-identifier">signed_in_resource</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ExternalAuthDisabled</span>, <span class="ruby-node">&quot;currently disabled sign-in via #{access_token.provider}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">SETTINGS</span>[<span class="ruby-string">'ldap_auth'</span>][<span class="ruby-string">'enable'</span>]
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidAuthProvider</span>, <span class="ruby-node">&quot;illegal authorizer: #{access_token.provider}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">provider</span> <span class="ruby-operator">==</span> <span class="ruby-string">'ldap'</span>
+  <span class="ruby-identifier">loginid</span> = <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">name</span>
+  <span class="ruby-identifier">uid</span> = <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">uid</span> <span class="ruby-comment">#DN</span>
+  <span class="ruby-constant">User</span>.<span class="ruby-identifier">destroy_all</span>(<span class="ruby-value">:provider</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">LDAP_IDENTIFIER</span>, <span class="ruby-value">:uid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">uid</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">authorized_user</span>(<span class="ruby-constant">LDAP_IDENTIFIER</span>, <span class="ruby-identifier">loginid</span>, <span class="ruby-identifier">uid</span>, {<span class="ruby-value">:email=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">email</span>})
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_for_ldap-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_for_ldap-method -->
 
     
       <div id="method-c-find_for_oauth" class="method-detail ">
@@ -232,23 +331,27 @@
 <p>Userオブジェクト</p>
 
 <h4 id="method-c-find_for_oauth-label-Raise">Raise</h4>
-<dl class="rdoc-list note-list"><dt>RuntimeError 
+<dl class="rdoc-list note-list"><dt><a href="User/InvalidAuthProvider.html">InvalidAuthProvider</a> 
 <dd>
 <p>想定しないプロバイダによる認可のとき</p>
+</dd><dt><a href="User/ExternalAuthDisabled.html">ExternalAuthDisabled</a> 
+<dd>
+<p>設定で機能が無効化されているとき</p>
 </dd></dl>
           
 
           
           <div class="method-source-code" id="find_for_oauth-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 41</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_oauth</span>(<span class="ruby-identifier">access_token</span>, <span class="ruby-identifier">signed_in_resource</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ExternalAuthDisabled</span>, <span class="ruby-node">&quot;currently disabled sign-in via #{access_token.provider}&quot;</span> <span class="ruby-keyword">unless</span> (<span class="ruby-constant">SETTINGS</span>[<span class="ruby-string">'external_auth'</span>][<span class="ruby-string">'twitter_enable'</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">SETTINGS</span>[<span class="ruby-string">'external_auth'</span>][<span class="ruby-string">'facebook_enable'</span>])
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">provider</span>
   <span class="ruby-keyword">when</span> <span class="ruby-string">'twitter'</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">authorized_user</span>(<span class="ruby-string">&quot;@&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">nickname</span>, <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">uid</span>, <span class="ruby-constant">TWITTER_IDENTIFIER</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">authorized_user</span>(<span class="ruby-constant">TWITTER_IDENTIFIER</span>, <span class="ruby-string">&quot;@&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">nickname</span>, <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">uid</span>)
   <span class="ruby-keyword">when</span> <span class="ruby-string">'facebook'</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">authorized_user</span>(<span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">uid</span>, <span class="ruby-constant">FACEBOOK_IDENTIFIER</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">authorized_user</span>(<span class="ruby-constant">FACEBOOK_IDENTIFIER</span>, <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">uid</span>)
   <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;illegal authorizer: #{access_token.provider}&quot;</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidAuthProvider</span>, <span class="ruby-node">&quot;illegal authorizer: #{access_token.provider}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- find_for_oauth-source -->
           
@@ -287,20 +390,24 @@
 <p>Userオブジェクト</p>
 
 <h4 id="method-c-find_for_open_id-label-Raise">Raise</h4>
-<dl class="rdoc-list note-list"><dt>RuntimeError 
+<dl class="rdoc-list note-list"><dt><a href="User/InvalidAuthProvider.html">InvalidAuthProvider</a> 
 <dd>
 <p>想定しないプロバイダによる認可のとき</p>
+</dd><dt><a href="User/ExternalAuthDisabled.html">ExternalAuthDisabled</a> 
+<dd>
+<p>設定で機能が無効化されているとき</p>
 </dd></dl>
           
 
           
           <div class="method-source-code" id="find_for_open_id-source">
-            <pre><span class="ruby-comment"># File app/models/user.rb, line 26</span>
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_open_id</span>(<span class="ruby-identifier">access_token</span>, <span class="ruby-identifier">signed_in_resource</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;illegal authorizer: #{access_token.provider}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">provider</span> <span class="ruby-operator">==</span> <span class="ruby-string">'google'</span>
-  <span class="ruby-identifier">loginid</span> = <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">info</span>[<span class="ruby-string">'email'</span>]
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ExternalAuthDisabled</span>, <span class="ruby-node">&quot;currently disabled sign-in via #{access_token.provider}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">SETTINGS</span>[<span class="ruby-string">'external_auth'</span>][<span class="ruby-string">'google_enable'</span>]
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidAuthProvider</span>, <span class="ruby-node">&quot;illegal authorizer: #{access_token.provider}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">provider</span> <span class="ruby-operator">==</span> <span class="ruby-string">'google'</span>
+  <span class="ruby-identifier">loginid</span> = <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">info</span>.<span class="ruby-identifier">email</span>
   <span class="ruby-identifier">uid</span> = <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">uid</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">authorized_user</span>(<span class="ruby-identifier">loginid</span>, <span class="ruby-identifier">uid</span>, <span class="ruby-constant">GOOGLE_IDENTIFIER</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">authorized_user</span>(<span class="ruby-constant">GOOGLE_IDENTIFIER</span>, <span class="ruby-identifier">loginid</span>, <span class="ruby-identifier">uid</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- find_for_open_id-source -->
           
@@ -312,6 +419,62 @@
       </div><!-- find_for_open_id-method -->
 
     
+      <div id="method-c-find_for_saml" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_for_saml</span><span
+            class="method-args">(access_token, signed_in_resource=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>create user authorized by openam</p>
+
+<h4 id="method-c-find_for_saml-label-Args">Args</h4>
+<dl class="rdoc-list note-list"><dt><em>access_token</em> 
+<dd>
+<p>アクセストークン</p>
+</dd><dt><em>signed_in_resource</em> 
+<dd>
+<p>RESERVED</p>
+</dd></dl>
+
+<h4 id="method-c-find_for_saml-label-Return">Return</h4>
+
+<p>Userオブジェクト</p>
+
+<h4 id="method-c-find_for_saml-label-Raise">Raise</h4>
+<dl class="rdoc-list note-list"><dt><a href="User/InvalidAuthProvider.html">InvalidAuthProvider</a> 
+<dd>
+<p>想定しないプロバイダによる認可のとき</p>
+</dd><dt><a href="User/ExternalAuthDisabled.html">ExternalAuthDisabled</a> 
+<dd>
+<p>設定で機能が無効化されているとき</p>
+</dd></dl>
+          
+
+          
+          <div class="method-source-code" id="find_for_saml-source">
+            <pre><span class="ruby-comment"># File app/models/user.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_for_saml</span>(<span class="ruby-identifier">access_token</span>, <span class="ruby-identifier">signed_in_resource</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ExternalAuthDisabled</span>, <span class="ruby-node">&quot;currently disabled sign-in via #{access_token.provider}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">SETTINGS</span>[<span class="ruby-string">'external_auth'</span>][<span class="ruby-string">'openam_enable'</span>]
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidAuthProvider</span>, <span class="ruby-node">&quot;illegal authorizer: #{access_token.provider}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">provider</span> <span class="ruby-operator">==</span> <span class="ruby-string">'openam'</span>
+  <span class="ruby-identifier">loginid</span> = <span class="ruby-identifier">access_token</span>.<span class="ruby-identifier">uid</span>
+  <span class="ruby-identifier">uid</span> = <span class="ruby-identifier">loginid</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">authorized_user</span>(<span class="ruby-constant">OPENAM_IDENTIFIER</span>, <span class="ruby-identifier">loginid</span>, <span class="ruby-identifier">uid</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_for_saml-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_for_saml-method -->
+
+    
     </section><!-- public-class-method-details -->
   
   </section><!-- 5Buntitled-5D -->
@@ -321,7 +484,7 @@
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.1.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

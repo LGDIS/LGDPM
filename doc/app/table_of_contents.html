@@ -34,6 +34,18 @@
 <h2 id="classes">Classes/Modules</h2>
 <ul>
   <li class="module">
+    <a href="ActiveResource.html">ActiveResource</a>
+  </li>
+    <li class="module">
+    <a href="ActiveResource/Extend.html">ActiveResource::Extend</a>
+  </li>
+    <li class="module">
+    <a href="ActiveResource/Extend/AuthWithApi.html">ActiveResource::Extend::AuthWithApi</a>
+  </li>
+    <li class="module">
+    <a href="ActiveResource/Extend/AuthWithApi/ClassMethods.html">ActiveResource::Extend::AuthWithApi::ClassMethods</a>
+  </li>
+    <li class="module">
     <a href="Batches.html">Batches</a>
   </li>
     <li class="class">
@@ -46,7 +58,19 @@
     </ul>
   </li>
     <li class="class">
+    <a href="Batches/ImportShelters.html">Batches::ImportShelters</a>
+  </li>
+    <li class="class">
     <a href="Batches/MemcacheStore.html">Batches::MemcacheStore</a>
+  </li>
+    <li class="class">
+    <a href="User.html">User</a>
+  </li>
+    <li class="class">
+    <a href="User/ExternalAuthDisabled.html">User::ExternalAuthDisabled</a>
+  </li>
+    <li class="class">
+    <a href="User/InvalidAuthProvider.html">User::InvalidAuthProvider</a>
   </li>
     <li class="class">
     <a href="ApplicationController.html">ApplicationController</a>
@@ -56,6 +80,12 @@
   </li>
     <li class="module">
     <a href="ApplicationHelper.html">ApplicationHelper</a>
+  </li>
+    <li class="class">
+    <a href="Area.html">Area</a>
+  </li>
+    <li class="class">
+    <a href="City.html">City</a>
   </li>
     <li class="class">
     <a href="Constant.html">Constant</a>
@@ -82,28 +112,25 @@
     <a href="JukiImportJob.html">JukiImportJob</a>
   </li>
     <li class="class">
+    <a href="JukiMatchingJob.html">JukiMatchingJob</a>
+  </li>
+    <li class="class">
+    <a href="JukiStat.html">JukiStat</a>
+  </li>
+    <li class="class">
     <a href="JukisController.html">JukisController</a>
   </li>
     <li class="module">
     <a href="JukisHelper.html">JukisHelper</a>
   </li>
     <li class="class">
-    <a href="LinkagesController.html">LinkagesController</a>
-  </li>
-    <li class="module">
-    <a href="LinkagesHelper.html">LinkagesHelper</a>
-  </li>
-    <li class="class">
-    <a href="LocalPeopleController.html">LocalPeopleController</a>
-  </li>
-    <li class="module">
-    <a href="LocalPeopleHelper.html">LocalPeopleHelper</a>
-  </li>
-    <li class="class">
-    <a href="LocalPerson.html">LocalPerson</a>
+    <a href="LocalShelter.html">LocalShelter</a>
   </li>
     <li class="class">
     <a href="MenuTabBuilder.html">MenuTabBuilder</a>
+  </li>
+    <li class="class">
+    <a href="Note.html">Note</a>
   </li>
     <li class="class">
     <a href="OmniauthCallbacksController.html">OmniauthCallbacksController</a>
@@ -112,10 +139,25 @@
     <a href="Person.html">Person</a>
   </li>
     <li class="class">
-    <a href="TimeValidator.html">TimeValidator</a>
+    <a href="PfImportJob.html">PfImportJob</a>
   </li>
     <li class="class">
-    <a href="User.html">User</a>
+    <a href="Project.html">Project</a>
+  </li>
+    <li class="class">
+    <a href="RegistrationsController.html">RegistrationsController</a>
+  </li>
+    <li class="class">
+    <a href="Shelter.html">Shelter</a>
+  </li>
+    <li class="class">
+    <a href="State.html">State</a>
+  </li>
+    <li class="class">
+    <a href="Street.html">Street</a>
+  </li>
+    <li class="class">
+    <a href="TimeValidator.html">TimeValidator</a>
   </li>
     <li class="class">
     <a href="UsersController.html">UsersController</a>
@@ -129,9 +171,21 @@
 <h2 id="methods">Methods</h2>
 <ul>
   
-    <li class="method"><a href="Batches/EvacueesDestroy.html#method-c-execute">::execute &mdash; Batches::EvacueesDestroy</a>
+    <li class="method"><a href="JukiMatchingJob.html#method-c-after_perform">::after_perform &mdash; JukiMatchingJob</a>
+  
+    <li class="method"><a href="JukiMatchingJob.html#method-c-before_enqueue">::before_enqueue &mdash; JukiMatchingJob</a>
+  
+    <li class="method"><a href="JukiMatchingJob.html#method-c-before_perform">::before_perform &mdash; JukiMatchingJob</a>
+  
+    <li class="method"><a href="Batches/ImportShelters.html#method-c-csv_option">::csv_option &mdash; Batches::ImportShelters</a>
+  
+    <li class="method"><a href="Evacuee.html#method-c-exec_pf_export">::exec_pf_export &mdash; Evacuee</a>
   
     <li class="method"><a href="Batches/MemcacheStore.html#method-c-execute">::execute &mdash; Batches::MemcacheStore</a>
+  
+    <li class="method"><a href="Batches/EvacueesDestroy.html#method-c-execute">::execute &mdash; Batches::EvacueesDestroy</a>
+  
+    <li class="method"><a href="Batches/ImportShelters.html#method-c-execute">::execute &mdash; Batches::ImportShelters</a>
   
     <li class="method"><a href="Evacuee.html#method-c-find_for_count">::find_for_count &mdash; Evacuee</a>
   
@@ -139,23 +193,47 @@
   
     <li class="method"><a href="Person.html#method-c-find_for_import">::find_for_import &mdash; Person</a>
   
+    <li class="method"><a href="Note.html#method-c-find_for_import">::find_for_import &mdash; Note</a>
+  
+    <li class="method"><a href="User.html#method-c-find_for_ldap">::find_for_ldap &mdash; User</a>
+  
     <li class="method"><a href="Juki.html#method-c-find_for_match">::find_for_match &mdash; Juki</a>
   
     <li class="method"><a href="User.html#method-c-find_for_oauth">::find_for_oauth &mdash; User</a>
   
     <li class="method"><a href="User.html#method-c-find_for_open_id">::find_for_open_id &mdash; User</a>
   
+    <li class="method"><a href="User.html#method-c-find_for_saml">::find_for_saml &mdash; User</a>
+  
+    <li class="method"><a href="JukiStat.html#method-c-get_stat">::get_stat &mdash; JukiStat</a>
+  
     <li class="method"><a href="Constant.html#method-c-hash_for_table">::hash_for_table &mdash; Constant</a>
+  
+    <li class="method"><a href="State.html#method-c-hash_for_table">::hash_for_table &mdash; State</a>
+  
+    <li class="method"><a href="City.html#method-c-hash_for_table">::hash_for_table &mdash; City</a>
+  
+    <li class="method"><a href="Street.html#method-c-hash_for_table">::hash_for_table &mdash; Street</a>
+  
+    <li class="method"><a href="LocalShelter.html#method-c-hash_for_table">::hash_for_table &mdash; LocalShelter</a>
+  
+    <li class="method"><a href="Area.html#method-c-hash_for_table">::hash_for_table &mdash; Area</a>
   
     <li class="method"><a href="Juki.html#method-c-import">::import &mdash; Juki</a>
   
+    <li class="method"><a href="ActiveResource/Extend/AuthWithApi.html#method-c-included">::included &mdash; ActiveResource::Extend::AuthWithApi</a>
+  
+    <li class="method"><a href="JukiMatchingJob.html#method-c-lock_key">::lock_key &mdash; JukiMatchingJob</a>
+  
+    <li class="method"><a href="PfImportJob.html#method-c-perform">::perform &mdash; PfImportJob</a>
+  
     <li class="method"><a href="JukiImportJob.html#method-c-perform">::perform &mdash; JukiImportJob</a>
+  
+    <li class="method"><a href="JukiStat.html#method-c-set_stat">::set_stat &mdash; JukiStat</a>
   
     <li class="method"><a href="Batches/MemcacheStore.html#method-c-store">::store &mdash; Batches::MemcacheStore</a>
   
     <li class="method"><a href="UsersController.html#method-i-after_sign_out_path_for">#after_sign_out_path_for &mdash; UsersController</a>
-  
-    <li class="method"><a href="LocalPeopleController.html#method-i-approval">#approval &mdash; LocalPeopleController</a>
   
     <li class="method"><a href="ApplicationController.html#method-i-autocomplete_city">#autocomplete_city &mdash; ApplicationController</a>
   
@@ -163,13 +241,17 @@
   
     <li class="method"><a href="MenuTabBuilder.html#method-i-close_tabs">#close_tabs &mdash; MenuTabBuilder</a>
   
+    <li class="method"><a href="ActiveResource/Extend/AuthWithApi/ClassMethods.html#method-i-collection_path_with_auth">#collection_path_with_auth &mdash; ActiveResource::Extend::AuthWithApi::ClassMethods</a>
+  
     <li class="method"><a href="Evacuee.html#method-i-convert_to_kana">#convert_to_kana &mdash; Evacuee</a>
   
     <li class="method"><a href="EvacueesController.html#method-i-create">#create &mdash; EvacueesController</a>
   
-    <li class="method"><a href="UsersController.html#method-i-create">#create &mdash; UsersController</a>
+    <li class="method"><a href="RegistrationsController.html#method-i-create">#create &mdash; RegistrationsController</a>
   
     <li class="method"><a href="EvacueesController.html#method-i-edit">#edit &mdash; EvacueesController</a>
+  
+    <li class="method"><a href="ActiveResource/Extend/AuthWithApi/ClassMethods.html#method-i-element_path_with_auth">#element_path_with_auth &mdash; ActiveResource::Extend::AuthWithApi::ClassMethods</a>
   
     <li class="method"><a href="ApplicationHelper.html#method-i-error_messages_for">#error_messages_for &mdash; ApplicationHelper</a>
   
@@ -177,49 +259,49 @@
   
     <li class="method"><a href="Juki.html#method-i-exec_insert">#exec_insert &mdash; Juki</a>
   
-    <li class="method"><a href="LocalPerson.html#method-i-exec_insert">#exec_insert &mdash; LocalPerson</a>
+    <li class="method"><a href="Note.html#method-i-exec_insert">#exec_insert &mdash; Note</a>
   
     <li class="method"><a href="Evacuee.html#method-i-exec_insert">#exec_insert &mdash; Evacuee</a>
   
-    <li class="method"><a href="OmniauthCallbacksController.html#method-i-facebook">#facebook &mdash; OmniauthCallbacksController</a>
+    <li class="method"><a href="Evacuee.html#method-i-exec_matching">#exec_matching &mdash; Evacuee</a>
   
-    <li class="method"><a href="ApplicationController.html#method-i-get_cache">#get_cache &mdash; ApplicationController</a>
+    <li class="method"><a href="OmniauthCallbacksController.html#method-i-facebook">#facebook &mdash; OmniauthCallbacksController</a>
   
     <li class="method"><a href="OmniauthCallbacksController.html#method-i-google">#google &mdash; OmniauthCallbacksController</a>
   
     <li class="method"><a href="JukisController.html#method-i-import">#import &mdash; JukisController</a>
   
-    <li class="method"><a href="LocalPeopleController.html#method-i-import">#import &mdash; LocalPeopleController</a>
-  
-    <li class="method"><a href="LocalPeopleController.html#method-i-index">#index &mdash; LocalPeopleController</a>
-  
-    <li class="method"><a href="LinkagesController.html#method-i-index">#index &mdash; LinkagesController</a>
+    <li class="method"><a href="JukisController.html#method-i-index">#index &mdash; JukisController</a>
   
     <li class="method"><a href="EvacueesController.html#method-i-index">#index &mdash; EvacueesController</a>
   
-    <li class="method"><a href="JukisController.html#method-i-index">#index &mdash; JukisController</a>
+    <li class="method"><a href="Evacuee.html#method-i-init">#init &mdash; Evacuee</a>
   
     <li class="method"><a href="ApplicationController.html#method-i-init">#init &mdash; ApplicationController</a>
   
-    <li class="method"><a href="LinkagesController.html#method-i-link">#link &mdash; LinkagesController</a>
+    <li class="method"><a href="ApplicationController.html#method-i-layout_by_resource">#layout_by_resource &mdash; ApplicationController</a>
   
-    <li class="method"><a href="EvacueesController.html#method-i-list">#list &mdash; EvacueesController</a>
-  
-    <li class="method"><a href="EvacueesController.html#method-i-match">#match &mdash; EvacueesController</a>
+    <li class="method"><a href="OmniauthCallbacksController.html#method-i-ldap">#ldap &mdash; OmniauthCallbacksController</a>
   
     <li class="method"><a href="Evacuee.html#method-i-matching">#matching &mdash; Evacuee</a>
   
+    <li class="method"><a href="JukisController.html#method-i-matching">#matching &mdash; JukisController</a>
+  
     <li class="method"><a href="EvacueesController.html#method-i-new">#new &mdash; EvacueesController</a>
+  
+    <li class="method"><a href="ActiveResource/Extend/AuthWithApi/ClassMethods.html#method-i-new_element_path_with_auth">#new_element_path_with_auth &mdash; ActiveResource::Extend::AuthWithApi::ClassMethods</a>
   
     <li class="method"><a href="MenuTabBuilder.html#method-i-open_tabs">#open_tabs &mdash; MenuTabBuilder</a>
   
+    <li class="method"><a href="OmniauthCallbacksController.html#method-i-openam">#openam &mdash; OmniauthCallbacksController</a>
+  
+    <li class="method"><a href="EvacueesController.html#method-i-pf_export">#pf_export &mdash; EvacueesController</a>
+  
+    <li class="method"><a href="EvacueesController.html#method-i-pf_import">#pf_import &mdash; EvacueesController</a>
+  
     <li class="method"><a href="EvacueesController.html#method-i-print">#print &mdash; EvacueesController</a>
   
-    <li class="method"><a href="LocalPeopleController.html#method-i-search">#search &mdash; LocalPeopleController</a>
-  
     <li class="method"><a href="EvacueesController.html#method-i-search">#search &mdash; EvacueesController</a>
-  
-    <li class="method"><a href="LinkagesController.html#method-i-search">#search &mdash; LinkagesController</a>
   
     <li class="method"><a href="EvacueesController.html#method-i-selector">#selector &mdash; EvacueesController</a>
   
@@ -231,20 +313,22 @@
   
     <li class="method"><a href="MenuTabBuilder.html#method-i-tab_for">#tab_for &mdash; MenuTabBuilder</a>
   
+    <li class="method"><a href="EvacueesController.html#method-i-total">#total &mdash; EvacueesController</a>
+  
     <li class="method"><a href="OmniauthCallbacksController.html#method-i-twitter">#twitter &mdash; OmniauthCallbacksController</a>
   
     <li class="method"><a href="EvacueesController.html#method-i-update">#update &mdash; EvacueesController</a>
   
-    <li class="method"><a href="TimeValidator.html#method-i-validate_each">#validate_each &mdash; TimeValidator</a>
-  
     <li class="method"><a href="DateValidator.html#method-i-validate_each">#validate_each &mdash; DateValidator</a>
+  
+    <li class="method"><a href="TimeValidator.html#method-i-validate_each">#validate_each &mdash; TimeValidator</a>
   
 </ul>
 
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.1.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 
