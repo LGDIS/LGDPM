@@ -101,7 +101,6 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def pf_import
     # 非同期でインポート処理を実行する
-    flash.now[:notice] = t("notice_successful_pf_import")
     Resque.enqueue(PfImportJob)
     index
   end
@@ -112,7 +111,6 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def pf_export
-    flash.now[:notice] = t("notice_successful_pf_export")
     Evacuee.exec_pf_export(Evacuee.mode_in(), current_user)
 
   rescue ActiveResource::ServerError => e
@@ -200,35 +198,97 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def total
+    cache = {}
     # ルーティング上プロジェクト識別子が必要
     project_identifier = SETTINGS["activeresource"]["lgdis"]["project_identifier"]
     shelters = Shelter.find(:all, :params => { project_id: project_identifier })
 
+    summary = Hash.new
     Evacuee.mode_in().find_for_count.each do |result|
+      summary[result.shelter_name] = result
       # 避難所識別番号が一致する避難所を取得
-      index = shelters.rindex{|s| s.shelter_code == result.shelter_name }
-      next if index.blank?
-      shelter = shelters[index]
+      #index = shelters.rindex{|s| 
+      #  p s.shelter_code
+      #  s.shelter_code == result.shelter_name 
+      #}
+      #next if index.blank?
+      #shelter = shelters[index]
       # 人数（自主避難人数を含む）
-      shelter.head_count = result["head_count"]
+      #shelter.head_count = result["head_count"]
       # 世帯数（自主避難世帯数を含む）
       # shelter.households = result["households_count"]
       # 負傷_計
-      shelter.injury_count = result["injury_flag_count"]
+      #shelter.injury_count = result["injury_flag_count"]
       # 要介護度_計
-      shelter.upper_care_level_three_count = result["upper_care_level_three_count"]
+      #shelter.upper_care_level_three_count = result["upper_care_level_three_count"]
       # 一人暮らし高齢者（65歳以上）_計
-      shelter.elderly_alone_count = result["elderly_alone_count"]
+      #shelter.elderly_alone_count = result["elderly_alone_count"]
       # 高齢者世帯（夫婦共に65歳以上）_計
-      shelter.elderly_couple_count = result["elderly_couple_count"]
+      #shelter.elderly_couple_count = result["elderly_couple_count"]
       # 寝たきり高齢者_計
-      shelter.bedridden_elderly_count = result["bedridden_elderly_count"]
+      #shelter.bedridden_elderly_count = result["bedridden_elderly_count"]
       # 認知症高齢者_計
-      shelter.elderly_dementia_count = result["elderly_dementia_count"]
+      #shelter.elderly_dementia_count = result["elderly_dementia_count"]
       # 療育手帳所持者_計
-      shelter.rehabilitation_certificate_count = result["rehabilitation_certificate_count"]
+      #shelter.rehabilitation_certificate_count = result["rehabilitation_certificate_count"]
       # 身体障害者手帳所持者_計
-      shelter.physical_disability_certificate_count = result["physical_disability_certificate_count"]
+      #shelter.physical_disability_certificate_count = result["physical_disability_certificate_count"]
+      # 不要データを削除
+      #shelter.attributes.delete(:created_at)
+      #shelter.attributes.delete(:updated_at)
+      #shelter.attributes.delete(:deleted_at)
+      #shelter.attributes.delete(:record_mode)
+
+      #shelter.save
+    end
+
+    shelters.each do |shelter|
+      if summary.include?(shelter.shelter_code)
+        result = summary[shelter.shelter_code]
+        # 人数（自主避難人数を含む）
+        shelter.head_count = result["head_count"]
+        # 世帯数（自主避難世帯数を含む）
+        shelter.households = result["households_count"]
+        # 負傷_計
+        shelter.injury_count = result["injury_flag_count"]
+        # 要介護度_計
+        shelter.upper_care_level_three_count = result["upper_care_level_three_count"]
+        # 一人暮らし高齢者（65歳以上）_計
+        shelter.elderly_alone_count = result["elderly_alone_count"]
+        # 高齢者世帯（夫婦共に65歳以上）_計
+        shelter.elderly_couple_count = result["elderly_couple_count"]
+        # 寝たきり高齢者_計
+        shelter.bedridden_elderly_count = result["bedridden_elderly_count"]
+        # 認知症高齢者_計
+        shelter.elderly_dementia_count = result["elderly_dementia_count"]
+        # 療育手帳所持者_計
+        shelter.rehabilitation_certificate_count = result["rehabilitation_certificate_count"]
+        # 身体障害者手帳所持者_計
+        shelter.physical_disability_certificate_count = result["physical_disability_certificate_count"]
+      else
+        result = summary[shelter.shelter_code]
+        # 人数（自主避難人数を含む）
+        shelter.head_count = 0
+        # 世帯数（自主避難世帯数を含む）
+        shelter.households = 0
+        # 負傷_計
+        shelter.injury_count = 0
+        # 要介護度_計
+        shelter.upper_care_level_three_count = 0
+        # 一人暮らし高齢者（65歳以上）_計
+        shelter.elderly_alone_count = 0
+        # 高齢者世帯（夫婦共に65歳以上）_計
+        shelter.elderly_couple_count = 0
+        # 寝たきり高齢者_計
+        shelter.bedridden_elderly_count = 0
+        # 認知症高齢者_計
+        shelter.elderly_dementia_count = 0
+        # 療育手帳所持者_計
+        shelter.rehabilitation_certificate_count = 0
+        # 身体障害者手帳所持者_計
+        shelter.physical_disability_certificate_count = 0
+      end
+
       # 不要データを削除
       shelter.attributes.delete(:created_at)
       shelter.attributes.delete(:updated_at)
@@ -237,6 +297,7 @@ class EvacueesController < ApplicationController
 
       shelter.save
     end
+
     flash.now[:notice] = t("notice_successful_total")
   rescue ParameterException
     flash.now[:alert] = t("errors.messages.projects_not_exists")
