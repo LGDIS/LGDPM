@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/kendagriff/ruby-openid.git
+  revision: 79beaa419d4754e787757f2545331509419e222e
+  ref: 79beaa419d4754e787757f2545331509419e222e
+  specs:
+    ruby-openid (2.2.3)
+
+GIT
   remote: https://github.com/ruvr/omniauth-saml.git
   revision: 99bf963ba4201ed89276c07ec32ee34fecb3df1f
   specs:
@@ -73,7 +80,7 @@ GEM
       multipart-post (~> 1.1)
     hashery (2.1.0)
     hashie (2.0.5)
-    hike (1.2.2)
+    hike (1.2.3)
     httpauth (0.2.0)
     i18n (0.6.4)
     iconv (1.0.3)
@@ -99,7 +106,7 @@ GEM
       polyamorous (~> 0.5.0)
     mime-types (1.23)
     mono_logger (1.1.0)
-    multi_json (1.7.5)
+    multi_json (1.7.6)
     multipart-post (1.2.0)
     net-ldap (0.2.2)
     nokogiri (1.5.9)
@@ -209,7 +216,6 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
-    ruby-openid (2.2.3)
     ruby-rc4 (0.1.5)
     ruby-saml (0.7.2)
       canonix (= 0.1.1)
@@ -236,7 +242,7 @@ GEM
       prawn (>= 0.12.0, <= 0.12.0)
     thor (0.18.1)
     tilt (1.4.1)
-    treetop (1.4.12)
+    treetop (1.4.14)
       polyglot
       polyglot (>= 0.3.1)
     ttfunk (1.0.3)
@@ -285,6 +291,7 @@ DEPENDENCIES
   resque
   resque_spec
   rspec
+  ruby-openid!
   sass-rails (~> 3.2.3)
   tabs_on_rails
   thinreports
