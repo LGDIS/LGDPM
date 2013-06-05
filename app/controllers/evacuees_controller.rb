@@ -200,7 +200,6 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def total
-    cache = {}
     # ルーティング上プロジェクト識別子が必要
     project_identifier = SETTINGS["activeresource"]["lgdis"]["project_identifier"]
     shelters = Shelter.find(:all, :params => { project_id: project_identifier })
