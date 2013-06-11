@@ -101,7 +101,7 @@ class EvacueesController < ApplicationController
   # ==== Raise
   def pf_import
     # 非同期でインポート処理を実行する
-    flash.now[:notice] = t("notice_successful_pf_import") 
+    flash.now[:notice] = t("notice_start_pf_import")
     Resque.enqueue(PfImportJob)
     index
   end
@@ -112,8 +112,8 @@ class EvacueesController < ApplicationController
   # ==== Return
   # ==== Raise
   def pf_export
-    flash.now[:notice] = t("notice_successful_pf_export")
     Evacuee.exec_pf_export(Evacuee.mode_in(), current_user)
+    flash.now[:notice] = t("notice_successful_pf_export")
 
   rescue ActiveResource::ServerError => e
     flash.now[:alert] = "#{e}"

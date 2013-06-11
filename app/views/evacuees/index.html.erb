@@ -96,10 +96,31 @@
     <p class="set_right">
       <% if current_user.login == SETTINGS["admin_user"]["username"] %>
         <td><%= f.submit t(:button_pf_import), :kind => "pf_import" , :confirm => t(:text_pf_import_confirmation) %></td>
-        <td><%= f.submit t(:button_pf_export), :kind => "pf_export" , :confirm => t(:text_pf_output_confirmation) %></td>
+        <td><%= f.submit t(:button_pf_export), :kind => "pf_export" , :onclick => "return create_notice('#{t(:text_pf_output_confirmation)}','#{t(:text_start_pf_export)}');" %></td>
       <% end %>
       <td><%= f.submit t(:button_print), :kind => "print" , :confirm => t(:text_evacuee_print_confirmation) %></td>
-      <td><%= f.submit t(:button_total), :kind => "total", :confirm => t(:text_evacuee_output_confirmation) %></td>
+      <td><%= f.submit t(:button_total), :kind => "total", :onclick => "return create_notice('#{t(:text_evacuee_output_confirmation)}','#{t(:text_start_total)}');" %></td>
+
+      <script>
+        function create_notice(str,notice) {
+           var content = $("div.flash.notice");
+           var result = confirm(str);
+           if(result) {
+             $("div.flash.error").remove();
+             if( content.length == 0 ) {
+               var element = document.createElement('div');
+               element.className = 'flash notice';
+               element.innerHTML = notice;
+               document.getElementById('content').insertBefore(element, document.getElementById('content').firstChild);
+             } else {
+               content.html(notice);
+             }
+             return true;
+           } else {
+             return false;
+           }
+        }
+      </script>
      </p>
     <p class="set_right">
       <%= will_paginate @evacuees, :previous_label => "前 &lt;&lt; ",

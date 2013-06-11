@@ -306,18 +306,23 @@ ja:
   notice_successful_create: 作成しました。
   notice_successful_update: 更新しました。
   notice_successful_delete: 削除しました。
-  notice_successful_total: 集計しました。
+  notice_successful_total: 避難所一覧への出力が終了しました。
   notice_successful_import: 取り込みました。
   notice_successful_approval: 承認しました。
   notice_successful_link: 連携しました。
   notice_successful_matching: マッチングしました。
-  notice_successful_pf_import: 処理を開始しました。しばらくたってから、避難者一覧画面を参照し、取込状況について、ご確認ください。
-  notice_successful_pf_export: 処理を開始しました。しばらくたってから、LGDPFを参照し、出力状況について、ご確認ください。
+  notice_successful_pf_export: ××PFへの出力が終了しました。
+  notice_start_pf_import: ××PFからの取込に時間がかかる場合があります。
   error_candidate_not_found: 候補者が存在しません。
+
   text_destroy_confirmation: 削除してもよろしいですか？
   text_save_confirmation: 保存してもよろしいですか？
   text_pf_import_confirmation: ××PFを取り込んでもよろしいですか？
   text_pf_output_confirmation: ××PFに出力してもよろしいですか？
+
+  text_start_total: 避難所一覧への出力に時間がかかる場合があります。
+  text_start_pf_export: ××PFへの出力に時間がかかる場合があります。
+
   text_evacuee_print_confirmation: 避難者名簿印刷をしてもよろしいですか？
   text_evacuee_output_confirmation: 避難所一覧に出力してもよろしいですか？
   text_get_address_confirmation: 住基情報を取り込んでもよろしいですか？
