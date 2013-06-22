@@ -11,5 +11,33 @@ module ApplicationHelper
       html << "</ul></div>\n"
     end
     html.html_safe
-  end  
+  end
+
+  def admin_user_flg()
+    admin_flg = false
+
+    SETTINGS["admin_user"].each do |user|
+      if user.present?
+        if (current_user.login == user)
+          admin_flg = true
+          break
+        end
+      end
+    end
+
+    return admin_flg
+  end
+
+  def ldap_juki_tab_flg()
+    juki_flg = false
+
+    SETTINGS["ldap_juki_setting"].each do |ldap_setting|
+      if current_user.uid.include?(ldap_setting)
+        juki_flg = true
+        break
+      end
+    end
+
+    return juki_flg
+  end
 end

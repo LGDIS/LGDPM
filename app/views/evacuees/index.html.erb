@@ -94,7 +94,7 @@
   
   <div class="splitcontent">
     <p class="set_right">
-      <% if current_user.login == SETTINGS["admin_user"]["username"] %>
+      <% if (admin_user_flg() && (current_user.provider != "ldap")) %>
         <td><%= f.submit t(:button_pf_import), :kind => "pf_import" , :confirm => t(:text_pf_import_confirmation) %></td>
         <td><%= f.submit t(:button_pf_export), :kind => "pf_export" , :onclick => "return create_notice('#{t(:text_pf_output_confirmation)}','#{t(:text_start_pf_export)}');" %></td>
       <% end %>

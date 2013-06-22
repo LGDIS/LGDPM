@@ -33,8 +33,14 @@
             <%= tabs_tag(:builder => MenuTabBuilder) do |tab| %>
               <%= tab.evacuee t("label_tab_evacuee"), evacuees_index_path %>
               <%= tab.register t("label_tab_register"), evacuees_new_path %>
-              <% if current_user.login == SETTINGS["admin_user"]["username"] %>
-                <%= tab.juki t("label_tab_juki"), jukis_index_path %>
+              <% if current_user.provider.nil? || (current_user.provider != "ldap") %>
+                <% if admin_user_flg() %>
+                  <%= tab.juki t("label_tab_juki"), jukis_index_path %>
+                <% end %>
+              <% else %>
+                <% if ldap_juki_tab_flg() %>
+                  <%= tab.juki t("label_tab_juki"), jukis_index_path %>
+                <% end %>
               <% end %>
             <% end %>
           </div>

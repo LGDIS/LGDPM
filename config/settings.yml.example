@@ -44,8 +44,12 @@ development:
     sender: saitai@example.com
     host: localhost:3000
   # adminユーザ設定
+  # 設定を追加する場合は、-(ハイフン) の後に設定を記述してください
+  # 設定例： admin_user:
+  #            - admin
+  #            - test_user
   admin_user:
-    username: username
+    - username
   # 住基バリデーション機能有効化設定
   # * true : 有効
   # * false: 無効
@@ -54,6 +58,13 @@ development:
   # * true : 表示
   # * false: 非表示
   account_display_enable: true
+  # 住基タブ表示アカウント設定(Ldapのグループ)
+  # 設定を追加する場合は、-(ハイフン) の後に設定を記述してください
+  # 設定例： ldap_juki_setting:
+  #            - ou=People
+  #            - ou=Group
+  ldap_juki_setting:
+    - ou=xxxxxx
 test:
   version: "v1.0.0"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
@@ -99,8 +110,12 @@ test:
     sender: saitai@example.com
     host: localhost:3000
   # adminユーザ設定
+  # 設定を追加する場合は、-(ハイフン) の後に設定を記述してください
+  # 設定例： admin_user:
+  #            - admin
+  #            - test_user
   admin_user:
-    username: username
+    - username
   # 住基バリデーション機能有効化設定
   # * true : 有効
   # * false: 無効
@@ -109,6 +124,13 @@ test:
   # * true : 表示
   # * false: 非表示
   account_display_enable: true
+  # 住基タブ表示アカウント設定(Ldapのグループ)
+  # 設定を追加する場合は、-(ハイフン) の後に設定を記述してください
+  # 設定例： ldap_juki_setting:
+  #            - ou=People
+  #            - ou=Group
+  ldap_juki_setting:
+    - ou=xxxxxx
 production:
   version: "v1.0.0"
   # 動作種別(0=通常モード, 1=災害訓練モード, 2=通信試験モード)
@@ -154,8 +176,12 @@ production:
     sender: saitai@example.com
     host: localhost:3000
   # adminユーザ設定
+  # 設定を追加する場合は、-(ハイフン) の後に設定を記述してください
+  # 設定例： admin_user:
+  #            - admin
+  #            - test_user
   admin_user:
-    username: username
+    - username
   # 住基バリデーション機能有効化設定
   # * true : 有効
   # * false: 無効
@@ -164,3 +190,10 @@ production:
   # * true : 表示
   # * false: 非表示
   account_display_enable: true
+  # 住基タブ表示アカウント設定(Ldapのグループ)
+  # 設定を追加する場合は、-(ハイフン) の後に設定を記述してください
+  # 設定例： ldap_juki_setting:
+  #            - ou=People
+  #            - ou=Group
+  ldap_juki_setting:
+    - ou=xxxxxx
