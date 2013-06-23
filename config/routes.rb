@@ -20,5 +20,5 @@ Lgdpm::Application.routes.draw do
   
   match "shelters"            => "application#shelters", :via => :get
   
-  # mount Resque::Server, at: "/resque"
+  mount Resque::Server, at: "/resque"
 end
