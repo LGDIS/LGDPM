@@ -100,8 +100,8 @@ ja:
       author_name: "LGDPM"
     note:
       author_name: "LGDPM"
-      complete_text: "石巻市民であることが確認されました。"
-      incomplete_text: "石巻市民であることが確認されていません。"
+      complete_text: "住民であることが確認されました。"
+      incomplete_text: "住民であることが確認されていません。"
   errors: &errors
     format: ! '%{attribute}%{message}'
     messages:
@@ -217,9 +217,9 @@ ja:
         password_confirmation: パスワードの確認
         confirmation_token: 本人確認キー
       evacuee:
-        local_person_id: LocalPersonのid
+        local_person_id: LGDPMのperson_id
         lgdpf_person_id: LGDPFのperson_id
-        person_record_id: GooglePersonFinderのperson_id
+        person_record_id: GooglePFのperson_id
         family_name: 氏名（姓）
         given_name: 氏名（名）
         alternate_family_name: 氏名カナ（姓）
@@ -311,32 +311,32 @@ ja:
   notice_successful_approval: 承認しました。
   notice_successful_link: 連携しました。
   notice_successful_matching: マッチングしました。
-  notice_successful_pf_export: 石巻PFへの出力が終了しました。
-  notice_start_pf_import: 石巻PFからの取込に時間がかかる場合があります。
+  notice_successful_pf_export: LGDPFへの出力が終了しました。
+  notice_start_pf_import: LGDPFからの取込に時間がかかる場合があります。
   error_candidate_not_found: 候補者が存在しません。
 
   text_destroy_confirmation: 削除してもよろしいですか？
   text_save_confirmation: 保存してもよろしいですか？
-  text_pf_import_confirmation: 石巻PFを取り込んでもよろしいですか？
-  text_pf_output_confirmation: 石巻PFに出力してもよろしいですか？
+  text_pf_import_confirmation: LGDPFを取り込んでもよろしいですか？
+  text_pf_output_confirmation: LGDPFに出力してもよろしいですか？
 
   text_start_total: 避難所一覧への出力に時間がかかる場合があります。
-  text_start_pf_export: 石巻PFへの出力に時間がかかる場合があります。
+  text_start_pf_export: LGDPFへの出力に時間がかかる場合があります。
 
   text_evacuee_print_confirmation: 避難者名簿印刷をしてもよろしいですか？
   text_evacuee_output_confirmation: 避難所一覧に出力してもよろしいですか？
   text_get_address_confirmation: 住基情報を取り込んでもよろしいですか？
   text_address_matching_confirmation: 現在の住基情報で、全避難者情報のマッチング処理を行います。処理を行ってもよろしいですか？
 
-  label_title: 石巻市PersonManager
+  label_title: PersonManager
   label_tab_register: 新規登録
   label_tab_evacuee: 避難者一覧
   label_tab_juki: 住基情報取込
   
   button_search: 検索
   button_clear: クリア
-  button_pf_import: 石巻PFから取込
-  button_pf_export: 石巻PFへ出力
+  button_pf_import: LGDPFから取込
+  button_pf_export: LGDPFへ出力
   button_print: 避難者名簿印刷
   button_total: 避難所一覧に出力
     
