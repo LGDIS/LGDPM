@@ -1,4 +1,4 @@
-<h2>住基情報取込</h2>
+<h2>住基情報取り込み</h2>
 
 <%= form_tag({:action => :import}, {:multipart => true}) do %>
 <%= hidden_field_tag "commit_kind" %>
@@ -8,12 +8,12 @@
       <%= file_field "document", "file" %>
     </p>
     <p>
-      取込処理履歴一覧
+      取り込み処理履歴一覧
     </p>
   </div>
   <div class="splitcontentright">
     <p>
-      <%#= submit_tag "取込" %>
+      <%#= submit_tag "取り込み" %>
       <%= submit_tag "取込", :kind => "import", :confirm => t(:text_get_address_confirmation) %>
       <%= submit_tag "住基マッチング", :kind => "matching", :confirm => t(:text_address_matching_confirmation) %>
     </p>
@@ -30,9 +30,9 @@
 <table class="list" style="width: 50%;">
   <thead>
     <tr>
-      <th class="set_center">取込年月日</th>
-      <th class="set_center">取込件数</th>
-      <th class="set_center">取込担当者</th>
+      <th class="set_center">取り込み年月日</th>
+      <th class="set_center">取り込み件数</th>
+      <th class="set_center">取り込み担当者</th>
       <th class="set_center">ステータス</th>
     </tr>
   </thead>

@@ -312,7 +312,7 @@ ja:
   notice_successful_link: 連携しました。
   notice_successful_matching: マッチングしました。
   notice_successful_pf_export: LGDPFへの出力が終了しました。
-  notice_start_pf_import: LGDPFからの取込に時間がかかる場合があります。
+  notice_start_pf_import: LGDPFからの取り込みに時間がかかる場合があります。
   error_candidate_not_found: 候補者が存在しません。
 
   text_destroy_confirmation: 削除してもよろしいですか？
