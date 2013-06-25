@@ -328,7 +328,7 @@ ja:
   text_get_address_confirmation: 住基情報を取り込んでもよろしいですか？
   text_address_matching_confirmation: 現在の住基情報で、全避難者情報のマッチング処理を行います。処理を行ってもよろしいですか？
 
-  label_title: "LGDPM（避難者管理）"
+  label_title: "避難者管理 (LGDPM)"
   label_tab_register: 新規登録
   label_tab_evacuee: 避難者一覧
   label_tab_juki: 住基情報の取り込み
