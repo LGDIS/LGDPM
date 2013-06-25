@@ -171,8 +171,8 @@ class Evacuee < ActiveRecord::Base
     self.allergy_flag = (self.allergy_cause.present? ? ALLERGY_FLAG_ON : ALLERGY_FLAG_OFF)
     # 市内・市外区分
     if self.home_state.present? && self.home_city.present?
-      split_city = I18n.t("target_municipality").split(//n)[0..-2].join
-      split_municipality = I18n.t("target_municipality").split(//n).pop      
+      split_city = I18n.t("target_municipality").split(//u)[0..-2].join
+      split_municipality = I18n.t("target_municipality").split(//u).pop      
       regexp_city = /^(#{split_city})#{split_municipality}?$/
       if self.home_state == STATE_MIYAGI && self.home_city =~ regexp_city
         self.in_city_flag = IN_CITY_FLAG_INSIDE
