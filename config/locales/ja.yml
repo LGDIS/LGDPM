@@ -317,28 +317,28 @@ ja:
 
   text_destroy_confirmation: 削除してもよろしいですか？
   text_save_confirmation: 保存してもよろしいですか？
-  text_pf_import_confirmation: LGDPFを取り込んでもよろしいですか？
+  text_pf_import_confirmation: LGDPFから取り込んでもよろしいですか？
   text_pf_output_confirmation: LGDPFに出力してもよろしいですか？
 
   text_start_total: 避難所一覧への出力に時間がかかる場合があります。
   text_start_pf_export: LGDPFへの出力に時間がかかる場合があります。
 
-  text_evacuee_print_confirmation: 避難者名簿印刷をしてもよろしいですか？
-  text_evacuee_output_confirmation: 避難所一覧に出力してもよろしいですか？
+  text_evacuee_print_confirmation: 避難者名簿を印刷をしてもよろしいですか？
+  text_evacuee_output_confirmation: 避難所一覧を出力してもよろしいですか？
   text_get_address_confirmation: 住基情報を取り込んでもよろしいですか？
   text_address_matching_confirmation: 現在の住基情報で、全避難者情報のマッチング処理を行います。処理を行ってもよろしいですか？
 
   label_title: PersonManager
   label_tab_register: 新規登録
   label_tab_evacuee: 避難者一覧
-  label_tab_juki: 住基情報取込
+  label_tab_juki: 住基情報の取り込み
   
   button_search: 検索
   button_clear: クリア
-  button_pf_import: LGDPFから取込
+  button_pf_import: LGDPFから取り込み
   button_pf_export: LGDPFへ出力
-  button_print: 避難者名簿印刷
-  button_total: 避難所一覧に出力
+  button_print: 避難者名簿を印刷
+  button_total: 避難所一覧を出力
     
   will_paginate:
     page_entries_info:
@@ -366,4 +366,4 @@ ja:
       run_mode_1: "災害訓練モード実施中"
       run_mode_2: "通信試験モード実施中"
 
-  target_municipality: 石巻市
+  target_municipality: 運用主体
