@@ -210,7 +210,7 @@ class Evacuee < ActiveRecord::Base
   # Evacueeオブジェクト配列
   # ==== Raise
   def self.find_for_count
-    unscoped.mode_in().select("shelter_name,
+    Evacuee.mode_in().select("shelter_name,
             COUNT(*) as head_count,
             COUNT(CASE WHEN injury_flag  IN ('1') THEN 1 ELSE NULL END) AS injury_flag_count,
             COUNT(CASE WHEN allergy_flag IN ('1') THEN 1 ELSE NULL END) AS allergy_flag_count,

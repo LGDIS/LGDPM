@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 class ApplicationController < ActionController::Base
   # 避難所情報取得は認証なし
-  before_filter :authenticate_user!, :except => [ :shelters ]
+  before_filter :authenticate_user!, :except => [:shelters, :address, :master]
   before_filter :init, :except => [:autocomplete_city, :autocomplete_street]
   
   layout :layout_by_resource
@@ -71,7 +71,43 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # DeviseLDAP認証で例外が発生した場合の処理
+  # LGDPM-Android用データ取得処理
+  # 住所・マスタ情報をjson形式で返却する
+  # ==== Args
+  # ==== Return
+  # 住所・マスタjsonオブジェクト
+  # ==== Raise
+  def address
+    address_list = {}
+    states = State.order(:code)
+    states.each do |state|
+      address_list[state.code] = {} unless address_list[state.code]
+      address_list[state.code][""] = state.name
+      cities = City.where("code LIKE '#{state.code}%'").order(:code)
+      Rails.logger.info(address_list)
+      cities.each do |city|
+        city_code = city.code.slice(2, 3)
+        address_list[state.code][city_code] = {} unless address_list[state.code][city_code]
+        address_list[state.code][city_code][""] = city.name
+        streets = Street.where("code LIKE '#{city.code}%'").order(:code)
+        streets.each do |street|
+          street_code = street.code.slice(5,15)
+          address_list[state.code][city_code][street_code] = {} unless address_list[state.code][city_code][street_code]
+          address_list[state.code][city_code][street_code] = street.name
+        end
+      end
+    end
+    respond_to do |format|
+      format.json { render :json => address_list.to_json }
+    end
+  end
+
+  def master
+    respond_to do |format|
+      format.json { render :json => @evacuee_const.to_json }
+    end
+  end
+
   rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
     render :text => exception, :status => 500
   end
