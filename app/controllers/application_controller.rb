@@ -84,7 +84,6 @@ class ApplicationController < ActionController::Base
       address_list[state.code] = {} unless address_list[state.code]
       address_list[state.code][""] = state.name
       cities = City.where("code LIKE '#{state.code}%'").order(:code)
-      Rails.logger.info(address_list)
       cities.each do |city|
         city_code = city.code.slice(2, 3)
         address_list[state.code][city_code] = {} unless address_list[state.code][city_code]
