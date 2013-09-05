@@ -13,8 +13,13 @@ class PfImportJob
     @people.each do |person|
       evacuee = Evacuee.new
       evacuee = evacuee.exec_insert(person)
-      evacuee.save
-      person.update_attributes(:link_flag => true)
+      begin
+        evacuee.save
+        person.update_attributes(:link_flag => true)
+      rescue => e
+        Rails.logger.info(e.message)
+        Rails.logger.info(person.id)
+      end
     end
   end
 end
