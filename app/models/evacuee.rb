@@ -21,8 +21,8 @@ class Evacuee < ActiveRecord::Base
   validates :alternate_given_name, :length => {:maximum => 500}
   validates :date_of_birth, :date => true
   validates :sex, :length => {:maximum => 1}
-  validates :age, :allow_blank => true, :format => { :with => /^\d+(-\d+)?$/ }, :length => {:maximum => 3}
-  validates :home_postal_code, :allow_blank => true, :format => { :with => /^\d+(-\d+)?$/ }, :length => {:maximum => 7}
+  validates :age, :allow_blank => true, :format => { :with => /^\d+(-\d+)?$/ }, :length => {:maximum => 500}
+  validates :home_postal_code, :allow_blank => true, :length => {:maximum => 500}
   validates :in_city_flag, :length => {:maximum => 1}
   validates :home_state, :length => {:maximum => 500}
   validates :home_city, :length => {:maximum => 500}
@@ -33,7 +33,7 @@ class Evacuee < ActiveRecord::Base
   validates :shelter_entry_date, :date => true
   validates :shelter_leave_date, :date => true
   validates :next_place, :length => {:maximum => 100}
-  validates :next_place_phone, :allow_blank => true, :format => { :with => /^\d+(-\d+)?$/ }, :length => {:maximum => 11}
+  validates :next_place_phone, :allow_blank => true, :length => {:maximum => 20}
   validates :injury_flag, :length => {:maximum => 1}
   validates :allergy_flag, :length => {:maximum => 1}
   validates :pregnancy, :length => {:maximum => 1}
@@ -108,6 +108,8 @@ class Evacuee < ActiveRecord::Base
   
   # 宮城県コード
   STATE_MIYAGI = "04"
+  # 石巻市正規表現
+  CITY_ISHINOMAKI = /^(石巻)市?$/
   
   # 変換用ひらがな文字列
   HIRAGANA = "ぁ-ん"
@@ -171,10 +173,7 @@ class Evacuee < ActiveRecord::Base
     self.allergy_flag = (self.allergy_cause.present? ? ALLERGY_FLAG_ON : ALLERGY_FLAG_OFF)
     # 市内・市外区分
     if self.home_state.present? && self.home_city.present?
-      split_city = I18n.t("target_municipality").split(//u)[0..-2].join
-      split_municipality = I18n.t("target_municipality").split(//u).pop      
-      regexp_city = /^(#{split_city})#{split_municipality}?$/
-      if self.home_state == STATE_MIYAGI && self.home_city =~ regexp_city
+      if self.home_state == STATE_MIYAGI && self.home_city =~ CITY_ISHINOMAKI
         self.in_city_flag = IN_CITY_FLAG_INSIDE
       else
         self.in_city_flag = IN_CITY_FLAG_OUTSIDE
