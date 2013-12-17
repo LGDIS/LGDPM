@@ -43,6 +43,7 @@ development:
     enable_starttls_auto: true
     sender: saitai@example.com
     host: localhost:3000
+    sender_name: 石巻市総務部危機対策課
   # adminユーザ設定
   # 設定を追加する場合は、-(ハイフン) の後に設定を記述してください
   # 設定例： admin_user:
@@ -109,6 +110,7 @@ test:
     enable_starttls_auto: true
     sender: saitai@example.com
     host: localhost:3000
+    sender_name: 石巻市総務部危機対策課
   # adminユーザ設定
   # 設定を追加する場合は、-(ハイフン) の後に設定を記述してください
   # 設定例： admin_user:
@@ -175,6 +177,7 @@ production:
     enable_starttls_auto: true
     sender: saitai@example.com
     host: localhost:3000
+    sender_name: 石巻市総務部危機対策課
   # adminユーザ設定
   # 設定を追加する場合は、-(ハイフン) の後に設定を記述してください
   # 設定例： admin_user:
